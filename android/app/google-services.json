@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1002156422593",
+    "firebase_url": "https://commanding-day-304620-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "commanding-day-304620",
+    "storage_bucket": "commanding-day-304620.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002156422593:android:d181c6202dc997929bab40",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_emad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002156422593-reddbnh8je7mm6a706o5mjb2tar2puj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcJHFGQLR59RQKuV7WUPLTA-ogwbUI1L0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002156422593-reddbnh8je7mm6a706o5mjb2tar2puj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

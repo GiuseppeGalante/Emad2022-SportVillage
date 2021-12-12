@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/registrazione.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyCustomForm(),
     );
   }
 }
@@ -102,7 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-          ],
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyCustomForm()),
+                );
+              },
+              child: Text('Registrazione!'),
+            ),],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -111,5 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
   }
 }

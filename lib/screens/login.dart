@@ -50,6 +50,8 @@ class _TemplateLogin extends State<TemplateLogin> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _tipo = TextEditingController();
+  Giocatore giocatore = new Giocatore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +90,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Padding(
                                           padding:EdgeInsets.only(top:10),
                                           child:TextFormField(
+                                              onChanged:(value) => giocatore.nome_utente=value,
                                               controller: _username,
                                               decoration: InputDecoration(
                                                 hintText: "Username",
@@ -111,6 +114,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Padding(
                                           padding:EdgeInsets.only(top:10),
                                           child:TextFormField(
+                                              onChanged: (value) => giocatore.password=value,
                                               controller: _password,
                                               obscureText: true,
                                               decoration: InputDecoration(
@@ -181,9 +185,13 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               // Validate returns true if the form is valid, or false otherwise.
                                               if (_formKey.currentState!.validate()) {
                                                 Login(_username,_password,_type);
+                                                getGiocatore(giocatore).then((giocatori)=>
+                                                {
+                                                  print(giocatori)
+                                                });
                                               }
                                             },
-                                            child: const Text('Salva',style: TextStyle(
+                                            child: const Text('Login',style: TextStyle(
                                               color:Colors.black54,
                                               //fontWeight: FontWeight.bold
                                             ),),

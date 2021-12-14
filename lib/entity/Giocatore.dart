@@ -67,11 +67,13 @@ DatabaseReference saveGiocatore(Giocatore giocatore)
 Future<Giocatore?> getGiocatore(Giocatore gio) async{
   DataSnapshot dataSnapshot = await databaseReference.child('users/giocatori/').once();
   Giocatore giocatore = new Giocatore();
+  bool found=false;
   if(dataSnapshot.value != null)
     {
       dataSnapshot.value.forEach((key,value) =>{
         if((value["nome_utente"] == gio.nome_utente) && (value["password"] == gio.password))
           {
+            found=true,
             giocatore.nome=value["nome"],
             giocatore.cognome=value["cognome"],
               giocatore.email=value["email"],
@@ -93,7 +95,7 @@ Future<Giocatore?> getGiocatore(Giocatore gio) async{
       }
       );
     }
-  if(giocatore.id != null)
+  if(found)
     return giocatore;
   return null;
 }

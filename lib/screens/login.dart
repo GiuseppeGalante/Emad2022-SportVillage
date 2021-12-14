@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/home.dart';
+import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
+import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
 
 class MainLogin extends StatelessWidget {
   const MainLogin({Key? key}) : super(key: key);
@@ -187,7 +190,15 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                 Login(_username,_password,_type);
                                                 getGiocatore(giocatore).then((giocatori)=>
                                                 {
-                                                  print(giocatori)
+                                                  print(giocatori),
+                                                  if(giocatori != null){
+                                                    Navigator.push(context, MaterialPageRoute(
+                                                        builder: (context){
+                                                          return MyHomeGio(giocatore:giocatori);
+                                                        }
+                                                    ))
+                                                  }
+
                                                 });
                                               }
                                             },
@@ -198,7 +209,30 @@ class _TemplateLogin extends State<TemplateLogin> {
                                           ),
                                         ),
 
-                                      ],
+                                      Column(
+                                          children: <Widget>[
+                                          ElevatedButton(
+                                          onPressed: (){
+                                           Navigator.push(context, MaterialPageRoute(builder: (context){
+                                            return MyCustomFormGiocatore();
+                                           }
+                                           ));
+
+                                          }
+                                          , child: Text("Registrati come giocatore")
+                                      ),ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                                                    return MyCustomFormAmministratoreCS();
+                                                  }
+                                                  ));
+
+                                                }
+                                                , child: Text("Registrati come Amministratore centro sportivo")
+                                            )
+                                          ]
+
+                                      )],
                                     )
                                 )
                             )

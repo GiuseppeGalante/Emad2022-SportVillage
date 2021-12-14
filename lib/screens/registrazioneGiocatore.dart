@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 
+import 'home.dart';
+
 // Create a Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+class MyCustomFormGiocatore extends StatefulWidget {
+  const MyCustomFormGiocatore({Key? key}) : super(key: key);
 
   @override
-  _MyCustomFormState createState() => _MyCustomFormState();
+  _MyCustomFormGiocatoreState createState() => _MyCustomFormGiocatoreState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _MyCustomFormState extends State<MyCustomForm> {
+class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -39,7 +41,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(labelText: "Nome"),
-                onSaved: (value) => gio.nome=value!,
+                onChanged: (value) => gio.nome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                     {
@@ -48,7 +50,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "Cognome"),
-                onSaved: (value) => gio.cognome=value!,
+                onChanged: (value) => gio.cognome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -57,7 +59,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "e-mail"),
-                onSaved: (value) => gio.email=value!,
+                onChanged: (value) => gio.email=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -66,7 +68,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "nome_utente"),
-                onSaved: (value) => gio.nome_utente=value!,
+                onChanged: (value) => gio.nome_utente=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -76,7 +78,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
               ),TextFormField(
                 key: _pswKey,
                 decoration: InputDecoration(labelText: "password"),
-                onSaved: (value) => gio.password=value!,
+                onChanged: (value) => gio.password=value,
                 obscureText: true,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -86,7 +88,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "indirizzo"),
-                onSaved: (value) => gio.indirizzo=value!,
+                onChanged: (value) => gio.indirizzo=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -95,7 +97,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "numero di telefono"),
-                onSaved: (value) => gio.numero_di_telefono=value!,
+                onChanged: (value) => gio.numero_di_telefono=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -104,7 +106,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "data di nascita"),
-                onSaved: (value) => gio.data_di_nascita=value!,
+                onChanged: (value) => gio.data_di_nascita=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -142,7 +144,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 ],
               ),TextFormField(
                 decoration: InputDecoration(labelText: "Nazionalità"),
-                onSaved: (value) => gio.nazionalita=value!,
+                onChanged: (value) => gio.nazionalita=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -154,11 +156,16 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     if(_formKey.currentState!.validate()){
                       print("Nessun errore");
                       _formKey.currentState?.save();
-
+                      saveGiocatore(gio);
+                      print("${gio}");
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context){
+                            return MyHomeGio(giocatore:gio);
+                          }
+                      ));
 
                     }
-                    saveGiocatore(gio);
-                    print("${gio}");
+
                   }
                   , child: Text("Registra")
               )

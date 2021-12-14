@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 
+
 // Create a Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+class MyCustomFormAmministratoreCS extends StatefulWidget {
+  const MyCustomFormAmministratoreCS({Key? key}) : super(key: key);
 
   @override
-  _MyCustomFormState createState() => _MyCustomFormState();
+  _MyCustomFormAmministratoreCSState createState() => _MyCustomFormAmministratoreCSState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _MyCustomFormState extends State<MyCustomForm> {
+class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministratoreCS> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -21,7 +22,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   final _pswKey = GlobalKey<FormFieldState>();
-  Giocatore gio = Giocatore();
+  AmministstratoreCentroSportivo gio = new AmministstratoreCentroSportivo();
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +140,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
 
                     }
-                    saveGiocatore(gio);
+                    saveAmministratoreCS(gio);
                     print("${gio}");
                   }
                   , child: Text("Registra")

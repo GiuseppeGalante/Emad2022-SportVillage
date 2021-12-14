@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_emad/entity/Giocatore.dart';
 
 // annarosa
 // Create a Form widget.
 class MyHomeGio extends StatelessWidget {
-  const MyHomeGio({Key? key}) : super(key: key);
 
+ const MyHomeGio({required this.giocatore,Key? key}) : super(key: key);
+ final Giocatore giocatore;
   static const appTitle = 'home sport village';
+
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    print(giocatore);
+    return MaterialApp(
       title: appTitle,
-      home: MyHomeGioState(title: appTitle),
+      home: MyHomeGioState(title: appTitle, giocatore:giocatore),
     );
   }
 }
@@ -21,13 +25,18 @@ class MyHomeGio extends StatelessWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class MyHomeGioState extends StatelessWidget {
-  const MyHomeGioState({Key? key, required this.title}) : super(key: key);
+
+
+   const MyHomeGioState({Key? key, required this.title, required this.giocatore}) : super(key: key);
+
+  final Giocatore giocatore;
+
 
   final String title;
 
-
   @override
   Widget build(BuildContext context) {
+    //print(giocatore);
 //Build a screen with 4 button and a bar on the top
     return Scaffold(
         body:Theme(
@@ -47,7 +56,7 @@ class MyHomeGioState extends StatelessWidget {
                             children: [
                               Padding(
                                   child:Center(
-                                      child:Text("Home giocatore",style: TextStyle(
+                                      child:Text("Benvenuto ${giocatore.nome}",style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,

@@ -22,6 +22,6 @@ abstract class Utente
 
   @override
   String toString() {
-    return 'Utente{id: $id, nome: $nome, cognome: $cognome, nome_utente: $nome_utente, password: $password, indirizzo: $indirizzo, numero_di_telefono: $numero_di_telefono, email: $email, data_di_nascita: $data_di_nascita, sesso: $sesso, bio: $bio}';
+    return 'Utente{id: ${id.toString()}, nome: $nome, cognome: $cognome, nome_utente: $nome_utente, password: $password, indirizzo: $indirizzo, numero_di_telefono: $numero_di_telefono, email: $email, data_di_nascita: $data_di_nascita, sesso: $sesso, bio: $bio}';
   }
 }

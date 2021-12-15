@@ -28,7 +28,7 @@ class AmministstratoreCentroSportivo extends Utente
       'nascita':this.data_di_nascita,
       'bio':this.bio,
       'sesso':this.sesso.toString().split('.').last,
-      'centri_sportivi': List<dynamic>.from(this.centrisportivi.map((x) => x.toJson(hide: true)))
+      'centri_sportivi': List<dynamic>.from(this.centrisportivi.map((x) => x.toJson()))
     };
   }
 
@@ -49,6 +49,7 @@ DatabaseReference saveAmministratoreCS(AmministstratoreCentroSportivo amministra
 
 void updateAmministratoreCS(AmministstratoreCentroSportivo amministratore)
 {
+  print(amministratore.id.key);
   amministratore.id.update(amministratore.toJson());
 }
 
@@ -62,6 +63,7 @@ Future<AmministstratoreCentroSportivo?> getAmministratoreCS(AmministstratoreCent
     dataSnapshot.value.forEach((key,value) =>{
       if((value["nome_utente"] == amm.nome_utente) && (value["password"] == amm.password))
         {
+
           found=true,
           amministratore.nome=value["nome"],
           amministratore.cognome=value["cognome"],
@@ -73,7 +75,7 @@ Future<AmministstratoreCentroSportivo?> getAmministratoreCS(AmministstratoreCent
           amministratore.data_di_nascita=value["nascita"],
           amministratore.bio=value["bio"],
           amministratore.sesso=Sesso.values.firstWhere((e) => e.toString() == 'Sesso.' + value["sesso"]),
-          amministratore.id = databaseReference.child('users/amministratorics/'),
+          amministratore.id = databaseReference.child('users/amministratorics/'+key),
           getCentroSportivoAmm(amministratore).then((centrisportivi)=>
           {
             amministratore.centrisportivi=centrisportivi

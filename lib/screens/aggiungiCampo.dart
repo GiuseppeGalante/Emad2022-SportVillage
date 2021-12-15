@@ -10,8 +10,8 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 //TODO: passare il riferimento amministratore anzichè centro sportivo.
 // Create a Form widget.
 class FormCampo extends StatefulWidget {
-  CentroSportivo centrosportivo;
-  FormCampo({required this.centrosportivo,Key? key}) : super(key: key);
+  AmministstratoreCentroSportivo amministratore;
+  FormCampo({required this.amministratore,Key? key}) : super(key: key);
   @override
   _FormCampoState createState() => _FormCampoState();
 
@@ -25,14 +25,20 @@ class _FormCampoState extends State<FormCampo> {
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
-  late CentroSportivo centrosportivo;
+  late AmministstratoreCentroSportivo amministratore;
   final _formKey = GlobalKey<FormState>();
   final _pswKey = GlobalKey<FormFieldState>();
   Campo campo= Campo();
+  List<CentroSportivo>centrisportivi=[];
+  late CentroSportivo centrosportivo;
+  late String _idCentro=centrisportivi[0].nome;
+  late Map<String,String> mapping=new Map();
 
   @override
   Widget build(BuildContext context) {
-    this.centrosportivo=widget.centrosportivo;
+    this.amministratore=widget.amministratore;
+    this.centrisportivi=amministratore.centrisportivi;
+    //centrosportivo=this.centrisportivi[0];
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
@@ -63,22 +69,54 @@ class _FormCampoState extends State<FormCampo> {
                       return "Campo Obbligatorio";
                     }
                   },
+                ),Row(
+                  children: <Widget>[
+                    Text("Centro Sprotivo"),
+                    Spacer(),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width/2,
+                      child: DropdownButton<String>(
+                        hint: Text('Scegli un centro sportivo'),
+                        value: _idCentro ,
+                        onChanged: (value){
+                          setState(() {
+                            _idCentro=value!;
+                          });
+                        },
+                        items: centrisportivi.map((e) {
+                          mapping[e.nome]=e.id.key;
+                          return DropdownMenuItem<String>(
+                              child: new Text(e.nome),
+                              value: e.nome,
+
+                          );
+
+                        }
+                        ).toList(),
+                      ),
+                    )
+                  ],
                 ),ElevatedButton(
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         print("Nessun errore");
                         _formKey.currentState?.save();
-                        campo.id_centro_sportivo=centrosportivo.id.key;
+                        campo.id_centro_sportivo=mapping[_idCentro];
                         saveCampoSportivo(campo);
-                        centrosportivo.campi.add(campo);
-                        updateCentroSportivo(centrosportivo);
+                        getCentroSportivo(mapping[_idCentro]).then((value) => {
+                          centrosportivo=value,
+                        centrosportivo.campi.add(campo),
+                            centrosportivo.numero_di_campi++,
+                            updateCentroSportivo(centrosportivo),
                         //print("${this.amministratore}");
-                        print(centrosportivo);
+                        //print(centrosportivo);
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context){
-                              //return MyHomeACS(amministratore:amministratore);
+                              return MyHomeACS(amministratore:amministratore);
                             }
-                        ));
+                        ))
+                        });
+
 
                       }
 

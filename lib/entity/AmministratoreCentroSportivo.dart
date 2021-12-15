@@ -28,13 +28,13 @@ class AmministstratoreCentroSportivo extends Utente
       'nascita':this.data_di_nascita,
       'bio':this.bio,
       'sesso':this.sesso.toString().split('.').last,
-      'centri_sportivi': [] //List<dynamic>.from(this.centrisportivi.map((x) => x.toJson()))
+      'centri_sportivi': List<dynamic>.from(this.centrisportivi.map((x) => x.toJson(hide: true)))
     };
   }
 
   @override
   String toString() {
-    return 'AmministstratoreCentroSportivo{centrisportivi: $centrisportivi}';
+    return 'AmministstratoreCentroSportivo{centrisportivi: $centrisportivi}' + super.toString();
   }
 }
 
@@ -46,4 +46,47 @@ DatabaseReference saveAmministratoreCS(AmministstratoreCentroSportivo amministra
   id.set(amministratore.toJson());
   return id;
 }
+
+void updateAmministratoreCS(AmministstratoreCentroSportivo amministratore)
+{
+  amministratore.id.update(amministratore.toJson());
+}
+
+
+Future<AmministstratoreCentroSportivo?> getAmministratoreCS(AmministstratoreCentroSportivo amm) async{
+  DataSnapshot dataSnapshot = await databaseReference.child('users/amministratorics/').once();
+  AmministstratoreCentroSportivo amministratore = new AmministstratoreCentroSportivo();
+  bool found=false;
+  if(dataSnapshot.value != null)
+  {
+    dataSnapshot.value.forEach((key,value) =>{
+      if((value["nome_utente"] == amm.nome_utente) && (value["password"] == amm.password))
+        {
+          found=true,
+          amministratore.nome=value["nome"],
+          amministratore.cognome=value["cognome"],
+          amministratore.email=value["email"],
+          amministratore.nome_utente=value["nome_utente"],
+          amministratore.password=value["password"],
+          amministratore.indirizzo=value["indirizzo"],
+          amministratore.numero_di_telefono=value["numero_di_telefono"],
+          amministratore.data_di_nascita=value["nascita"],
+          amministratore.bio=value["bio"],
+          amministratore.sesso=Sesso.values.firstWhere((e) => e.toString() == 'Sesso.' + value["sesso"]),
+          amministratore.id = databaseReference.child('users/amministratorics/'),
+          getCentroSportivoAmm(amministratore).then((centrisportivi)=>
+          {
+            amministratore.centrisportivi=centrisportivi
+          })
+        }
+
+    }
+    );
+  }
+  if(found)
+    return amministratore;
+  return null;
+}
+
+
 

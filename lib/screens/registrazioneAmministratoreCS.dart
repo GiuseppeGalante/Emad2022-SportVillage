@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
+import 'package:flutter_app_emad/screens/homeACS.dart';
 
 
 // Create a Form widget.
@@ -40,7 +41,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(labelText: "Nome"),
-                onSaved: (value) => gio.nome=value!,
+                onChanged: (value) => gio.nome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                     {
@@ -49,7 +50,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "Cognome"),
-                onSaved: (value) => gio.cognome=value!,
+                onChanged: (value) => gio.cognome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -58,7 +59,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "e-mail"),
-                onSaved: (value) => gio.email=value!,
+                onChanged: (value) => gio.email=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -67,7 +68,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "nome_utente"),
-                onSaved: (value) => gio.nome_utente=value!,
+                onChanged: (value) => gio.nome_utente=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -77,7 +78,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
               ),TextFormField(
                 key: _pswKey,
                 decoration: InputDecoration(labelText: "password"),
-                onSaved: (value) => gio.password=value!,
+                onChanged: (value) => gio.password=value,
                 obscureText: true,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -87,7 +88,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "numero di telefono"),
-                onSaved: (value) => gio.numero_di_telefono=value!,
+                onChanged: (value) => gio.numero_di_telefono=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -96,7 +97,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                 },
               ),TextFormField(
                 decoration: InputDecoration(labelText: "data di nascita"),
-                onSaved: (value) => gio.data_di_nascita=value!,
+                onChanged: (value) => gio.data_di_nascita=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
                   {
@@ -137,11 +138,16 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                     if(_formKey.currentState!.validate()){
                       print("Nessun errore");
                       _formKey.currentState?.save();
-
+                      saveAmministratoreCS(gio);
+                      print("${gio}");
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context){
+                            return MyHomeACS(amministratore:gio);
+                          }
+                      ));
 
                     }
-                    saveAmministratoreCS(gio);
-                    print("${gio}");
+
                   }
                   , child: Text("Registra")
               )

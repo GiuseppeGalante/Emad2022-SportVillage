@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
+import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
 import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
 
@@ -54,6 +56,7 @@ class _TemplateLogin extends State<TemplateLogin> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _tipo = TextEditingController();
   Giocatore giocatore = new Giocatore();
+  AmministstratoreCentroSportivo amministratore = AmministstratoreCentroSportivo();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +96,9 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Padding(
                                           padding:EdgeInsets.only(top:10),
                                           child:TextFormField(
-                                              onChanged:(value) => giocatore.nome_utente=value,
+                                              onChanged:(value) => {giocatore.nome_utente=value,
+                                              amministratore.nome_utente=value
+                                              },
                                               controller: _username,
                                               decoration: InputDecoration(
                                                 hintText: "Username",
@@ -117,7 +122,11 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Padding(
                                           padding:EdgeInsets.only(top:10),
                                           child:TextFormField(
-                                              onChanged: (value) => giocatore.password=value,
+                                              onChanged: (value) =>
+                                              {
+                                                giocatore.password = value,
+                                                amministratore.password=value
+                                              },
                                               controller: _password,
                                               obscureText: true,
                                               decoration: InputDecoration(
@@ -188,18 +197,39 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               // Validate returns true if the form is valid, or false otherwise.
                                               if (_formKey.currentState!.validate()) {
                                                 Login(_username,_password,_type);
-                                                getGiocatore(giocatore).then((giocatori)=>
-                                                {
-                                                  print(giocatori),
-                                                  if(giocatori != null){
-                                                    Navigator.push(context, MaterialPageRoute(
-                                                        builder: (context){
-                                                          return MyHomeGio(giocatore:giocatori);
-                                                        }
-                                                    ))
+                                                if(_type == user.Giocatore)
+                                                  {
+                                                    getGiocatore(giocatore).then((giocatori)=>
+                                                    {
+                                                      print(giocatori),
+                                                      if(giocatori != null){
+                                                        Navigator.push(context, MaterialPageRoute(
+                                                            builder: (context){
+                                                              return MyHomeGio(giocatore:giocatori);
+                                                            }
+                                                        ))
+                                                      }
+
+                                                    });
+                                                  }
+                                                else if (_type == user.Amministratore)
+                                                  {
+                                                    print(amministratore.nome_utente);
+                                                    print(amministratore.password);
+                                                    getAmministratoreCS(amministratore).then((amministratori)=>
+                                                    {
+                                                      print(amministratori),
+                                                      if(amministratori != null){
+                                                        Navigator.push(context, MaterialPageRoute(
+                                                            builder: (context){
+                                                              return MyHomeACS(amministratore:amministratori);
+                                                            }
+                                                        ))
+                                                      }
+
+                                                    });
                                                   }
 
-                                                });
                                               }
                                             },
                                             child: const Text('Login',style: TextStyle(

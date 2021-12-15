@@ -39,6 +39,9 @@ class MyHomeGioState extends StatelessWidget {
     //print(giocatore);
 //Build a screen with 4 button and a bar on the top
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Home"),
+      ),
         body:Theme(
             data: ThemeData(
                 unselectedWidgetColor: Colors.white
@@ -167,7 +170,25 @@ class MyHomeGioState extends StatelessWidget {
                   )
                 ]
             )
-        )
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+                            items: const <BottomNavigationBarItem>[
+                              BottomNavigationBarItem(
+                              icon: Icon(Icons.home),
+                              label: 'Home',
+                               ),
+                               BottomNavigationBarItem(
+                                     icon: Icon(Icons.search),
+                                               label: 'Ricerca Partita',
+                                  ),
+                                  BottomNavigationBarItem(
+                                           icon: Icon(Icons.person),
+                                                    label: 'Profilo',
+                                        ),
+                                     ],
+                              currentIndex: 0,
+                              selectedItemColor: Colors.blue,
+                               ),
 
     );
   }

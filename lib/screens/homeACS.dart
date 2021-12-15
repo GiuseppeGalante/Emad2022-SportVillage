@@ -41,6 +41,9 @@ class MyHomeACSState extends StatelessWidget {
     //print(giocatore);
 //Build a screen with 4 button and a bar on the top
     return Scaffold(
+        appBar:AppBar(
+          title: Text("Home"),
+        ),
         body:Theme(
             data: ThemeData(
                 unselectedWidgetColor: Colors.white

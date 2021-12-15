@@ -78,11 +78,12 @@ class _TemplateLogin extends State<TemplateLogin> {
                           children: [
                             Padding(
                                 child:Center(
-                                    child:Text("Login",style: TextStyle(
+                                  child: Image(image:AssetImage("assets/images/logo_no_testo.png"),width: 100,)
+                                    /*child:Text("Login",style: TextStyle(
                                       fontSize: 30,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                    ),)
+                                    ),)*/
                                 ),
                                 padding: EdgeInsets.only(top: 30,left: 30,right: 30)
                             ),
@@ -101,6 +102,9 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               },
                                               controller: _username,
                                               decoration: InputDecoration(
+                                                icon: Icon(Icons.person,
+                                                  color: Colors.white,
+                                                  size: 30.0,),
                                                 hintText: "Username",
                                                 filled: true,
                                                 fillColor: Colors.white,
@@ -130,6 +134,9 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               controller: _password,
                                               obscureText: true,
                                               decoration: InputDecoration(
+                                                icon: Icon(Icons.password,
+                                                  color: Colors.white,
+                                                  size: 30.0,),
                                                 hintText: "Password",
                                                 filled: true,
                                                 fillColor: Colors.white,
@@ -209,6 +216,17 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                             }
                                                         ))
                                                       }
+                                                      else
+                                                        {
+                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                          SnackBar(
+                                                            content: const Text('Email o Password Errata'),
+                                                            backgroundColor: Colors.red,
+                                                            action: SnackBarAction(textColor:Colors.white,
+                                                              label: 'Ho capito', onPressed: () {},),
+                                                          ),
+                                                          ),
+                                                        }
 
                                                     });
                                                   }
@@ -242,6 +260,8 @@ class _TemplateLogin extends State<TemplateLogin> {
                                       Column(
                                           children: <Widget>[
                                           ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.white),
                                           onPressed: (){
                                            Navigator.push(context, MaterialPageRoute(builder: (context){
                                             return MyCustomFormGiocatore();
@@ -249,8 +269,14 @@ class _TemplateLogin extends State<TemplateLogin> {
                                            ));
 
                                           }
-                                          , child: Text("Registrati come giocatore")
-                                      ),ElevatedButton(
+                                          , child: Text("Registrati come giocatore",style: TextStyle(
+                                            color:Colors.black54,
+                                          ),
+                                          )
+                                      ),
+                                            ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: Colors.white),
                                                 onPressed: (){
                                                   Navigator.push(context, MaterialPageRoute(builder: (context){
                                                     return MyCustomFormAmministratoreCS();
@@ -258,7 +284,10 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                   ));
 
                                                 }
-                                                , child: Text("Registrati come Amministratore centro sportivo")
+                                                , child: Text("Registrati come Amministratore centro sportivo",
+                                                         style: TextStyle(
+                                                                         color:Colors.black54,),
+                                                       )
                                             )
                                           ]
 

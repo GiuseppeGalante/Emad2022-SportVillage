@@ -6,7 +6,7 @@ class Campo
   late DatabaseReference id;
   String nome="";
   String tipo="";
-  String id_centro_sportivo="";
+  String? id_centro_sportivo="";
 
 
   Map<String, dynamic> toJson()

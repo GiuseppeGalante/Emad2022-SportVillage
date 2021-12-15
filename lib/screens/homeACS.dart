@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
 
 // annarosa
@@ -14,7 +15,7 @@ class MyHomeACS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(amministratore);
+    print(amministratore.centrisportivi);
     return MaterialApp(
       title: appTitle,
       home: MyHomeACSState(title: appTitle, amministratore:amministratore),
@@ -104,7 +105,12 @@ class MyHomeACSState extends StatelessWidget {
                                           fixedSize: Size.fromWidth(270),
                                         ),
                                         onPressed: () {
-
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                //print(amministratore);
+                                                return FormCampo(amministratore:amministratore);
+                                              }
+                                          ));
                                         },
                                         child: const Text('Aggiungi campo a centro sportivo',style: TextStyle(
                                           color:Colors.blue,

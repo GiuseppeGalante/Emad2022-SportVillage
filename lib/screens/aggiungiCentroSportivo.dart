@@ -81,7 +81,7 @@ class _FormCentroSportivoState extends State<FormCentroSportivo> {
                         amministratore.centrisportivi.add(centrosportivo);
                         updateAmministratoreCS(amministratore);
                         //print("${this.amministratore}");
-                        print(centrosportivo);
+                        //print(centrosportivo);
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context){
                               return MyHomeACS(amministratore:amministratore);

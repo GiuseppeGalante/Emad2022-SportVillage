@@ -6,6 +6,7 @@ var details = {'Usrname':'tom','Password':'pass@123'};
 class Giocatore extends Utente
 {
   String nazionalita="";
+  String indirizzo="";
   late int partite_giocate;
   late int vittorie;
   late int pareggi;

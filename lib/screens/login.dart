@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
@@ -244,6 +243,17 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                             }
                                                         ))
                                                       }
+                                                      else
+                                                        {
+                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                            SnackBar(
+                                                              content: const Text('Email o Password Errata'),
+                                                              backgroundColor: Colors.red,
+                                                              action: SnackBarAction(textColor:Colors.white,
+                                                                label: 'Ho capito', onPressed: () {},),
+                                                            ),
+                                                          ),
+                                                        }
 
                                                     });
                                                   }

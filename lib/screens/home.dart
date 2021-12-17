@@ -67,8 +67,13 @@ class MyHomeGioState extends StatelessWidget {
                                   ),
                                   padding: EdgeInsets.only(top: 30,left: 30,right: 30)
                               ),
+                              Padding(padding: EdgeInsets.only(top:30),
+                                child:Icon(Icons.sports,
+                                  size:90,
+                                  color: Colors.white,),
+                              ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 150.0),
+                                padding: const EdgeInsets.only(top: 20.0),
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.white,
@@ -87,11 +92,12 @@ class MyHomeGioState extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
                               Row(
                                   children: [
 
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 50.0, left: 70.0),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,
@@ -110,11 +116,16 @@ class MyHomeGioState extends StatelessWidget {
                                       ),
                                     )
                                   ]),
+                              Padding(padding: EdgeInsets.only(top:20),
+                                child:Icon(Icons.emoji_events,
+                                  size:90,
+                                  color: Colors.white,),
+                              ),
                               Row(
                                   children: [
 
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 50.0, left: 70.0),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,
@@ -137,7 +148,7 @@ class MyHomeGioState extends StatelessWidget {
                                   children: [
 
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 50.0, left: 70.0),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0,bottom: 40),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,

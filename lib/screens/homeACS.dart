@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
-import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
 
@@ -70,8 +69,14 @@ class MyHomeACSState extends StatelessWidget {
                                   ),
                                   padding: EdgeInsets.only(top: 30,left: 30,right: 30)
                               ),
+                              Padding(padding: EdgeInsets.only(top:30),
+                                  child:Icon(Icons.add_business,
+                                    size:90,
+                                    color: Colors.white,),
+                              ),
+
                               Padding(
-                                padding: const EdgeInsets.only(top: 150.0),
+                                padding: const EdgeInsets.only(top: 20.0),
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.white,
@@ -88,17 +93,21 @@ class MyHomeACSState extends StatelessWidget {
                                   child: const Text('Aggiungi centro sportivo',style: TextStyle(
                                     color:Colors.blue,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25,
+                                    fontSize: 20,
                                     fontStyle: FontStyle.italic,
                                   ),
                                   ),
                                 ),
                               ),
+                              Padding(padding: EdgeInsets.only(top:30),
+                                child:Icon(Icons.add_location_alt,
+                                  size:90,
+                                  color: Colors.white,),
+                              ),
                               Row(
                                   children: [
-
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 50.0, left: 70.0),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,
@@ -115,18 +124,24 @@ class MyHomeACSState extends StatelessWidget {
                                         child: const Text('Aggiungi campo a centro sportivo',style: TextStyle(
                                           color:Colors.blue,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 25,
+                                          fontSize: 20,
                                           fontStyle: FontStyle.italic,
                                         ),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     )
                                   ]),
+                              Padding(padding: EdgeInsets.only(top:30),
+                                child:Icon(Icons.list_alt,
+                                  size:90,
+                                  color: Colors.white,),
+                              ),
                               Row(
                                   children: [
 
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 50.0, left: 70.0),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,
@@ -138,7 +153,7 @@ class MyHomeACSState extends StatelessWidget {
                                         child: const Text('Visualizza richieste partita',style: TextStyle(
                                           color:Colors.blue,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 25,
+                                          fontSize: 20,
                                           fontStyle: FontStyle.italic,
                                         ),
                                         ),
@@ -153,7 +168,25 @@ class MyHomeACSState extends StatelessWidget {
                   )
                 ]
             )
-        )
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+                          items: const <BottomNavigationBarItem>[
+                            BottomNavigationBarItem(
+                           icon: Icon(Icons.home),
+                                   label: 'Home',
+                                    ),
+                                BottomNavigationBarItem(
+                               icon: Icon(Icons.list_alt),
+                                  label: 'Richieste Partite',
+                                 ),
+                           BottomNavigationBarItem(
+                             icon: Icon(Icons.person),
+                           label: 'Profilo',
+                              ),
+                              ],
+                             currentIndex: 0,
+                             selectedItemColor: Colors.blue,
+                           ),
 
     );
   }

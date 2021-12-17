@@ -34,7 +34,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
       appBar: AppBar(
         title: Text("Registrazione"),
       ),
-
+      resizeToAvoidBottomInset: false,
       body: Stack(
       children:[
         Container(

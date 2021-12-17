@@ -92,3 +92,28 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
     }
   return centrosportivo;
 }
+
+Future<List<CentroSportivo>> getCentriSportivi() async
+{
+  DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
+  CentroSportivo centrosportivo;
+  List<CentroSportivo> centrisportivi=[];
+  bool found=false;
+  if(dataSnapshot.value != null)
+  {
+    dataSnapshot.value.forEach((key,value) =>{
+
+          centrosportivo = new CentroSportivo(),
+          centrosportivo.nome=value["nome"],
+          centrosportivo.id_amministratore=value["id_amministratore"],
+          centrosportivo.ragione_sociale=value["ragione_sociale"],
+          centrosportivo.numero_di_campi=value["numero_di_campi"],
+          centrosportivo.indirizzo=value["indirizzo"],
+          centrosportivo.id = databaseReference.child('centrisportivi/'+key),
+          centrisportivi.add(centrosportivo)
+
+    }
+    );
+  }
+  return centrisportivi;
+}

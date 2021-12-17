@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 
 // annarosa
 // Create a Form widget.
@@ -81,7 +82,12 @@ class MyHomeGioState extends StatelessWidget {
                                     // size bottoni fissi
                                   ),
                                   onPressed: () {
-
+                                    /*
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context){
+                                          return FormRichiestaNuovaPartita(giocatore:giocatore);
+                                        }
+                                    ));*/
                                   },
                                   child: const Text('Richiedi nuova partita',style: TextStyle(
                                     color:Colors.blue,

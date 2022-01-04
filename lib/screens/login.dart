@@ -96,7 +96,8 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Padding(
                                           padding:EdgeInsets.only(top:10),
                                           child:TextFormField(
-                                              onChanged:(value) => {giocatore.nome_utente=value,
+                                              onChanged:(value) => {
+                                                giocatore.nome_utente=value,
                                               amministratore.nome_utente=value
                                               },
                                               controller: _username,

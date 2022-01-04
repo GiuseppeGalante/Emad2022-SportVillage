@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 
 // annarosa
@@ -16,19 +17,45 @@ class MyHomeGio extends StatelessWidget {
     print(giocatore);
     return MaterialApp(
       title: appTitle,
-      home: MyHomeGioState(title: appTitle, giocatore:giocatore),
+      home: HomeGioState(title: appTitle, giocatore:giocatore),
     );
   }
 }
 
 
+class HomeGioState extends StatefulWidget
+{
+  var title;
+  final Giocatore giocatore;
+
+  HomeGioState({Key? key, required this.title, required this.giocatore}) : super(key: key);
+  @override
+  State<HomeGioState> createState() => _MyHomeGioState(title: title,giocatore: giocatore);
+}
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class MyHomeGioState extends StatelessWidget {
+class _MyHomeGioState extends State<HomeGioState>{
+  int _selectedIndex = 0;
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      switch(_selectedIndex)
+      {
+        case 2:
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context){
+                return ProfiloGio(title:title,giocatore:giocatore);
+              }
+          ));
+              break;
+      }
+    });
+  }
 
-   const MyHomeGioState({Key? key, required this.title, required this.giocatore}) : super(key: key);
+  _MyHomeGioState({Key? key, required this.title, required this.giocatore});
+
 
   final Giocatore giocatore;
 
@@ -203,8 +230,9 @@ class MyHomeGioState extends StatelessWidget {
                                                     label: 'Profilo',
                                         ),
                                      ],
-                              currentIndex: 0,
+                              currentIndex: _selectedIndex,
                               selectedItemColor: Colors.blue,
+                              onTap: _onItemTapped,
                                ),
 
     );

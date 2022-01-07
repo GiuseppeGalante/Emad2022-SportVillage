@@ -13,7 +13,9 @@ import 'home.dart';
 // Create a Form widget.
 class FormRichiestaNuovaPartita extends StatefulWidget {
   Giocatore giocatore;
-  FormRichiestaNuovaPartita({required this.giocatore,Key? key}) : super(key: key);
+  //CentroSportivo centroSportivo;
+  List<CentroSportivo>centrisportivi=[];
+  FormRichiestaNuovaPartita({required this.giocatore, required this.centrisportivi, Key? key}) : super(key: key);
   @override
   _FormRichiestaNuovaPartitaState createState() => _FormRichiestaNuovaPartitaState();
 
@@ -29,28 +31,27 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   final _pswKey = GlobalKey<FormFieldState>();
-  List<CentroSportivo>centrisportivi=[];
+
 
   bool late=false;
   late String _idCentro="";
+  String idAdmin="";
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
 
 
-
-  late Map<String,String> mapping=new Map();
+  late Map<String,CentroSportivo> mapping=new Map();
 
   @override
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
-    if(_idCentro == "")
-      {
-        print(centrisportivi);
-        getCentriSportivi().then((value)=> centrisportivi=value);
-        _idCentro=centrisportivi[0].nome;
-      }
+
+
 
     Giocatore giocatore=widget.giocatore;
+    List<CentroSportivo>centrisportivi=widget.centrisportivi;
+
+    print("id giocatore bl:"+giocatore.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrazione"),
@@ -136,7 +137,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           });
                         },
                         items: centrisportivi.map((e) {
-                          mapping[e.nome]=e.id.key;
+                          mapping[e.nome]=e;
+                          print(e);
                           return DropdownMenuItem<String>(
                             child: new Text(e.nome),
                             value: e.nome,
@@ -173,7 +175,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         _formKey.currentState?.save();
                         //centrosportivo.id_amministratore=amministratore.id.key;
                         richiestaNuovaPartita.id_giocatore=giocatore.id.key;
-                        richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro];
+                        richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
+                        richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore;
                         saveRichiestaNuovaPartita(richiestaNuovaPartita);
                         //amministratore.centrisportivi.add(centrosportivo);
                         //updateAmministratoreCS(amministratore);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
+import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
 
 // annarosa
 // Create a Form widget.
@@ -148,6 +150,16 @@ class MyHomeACSState extends StatelessWidget {
                                           fixedSize: Size.fromWidth(270),
                                         ),
                                         onPressed: () {
+                                          getRichiestePartite(acs:amministratore).then((value) =>
+                                          {
+                                            print(value),
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context){
+                                                  return VisualizzaRichiestePartita(amministratore:amministratore,richiestepartite: value,);
+                                                }
+                                            ))
+                                          }
+                                          );
 
                                         },
                                         child: const Text('Visualizza richieste partita',style: TextStyle(

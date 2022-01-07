@@ -210,6 +210,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                     {
                                                       print(giocatori),
                                                       if(giocatori != null){
+                                                        giocatore.id=giocatori.id,
                                                         Navigator.push(context, MaterialPageRoute(
                                                             builder: (context){
                                                               return MyHomeGio(giocatore:giocatori);

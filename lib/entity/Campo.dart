@@ -20,6 +20,10 @@ class Campo
     };
   }
 
+  @override
+  String toString() {
+    return 'Campo{id: ${id.key}, nome: $nome, tipo: $tipo, id_centro_sportivo: $id_centro_sportivo}';
+  }
 }
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
+import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 
 // annarosa
@@ -109,12 +110,12 @@ class _MyHomeGioState extends State<HomeGioState>{
                                     // size bottoni fissi
                                   ),
                                   onPressed: () {
-                                    /*
+
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (context){
                                           return FormRichiestaNuovaPartita(giocatore:giocatore);
                                         }
-                                    ));*/
+                                    ));
                                   },
                                   child: const Text('Richiedi nuova partita',style: TextStyle(
                                     color:Colors.blue,
@@ -125,6 +126,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                                   ),
                                 ),
                               ),
+
 
                               Row(
                                   children: [
@@ -166,6 +168,11 @@ class _MyHomeGioState extends State<HomeGioState>{
                                         ),
                                         onPressed: () {
 
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return FormRichiestaTorneo(giocatore:giocatore);
+                                              }
+                                          ));
                                         },
                                         child: const Text('Richiedi nuovo torneo',style: TextStyle(
                                           color:Colors.blue,

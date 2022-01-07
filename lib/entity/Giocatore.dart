@@ -90,7 +90,7 @@ Future<Giocatore?> getGiocatore(Giocatore gio) async{
             giocatore.pareggi=value["pareggi"],
             giocatore.sconfitte=value["sconfitte"],
             giocatore.nazionalita=value["nazionalita"],
-            giocatore.id = databaseReference.child('users/giocatori/')
+            giocatore.id = databaseReference.child('users/giocatori/'+key)
           }
 
       }

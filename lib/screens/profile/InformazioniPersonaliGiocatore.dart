@@ -244,7 +244,7 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                                     }
                                     else
                                       {
-                                        if(ddn!.length>10 || ddn!.length<10)
+                                        if(ddn.length>10 || ddn.length<10)
                                           {
                                             return 'Data Non Valida';
                                           }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
 
 // annarosa
@@ -172,6 +174,40 @@ class MyHomeACSState extends StatelessWidget {
                                       ),
                                     )
                                   ]),
+
+
+                              Row(
+                                  children: [
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          fixedSize: Size.fromWidth(270),
+                                        ),
+                                        onPressed: () {
+                                          getRichiesteTornei(acs:amministratore).then((value) =>
+                                          {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context){
+                                                  return VisualizzaRichiesteTorneo(amministratore:amministratore,richiestetornei: value,);
+                                                }
+                                            ))
+                                          }
+                                          );
+
+                                          },
+                                          child: const Text('Visualizza richieste Tornei',style: TextStyle(
+                                          color:Colors.blue,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        ),
+                                      ),
+                                    )
+                                  ])
 
 
                             ],

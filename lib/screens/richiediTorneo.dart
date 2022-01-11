@@ -7,6 +7,7 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/screens/login.dart';
 
 import 'home.dart';
 
@@ -35,10 +36,11 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
 
   bool late = false;
   late String _idCentro = "";
+  String idAdmin="";
   RichiestaTorneo richiestaTorneo = RichiestaTorneo();
 
 
-  late Map<String, String> mapping = new Map();
+  late Map<String, CentroSportivo> mapping = new Map();
   @override
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
@@ -184,11 +186,12 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                    hint: Text('Scegli un centro sportivo'),
                                    onChanged: (value) {
                                      setState(() {
-                                    _idCentro = value!;
+                                    _idCentro = mapping[value]!.id.key;
+                                    idAdmin=mapping[value]!.id_amministratore;
                                   });
                                 },
                                 items: centrisportivi.map((e) {
-                                  mapping[e.nome] = e.id.key;
+                                  mapping[e.nome] = e;
                                   return DropdownMenuItem<String>(
                                     child: new Text(e.nome),
                                     value: e.nome,
@@ -204,33 +207,69 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           ],
                         ),
                   ),
-                    Padding(
-                      padding:EdgeInsets.only(top:10),
-                      child:
-                      TextFormField(
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.person, color: Colors.white, size: 30.0,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12,width: 2.6),
-                            ),
-                              labelText: "Modalità Torneo",
-                            filled: true,
-                            fillColor: Colors.white,
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                              Padding(padding: EdgeInsets.only(left: 16),
+                                  child: SizedBox(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width - 78,
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 12),
+                                        child: DropdownButtonFormField<Modalita>(
+                                          hint: Text("Scegli Modalità"),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              richiestaTorneo.modalita = value!;
+                                            });
+                                          },
+                                          validator: (value) {
+                                            if (value?.index == null) {
+                                              return "Campo obbligatorio";
+                                            }
+                                          },
+                                          onSaved: (value) =>
+                                          richiestaTorneo.modalita = value!,
+                                          items: [
+                                            DropdownMenuItem<Modalita>(
+                                              child: Text(
+                                                "Solo Andata", style: TextStyle(
+                                                  color: Colors.black54),),
+                                              value: Modalita.Andata,
+                                            ),DropdownMenuItem<Modalita>(
+                                              child: Text(
+                                                "Andata e Ritorno", style: TextStyle(
+                                                  color: Colors.black54),),
+                                              value: Modalita.Andata_e_Ritorno,
+                                            ),DropdownMenuItem<Modalita>(
+                                              child: Text(
+                                                "All' Italiana", style: TextStyle(
+                                                  color: Colors.black54),),
+                                              value: Modalita.All_Italiana,
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ],
                           ),
-                          onChanged: (value) =>
-                          richiestaTorneo.modalita = value,
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return "Campo Obbligatorio";
-                            }
-                          },
                         ),
-                    ),
+
                     Padding(
                       padding:EdgeInsets.only(top:10),
                       child:
                       TextFormField(
+                        keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             icon: Icon(Icons.groups, color: Colors.white, size: 30.0,
                             ),
@@ -258,10 +297,9 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                               if (_formKey.currentState!.validate()) {
                                 print("Nessun errore");
                                 _formKey.currentState?.save();
-                                //centrosportivo.id_amministratore=amministratore.id.key;
+                                richiestaTorneo.id_amministratore=idAdmin;
                                 richiestaTorneo.id_giocatore = giocatore.id.key;
-                                richiestaTorneo.id_centro_sportivo =
-                                mapping[_idCentro];
+                                richiestaTorneo.id_centro_sportivo = mapping[_idCentro]!.id.key;
                                 saveRichiestaTorneo(richiestaTorneo);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

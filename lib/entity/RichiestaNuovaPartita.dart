@@ -70,7 +70,7 @@ Future<List<RichiestaNuovaPartita>> getRichiestePartite({AmministstratoreCentroS
         dataSnapshot.value.forEach((key,value) =>{
           if(value["id_amministratore"] == acs.id.key)
             {
-              richiestanuovapartita = new RichiestaNuovaPartita(),
+              richiestanuovapartita = RichiestaNuovaPartita(),
               richiestanuovapartita.data=value["data"],
               richiestanuovapartita.id_centro_sportivo=value["id_centrosportivo"],
               richiestanuovapartita.id_amministratore=value["id_amministratore"],

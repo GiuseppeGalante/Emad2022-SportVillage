@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
+import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 
 // annarosa
@@ -172,6 +173,11 @@ class _MyHomeGioState extends State<HomeGioState>{
                                           fixedSize: Size.fromWidth(270),
                                         ),
                                         onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return FormRichiestaTorneo (giocatore:giocatore);
+                                              }
+                                          ));
 
                                         },
                                         child: const Text('Richiedi nuovo torneo',style: TextStyle(
@@ -196,6 +202,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                                         ),
 
                                         onPressed: () {
+
 
                                         },
                                         child: const Text('Ricerca  torneo',style: TextStyle(

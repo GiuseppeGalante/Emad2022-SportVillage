@@ -35,4 +35,29 @@ DatabaseReference saveCampoSportivo(Campo campo)
   return id;
 }
 
+Future<List<Campo>> getCampi(String id) async
+{
+  DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
+  Campo campo;
+  List<Campo> campi=[];
+  bool found=false;
+  if(dataSnapshot.value != null)
+  {
+    dataSnapshot.value.forEach((key,value) =>{
+      if(id == value["id_centrosportivo"])
+        {
+          campo = new Campo(),
+          campo.nome=value["nome"],
+          campo.id_centro_sportivo=value["id_centrosportivo"],
+          campo.tipo= value["tipo"],
+          campo.id = databaseReference.child('campi/'+key),
+          campi.add(campo)
+        }
+    }
+    );
+  }
+  return campi;
+}
+
+
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
@@ -13,6 +15,8 @@ class CentroSportivo{
   String indirizzo="";
   String id_amministratore="";
   List<Campo> campi=[];
+
+
 
 
   @override
@@ -89,6 +93,17 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
       centrosportivo.ragione_sociale= dataSnapshot.value["ragione_sociale"];
       centrosportivo.id_amministratore= dataSnapshot.value["id_amministratore"];
       centrosportivo.indirizzo=dataSnapshot.value["indirizzo"];
+      String dajson= jsonEncode(dataSnapshot.value["campi"]);
+      List<dynamic> tomap=jsonDecode(dajson);
+      tomap.forEach((element) {
+        Map<String, dynamic> prova= element;
+        Campo campo=new Campo();
+        campo.tipo=prova["tipo"];
+        campo.id_centro_sportivo=prova["id_centrosportivo"];
+        campo.id = databaseReference.child("campi/"+prova["id_campo"]);
+        campo.nome = prova["nome"];
+        centrosportivo.campi.add(campo);
+      });
     }
   return centrosportivo;
 }

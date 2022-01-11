@@ -5,6 +5,7 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 
 import 'home.dart';
 
@@ -49,6 +50,7 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
 
     AmministstratoreCentroSportivo amministratore=widget.amministratore;
     List<RichiestaNuovaPartita>richiestepartite=widget.richiestepartite;
+    CentroSportivo centrosportivo;
     print(richiestepartite);
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +62,14 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
           itemBuilder: (context,index){
         return Card(
           child: ListTile(
+            onTap: () =>
 
+                getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) =>
+                    Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return FormInfoRichiestaNuovaPartita(richiestanuovapartita: richiestepartite[index],centrosportivo:value);
+                    }
+                ))),
             title: Text(richiestepartite[index].toString()),
           ),
         );

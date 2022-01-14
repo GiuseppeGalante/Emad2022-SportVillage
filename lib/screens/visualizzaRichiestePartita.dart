@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
@@ -62,14 +64,21 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
           itemBuilder: (context,index){
         return Card(
           child: ListTile(
-            onTap: () =>
+            onTap:() async =>
 
-                getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) =>
-                    Navigator.push(context, MaterialPageRoute(
-                    builder: (context){
-                      return FormInfoRichiestaNuovaPartita(richiestanuovapartita: richiestepartite[index],centrosportivo:value);
-                    }
-                ))),
+                getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) async =>
+                {
+                  await Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          FormInfoRichiestaNuovaPartita(
+                              richiestanuovapartita: richiestepartite[index],
+                              centrosportivo: value,
+                              amministratore: amministratore)
+
+                  )),
+                  setState((){getRichiestePartite(acs:amministratore).then((value) =>{ setState((){widget.richiestepartite=value;})});})
+                }
+                ),
             title: Text(richiestepartite[index].toString()),
           ),
         );
@@ -77,6 +86,9 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
       )
     );
   }
-
 }
+
+
+
+
 

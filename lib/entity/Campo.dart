@@ -1,11 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
+
+import 'RichiestaNuovaPartita.dart';
 final databaseReference= FirebaseDatabase.instance.reference();
 
 class Campo
 {
   late DatabaseReference id;
   String nome="";
-  String tipo="";
+  late Sport tipo;
   String? id_centro_sportivo="";
 
 
@@ -14,7 +16,7 @@ class Campo
     return {
 
       "nome": nome,
-      "tipo": tipo,
+      "tipo": tipo.toString().split('.').last,
         "id_campo":id.key,
         "id_centrosportivo": id_centro_sportivo
     };
@@ -37,20 +39,23 @@ DatabaseReference saveCampoSportivo(Campo campo)
 
 Future<List<Campo>> getCampi(String id) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
+  DataSnapshot dataSnapshot = await databaseReference.child('campi/').once();
   Campo campo;
   List<Campo> campi=[];
   bool found=false;
   if(dataSnapshot.value != null)
   {
     dataSnapshot.value.forEach((key,value) =>{
+      print("eccomi:"+id+":"+value["id_centrosportivo"]),
       if(id == value["id_centrosportivo"])
         {
+
           campo = new Campo(),
           campo.nome=value["nome"],
           campo.id_centro_sportivo=value["id_centrosportivo"],
-          campo.tipo= value["tipo"],
+          campo.tipo= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["tipo"]),
           campo.id = databaseReference.child('campi/'+key),
+          print(campo),
           campi.add(campo)
         }
     }

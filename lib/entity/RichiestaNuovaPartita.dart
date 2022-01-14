@@ -90,3 +90,11 @@ Future<List<RichiestaNuovaPartita>> getRichiestePartite({AmministstratoreCentroS
   return richiestenuovepartite;
 }
 
+
+Future<void> deleteRichiestaPartita(String id_richiesta)
+{
+  var id = databaseReference.child("richiestenuovepartite/").child(id_richiesta).remove();
+  //print(id_torneo);
+  return id;
+}
+

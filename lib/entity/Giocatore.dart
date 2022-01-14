@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -11,12 +12,12 @@ class Giocatore extends Utente
   late int vittorie;
   late int pareggi;
   late int sconfitte;
-
+  late List<PartitaConfermata> partiteconfermate=[];
 
 
   @override
   String toString() {
-    return 'Giocatore{nazionalita: $nazionalita, partite_giocate: $partite_giocate, vittorie: $vittorie, pareggi: $pareggi, sconfitte: $sconfitte }'+super.toString();
+    return 'Giocatore{nazionalita: $nazionalita, indirizzo: $indirizzo, partite_giocate: $partite_giocate, vittorie: $vittorie, pareggi: $pareggi, sconfitte: $sconfitte, partiteconfermate: $partiteconfermate}'+super.toString();
   }
 
   Giocatore(){
@@ -69,6 +70,7 @@ Future<Giocatore?> getGiocatore(Giocatore gio) async{
   DataSnapshot dataSnapshot = await databaseReference.child('users/giocatori/').once();
   Giocatore giocatore = new Giocatore();
   bool found=false;
+  bool complete=false;
   if(dataSnapshot.value != null)
     {
       dataSnapshot.value.forEach((key,value) =>{
@@ -95,7 +97,18 @@ Future<Giocatore?> getGiocatore(Giocatore gio) async{
 
       }
       );
+      if(found)
+        {
+          await getPartiteConfermate(idgioca: giocatore.id.key).then((value) =>
+          {
+            giocatore.partiteconfermate=value!,
+          }
+          );
+        }
+
     }
+
+
   if(found)
     return giocatore;
   return null;

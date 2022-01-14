@@ -4,6 +4,7 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
 
 // annarosa
 // Create a Form widget.
@@ -133,7 +134,33 @@ class _MyHomeGioState extends State<HomeGioState>{
                                   ),
                                 ),
                               ),
+                              Row(
+                                  children: [
 
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          fixedSize: Size.fromWidth(270),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return VisualizzaPartiteConfermate (giocatore:giocatore);
+                                              }
+                                          ));
+                                        },
+                                        child: const Text('Partite confermate',style: TextStyle(
+                                          color:Colors.blue,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
                               Row(
                                   children: [
 
@@ -162,6 +189,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                                   size:90,
                                   color: Colors.white,),
                               ),
+
                               Row(
                                   children: [
 

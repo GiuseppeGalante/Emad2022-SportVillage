@@ -225,7 +225,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         }
                         ).toList(),
                       ),
-                    )
+                    ),
+                    //aggiungere qui
                   ],
                 ),/*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),

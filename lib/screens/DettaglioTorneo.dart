@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
+import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiRifiutati.dart';
-import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
+//import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
 
@@ -186,28 +187,59 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                             context: context,
                                             barrierDismissible: false,
                                             builder: (BuildContext context_alert) => AlertDialog(
-                                          title: const Text('Composizione Squadre'),
-                                          content: const Text('Vuoi Procedere alla compilazione delle squadre con relative info?'),
+                                          title: const Text('Conferma Torneo'),
+                                          content: const Text('Sei sicuro di voler accettare il torneo?'),
                                           actions: <Widget>[
                                             ElevatedButton(
                                               onPressed: (){
                                                 Navigator.pop(context_alert, 'Cancel');
-                                                print("Salvato");
                                               },
                                               child: const Text('NO'),
                                             ),
                                             ElevatedButton(
                                               onPressed: (){
                                                 Navigator.pop(context_alert, 'OK');
-                                                Navigator.push(context, MaterialPageRoute(
-                                                    builder: (context) {
-                                                      return GestioneSquadre(torneo: torneo);
-                                                    }
-                                                ));
+                                                TorneoAccettato torneoaccettato=new TorneoAccettato();
+                                                torneoaccettato.id_torneo=torneo.id_richiesta_torneo;
+                                                torneoaccettato.id_centro_sportivo=torneo.id_centro_sportivo;
+                                                torneoaccettato.id_amministratore=torneo.id_amministratore;
+                                                torneoaccettato.numero_di_partecipanti=torneo.numero_di_partecipanti;
+                                                torneoaccettato.nome=torneo.nome;
+                                                torneoaccettato.sport=torneo.sport.toString();
+                                                torneoaccettato.modalita=torneo.modalita.toString();
+                                                torneoaccettato.id_giocatore=torneo.id_giocatore;
+
+
+
+                                                saveTorneoAccettato(torneoaccettato);
+                                                deleteRichiestaAccettata(torneo.id_richiesta_torneo);
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: const Text('Torneo Accettato'),
+                                                    backgroundColor: Colors.green,
+                                                    action: SnackBarAction(textColor:Colors.white,
+                                                      label: 'OK', onPressed: () {},),
+                                                  ),
+                                                );
+
+                                                Timer(Duration(seconds: 2), ()
+                                                {
+                                                  getRichiesteTornei(acs:amministratore).then((value) =>
+                                                  {
+                                                    Navigator.push(context, MaterialPageRoute(
+                                                        builder: (context){
+                                                          return VisualizzaRichiesteTorneo(amministratore:amministratore,richiestetornei: value,);
+                                                        }
+                                                    ))
+                                                  }
+                                                  );
+                                                });
                                               },
                                               child: const Text('SI'),
                                             ),
+
                                           ],
+
                                         )
                                         );
 

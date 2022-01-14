@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
+import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
@@ -60,15 +61,56 @@ class _FormCampoState extends State<FormCampo> {
                       return "Campo Obbligatorio";
                     }
                   },
-                ),TextFormField(
-                  decoration: InputDecoration(labelText: "Tipo"),
-                  onChanged: (value) => campo.tipo=value,
-                  validator: (value){
-                    if(value?.isEmpty ?? true)
-                    {
-                      return "Campo Obbligatorio";
-                    }
-                  },
+                ),Padding(
+                  padding:EdgeInsets.only(top:10),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(padding:EdgeInsets.only(bottom:20),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width-78,
+                            child:Container(
+                              color: Colors.white,
+                              child:Padding(
+                                padding: EdgeInsets.only(left:12),
+                                child:DropdownButtonFormField<Sport>(
+                                  hint: Text("Scegli Sport"),
+                                  onChanged: (value){
+                                    setState(() {
+                                      campo.tipo=value!;
+                                    });
+                                  },
+                                  validator: (value){
+                                    if(value?.index==null)
+                                    {
+                                      return "Campo obbligatorio";
+                                    }
+                                  },
+                                  onSaved: (value) => campo.tipo=value!,
+                                  items: [
+                                    DropdownMenuItem<Sport>(
+                                      child: Text("Calcio",style: TextStyle(color:Colors.black54),),
+                                      value: Sport.calcio,
+                                    ),DropdownMenuItem<Sport>(
+                                      child: Text("Pallavolo",style: TextStyle(color:Colors.black54),),
+                                      value: Sport.pallavolo,
+                                    ),DropdownMenuItem<Sport>(
+                                      child: Text("Tennis",style: TextStyle(color:Colors.black54),),
+                                      value: Sport.tennis,
+                                    ),DropdownMenuItem<Sport>(
+                                      child: Text("Padel",style: TextStyle(color:Colors.black54),),
+                                      value: Sport.padel,
+                                    ),DropdownMenuItem<Sport>(
+                                      child: Text("Ping Pong",style: TextStyle(color:Colors.black54),),
+                                      value: Sport.pingpong,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                      ),
+                    ],
+                  ),
                 ),Row(
                   children: <Widget>[
                     Text("Centro Sprotivo"),

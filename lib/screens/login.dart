@@ -55,6 +55,7 @@ class _TemplateLogin extends State<TemplateLogin> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _tipo = TextEditingController();
   Giocatore giocatore = new Giocatore();
+  Giocatore? gioc=null;
   AmministstratoreCentroSportivo amministratore = AmministstratoreCentroSportivo();
 
   @override
@@ -156,45 +157,6 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               }
                                           ),
                                         ),
-                                        Row(
-                                            children: [
-                                              Expanded(
-                                                child:
-                                                ListTile(
-                                                    title: const Text('Giocatore',style: TextStyle(
-                                                        color:Colors.white
-                                                    )),
-                                                    leading: Radio<user>(
-                                                      activeColor: Colors.white,
-                                                      value: user.Giocatore,
-                                                      groupValue: _type,
-                                                      onChanged: (user? value) {
-                                                        setState(() {
-                                                          _type = value;
-                                                        });
-                                                        _type = value;
-                                                      },
-                                                    )
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: ListTile(
-                                                    title: const Text('Centro Sportivo',style: TextStyle(
-                                                        color:Colors.white
-                                                    ),),
-                                                    leading: Radio<user>(
-                                                      activeColor: Colors.white,
-                                                      value: user.Amministratore,
-                                                      groupValue: _type,
-                                                      onChanged: (user? value) {
-                                                        setState(() {
-                                                          _type = value;
-                                                        });
-                                                      },
-                                                    )
-                                                ),
-                                              ),
-                                            ]),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 15.0),
                                           child: ElevatedButton(
@@ -204,12 +166,14 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               // Validate returns true if the form is valid, or false otherwise.
                                               if (_formKey.currentState!.validate()) {
                                                 Login(_username,_password,_type);
-                                                if(_type == user.Giocatore)
-                                                  {
+                                                //if(_type == user.Giocatore)
+                                                  //{
                                                     getGiocatore(giocatore).then((giocatori)=>
                                                     {
                                                       print(giocatori),
+                                                      gioc=giocatori,
                                                       if(giocatori != null){
+
                                                         giocatore.id=giocatori.id,
                                                         Navigator.push(context, MaterialPageRoute(
                                                             builder: (context){
@@ -217,22 +181,11 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                             }
                                                         ))
                                                       }
-                                                      else
-                                                        {
-                                                          ScaffoldMessenger.of(context).showSnackBar(
-                                                          SnackBar(
-                                                            content: const Text('Email o Password Errata'),
-                                                            backgroundColor: Colors.red,
-                                                            action: SnackBarAction(textColor:Colors.white,
-                                                              label: 'Ho capito', onPressed: () {},),
-                                                          ),
-                                                          ),
-                                                        }
 
                                                     });
-                                                  }
-                                                else if (_type == user.Amministratore)
-                                                  {
+                                                  //}
+                                                //else if (_type == user.Amministratore)
+                                                  //{
                                                     print(amministratore.nome_utente);
                                                     print(amministratore.password);
                                                     getAmministratoreCS(amministratore).then((amministratori)=>
@@ -245,7 +198,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                             }
                                                         ))
                                                       }
-                                                      else
+                                                      else if(amministratori == null && gioc == null)
                                                         {
                                                           ScaffoldMessenger.of(context).showSnackBar(
                                                             SnackBar(
@@ -258,7 +211,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                         }
 
                                                     });
-                                                  }
+                                                 // }
 
                                               }
                                             },

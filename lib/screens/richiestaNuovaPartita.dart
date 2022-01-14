@@ -16,6 +16,7 @@ class FormRichiestaNuovaPartita extends StatefulWidget {
   //CentroSportivo centroSportivo;
   List<CentroSportivo>centrisportivi=[];
   FormRichiestaNuovaPartita({required this.giocatore, required this.centrisportivi, Key? key}) : super(key: key);
+
   @override
   _FormRichiestaNuovaPartitaState createState() => _FormRichiestaNuovaPartitaState();
 
@@ -33,11 +34,47 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
   final _pswKey = GlobalKey<FormFieldState>();
 
 
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+
   bool late=false;
   late String _idCentro="";
+  List<CentroSportivo> filtered=[];
   String idAdmin="";
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
 
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        richiestaNuovaPartita.data=selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString();
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+        context: context,
+        initialTime: selectedTime,
+      builder: (context, child) =>
+          MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!,),
+
+    );
+
+    if (picked_s != null && picked_s != selectedTime ) {
+      setState(() {
+        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
+        selectedTime = picked_s;
+      });
+    }
+  }
 
   late Map<String,CentroSportivo> mapping=new Map();
 
@@ -51,19 +88,20 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
     Giocatore giocatore=widget.giocatore;
     List<CentroSportivo>centrisportivi=widget.centrisportivi;
 
-    print("id giocatore bl:"+giocatore.toString());
+    print(filtered);
+    //print("id giocatore bl:"+giocatore.toString());
+    print("i filtered:"+filtered.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrazione"),
       ),
-
       body: Form(
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.all(16),
             child: ListView(
               children: <Widget>[
-                TextFormField(
+                /*TextFormField(
                   decoration: InputDecoration(labelText: "Seleziona data"),
                   onChanged: (value) => richiestaNuovaPartita.data=value,
                   validator: (value){
@@ -72,7 +110,34 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       return "Campo Obbligatorio";
                     }
                   },
-                ),Padding(
+                ),*/
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString()),
+                      SizedBox(height: 20.0,),
+                      ElevatedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Text('Seleziona una data'),
+                      ),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
+                      SizedBox(height: 20.0,),
+                      ElevatedButton(
+                        onPressed: () => _selectTime(context),
+                        child: Text('Seleziona una data'),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
                   padding:EdgeInsets.only(top:10),
                   child: Row(
                     children: <Widget>[
@@ -88,6 +153,18 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                   onChanged: (value){
                                     setState(() {
                                       richiestaNuovaPartita.sport=value!;
+                                      filtered=[];
+                                      for(int i=0;i<centrisportivi.length;i++)
+                                        {
+
+                                          for(int k=0; k<centrisportivi[i].campi.length;k++) {
+                                            print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
+                                            if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                              filtered.add(centrisportivi[i]);
+                                              _idCentro=filtered[0].nome;
+                                            }
+                                          }
+                                        }
                                     });
                                   },
                                   validator: (value){
@@ -130,15 +207,15 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       width: MediaQuery.of(context).size.width/1.5,
                       child: DropdownButton<String>(
                         hint: Text('Scegli un centro sportivo'),
-                        value: _idCentro ,
+                        value: _idCentro,
                         onChanged: (value){
                           setState(() {
                             _idCentro=value!;
                           });
                         },
-                        items: centrisportivi.map((e) {
+                        items: filtered.map((e) {
                           mapping[e.nome]=e;
-                          print(e);
+                          //print(e);
                           return DropdownMenuItem<String>(
                             child: new Text(e.nome),
                             value: e.nome,
@@ -150,7 +227,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       ),
                     )
                   ],
-                ),TextFormField(
+                ),/*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),
                   onChanged: (value) => richiestaNuovaPartita.orario=value,
                   validator: (value){
@@ -159,7 +236,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       return "Campo Obbligatorio";
                     }
                   },
-                ),TextFormField(
+                ),*/TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci numero di partecipanti"),
                   onChanged: (value) => richiestaNuovaPartita.numero_di_partecipanti=int.parse(value),
                   validator: (value){

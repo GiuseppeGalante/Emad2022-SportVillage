@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
+import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 
 
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -98,7 +100,7 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
       tomap.forEach((element) {
         Map<String, dynamic> prova= element;
         Campo campo=new Campo();
-        campo.tipo=prova["tipo"];
+        campo.tipo= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + prova["tipo"]);
         campo.id_centro_sportivo=prova["id_centrosportivo"];
         campo.id = databaseReference.child("campi/"+prova["id_campo"]);
         campo.nome = prova["nome"];
@@ -111,24 +113,43 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
 Future<List<CentroSportivo>> getCentriSportivi() async
 {
   DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
-  CentroSportivo centrosportivo;
+ late CentroSportivo centrosportivo;
   List<CentroSportivo> centrisportivi=[];
   bool found=false;
   if(dataSnapshot.value != null)
   {
     dataSnapshot.value.forEach((key,value) =>{
-
-          centrosportivo = new CentroSportivo(),
+            centrosportivo=new CentroSportivo(),
           centrosportivo.nome=value["nome"],
           centrosportivo.id_amministratore=value["id_amministratore"],
           centrosportivo.ragione_sociale=value["ragione_sociale"],
           centrosportivo.numero_di_campi=value["numero_di_campi"],
           centrosportivo.indirizzo=value["indirizzo"],
           centrosportivo.id = databaseReference.child('centrisportivi/'+key),
-          centrisportivi.add(centrosportivo)
+      centrisportivi.add(centrosportivo)
 
-    }
+
+    },
+
+
     );
+    for(int i=0;i<centrisportivi.length;i++)
+      {
+        await getCampi(centrisportivi[i].id.key).then((value) =>
+        {
+          for(int k=0;k<centrisportivi.length;k++)
+            {
+              if(centrisportivi[k].id==centrisportivi[i].id)
+                {
+
+                  centrisportivi[k].campi=value
+                }
+            }
+        }
+
+        );
+      }
+
   }
   return centrisportivi;
 }

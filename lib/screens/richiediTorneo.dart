@@ -48,7 +48,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
     // Build a Form widget using the _formKey created above.
 
     //print(centrisportivi);
-    Future<List> dati=getCentriSportivi().then((value) => centrisportivi = value).whenComplete(() => _idCentro = centrisportivi[0].nome);
+    Future<List> dati=getCentriSportivi().then((value) => centrisportivi = value).whenComplete(() => _idCentro = centrisportivi[0].nome!);
 
 
     Giocatore giocatore = widget.giocatore;
@@ -131,7 +131,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                                   print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
                                                   if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
                                                     filtered.add(centrisportivi[i]);
-                                                    _idCentro=filtered[0].nome;
+                                                    _idCentro=filtered[0].nome!;
                                                   }
                                                 }
                                               }
@@ -200,13 +200,13 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                    onChanged: (value) {
                                      setState(() {
                                     nomeCentro = value!;
-                                    idAdmin=mapping[value]!.id_amministratore;
+                                    idAdmin=mapping[value]!.id_amministratore!;
                                   });
                                 },
                                 items: filtered.map((e) {
-                                  mapping[e.nome] = e;
+                                  mapping[e.nome!] = e;
                                   return DropdownMenuItem<String>(
-                                    child: new Text(e.nome),
+                                    child: new Text(e.nome!),
                                     value: e.nome,
 
                                   );
@@ -313,7 +313,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                 print("Nessun errore");
                                 _formKey.currentState?.save();
                                 richiestaTorneo.id_amministratore=idAdmin;
-                                richiestaTorneo.id_giocatore = giocatore.id.key;
+                                richiestaTorneo.id_giocatore = giocatore.id.key!;
                                 richiestaTorneo.id_centro_sportivo =mapping[nomeCentro]!.id.key;
                                 saveRichiestaTorneo(richiestaTorneo);
                                 ScaffoldMessenger.of(context).showSnackBar(

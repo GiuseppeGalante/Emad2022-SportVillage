@@ -85,3 +85,42 @@ Future<void> deleteRichiestaAccettata(String id_torneo)
   print(id_torneo);
   return id;
 }
+
+Future<List<TorneoAccettato>> getTorneiAccettati() async
+{
+  DatabaseEvent dataSnapshot = await databaseReference.child('torneiaccettati/').once() as DatabaseEvent;
+  TorneoAccettato richiestatorneo;
+  List<TorneoAccettato> richiestenuovitornei=[];
+  List<TorneoAccettato> tornei=[];
+  bool found=false;
+  print("sono nelle richieste");
+
+    if(dataSnapshot.snapshot.value != null)
+    {
+      Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+      values.forEach((key,value) =>
+      {
+        print(value),
+
+        richiestatorneo = new TorneoAccettato(),
+        richiestatorneo.nome = value["nome"],
+        //richiestatorneo.id=value["id"],
+        richiestatorneo.id_torneo = value["id_torneo_accettato"],
+        richiestatorneo.id_centro_sportivo = value["id_centrosportivo"],
+        richiestatorneo.id_amministratore = value["id_amministratore"],
+        richiestatorneo.id_giocatore = value["id_giocatore"],
+        richiestatorneo.numero_di_partecipanti =
+        value["numero_di_partecipanti"],
+        richiestatorneo.modalita = value["modalita"],
+        richiestatorneo.sport = value["sport"],
+        //richiestatorneo.id = databaseReference.child('centrisportivi/'+key),
+        tornei.add(richiestatorneo),
+        print(tornei)
+      }
+          );
+      }
+  return tornei;
+    }
+
+
+

@@ -42,12 +42,10 @@ class _InfoCentroSportivoState extends State<InfoCentroSportivo> {
   late Map<String,String> mapping=new Map();
 
   _InfoCentroSportivoState(this.centroSportivo);
-
   @override
   Widget build(BuildContext context) {
     int nc = centroSportivo.numero_di_campi;
     int i=0;
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Info Centro Sportivo"+ centroSportivo.nome.toString()),

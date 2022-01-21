@@ -26,7 +26,7 @@ class TorneoAccettato
       "sport": sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
-      "id_torneo_rifiutato":id_torneo,
+      "id_torneo":id_torneo,
       "id_amministratore": id_amministratore,
     };
   }
@@ -48,25 +48,21 @@ DatabaseReference saveTorneoAccettato(TorneoAccettato torneo)
   return id;
 }
 
-Future<List<TorneoAccettato>> getTorneiRifiutati({AmministstratoreCentroSportivo? acs}) async
+Future<List<TorneoAccettato>> getTorneiAccettati() async
 {
-  DatabaseEvent dataSnapshot = (await databaseReference.child('torneirifiutati/').once()) as DatabaseEvent;
+  DatabaseEvent dataSnapshot = (await databaseReference.child('torneiaccettati/').once()) as DatabaseEvent;
   TorneoAccettato richiestatorneo;
   List<TorneoAccettato> richiestenuovitornei=[];
   bool found=false;
   print("sono nelle richieste");
-  if(acs != null)
-  {
     if(dataSnapshot.snapshot.value != null)
     {
       Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
       values.forEach((key,value) =>{
         print(value),
-        if(value["id_amministratore"] == acs.id.key)
-          {
             richiestatorneo = new TorneoAccettato(),
             richiestatorneo.nome=value["nome"],
-            //richiestatorneo.id=value["id"],
+            richiestatorneo.id_torneo=value["id_torneo_accettato"],
             richiestatorneo.id_centro_sportivo=value["id_centrosportivo"],
             richiestatorneo.id_amministratore=value["id_amministratore"],
             richiestatorneo.id_giocatore=value["id_giocatore"],
@@ -76,11 +72,9 @@ Future<List<TorneoAccettato>> getTorneiRifiutati({AmministstratoreCentroSportivo
             //richiestatorneo.id = databaseReference.child('centrisportivi/'+key),
             richiestenuovitornei.add(richiestatorneo),
             print(richiestenuovitornei)
-          }
       }
       );
     }
-  }
 
   return richiestenuovitornei;
 }

@@ -6,6 +6,7 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
+import 'InfoCentroSportivo.dart';
 import 'home.dart';
 
 
@@ -40,7 +41,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
   bool late=false;
   late String _idCentro="";
+  late CentroSportivo centroSportivo = getCentroSportivo(_idCentro) as CentroSportivo;
   List<CentroSportivo> filtered=[];
+
   String idAdmin="";
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
 
@@ -213,6 +216,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         onChanged: (value){
                           setState(() {
                             _idCentro=value!;
+
                           });
                         },
                         items: filtered.map((e) {
@@ -228,7 +232,18 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         ).toList(),
                       ),
                     ),
-                    //aggiungere qui
+                    ElevatedButton(
+
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context){
+
+                                return InfoCentroSportivo(  centroSportivo: centroSportivo);
+                              }
+                          ));
+                        }
+                        , child: Text("Info Centro Sportivo")
+                    )
                   ],
                 ),/*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),

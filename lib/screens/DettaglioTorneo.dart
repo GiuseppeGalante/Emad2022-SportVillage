@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
+import 'package:flutter_app_emad/entity/Squadre.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiRifiutati.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
@@ -48,8 +49,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
   _DettaglioTorneoState({Key? key,required this.torneo,required this.amministratore});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home:Scaffold(
+    return Scaffold(
           body: Column(
             children: [
               Container(
@@ -200,6 +200,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                               onPressed: (){
                                                 Navigator.pop(context_alert, 'OK');
                                                 TorneoAccettato torneoaccettato=new TorneoAccettato();
+                                                Squadra s=new Squadra();
                                                 torneoaccettato.id_torneo=torneo.id_richiesta_torneo;
                                                 torneoaccettato.id_centro_sportivo=torneo.id_centro_sportivo;
                                                 torneoaccettato.id_amministratore=torneo.id_amministratore;
@@ -213,6 +214,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
 
                                                 saveTorneoAccettato(torneoaccettato);
                                                 deleteRichiestaAccettata(torneo.id_richiesta_torneo);
+                                                s.creaSquadre(torneoaccettato.numero_di_partecipanti, torneoaccettato.sport,torneoaccettato.id_torneo);
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   SnackBar(
                                                     content: const Text('Torneo Accettato'),
@@ -333,7 +335,6 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
               ),
     ]
           ),
-    )
     );
   }
 }

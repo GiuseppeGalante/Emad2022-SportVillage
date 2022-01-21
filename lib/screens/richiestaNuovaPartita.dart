@@ -245,7 +245,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         , child: Text("Info Centro Sportivo")
                     )*/
                   ],
-                ),/*TextFormField(
+
+                ),
+                /*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),
                   onChanged: (value) => richiestaNuovaPartita.orario=value,
                   validator: (value){

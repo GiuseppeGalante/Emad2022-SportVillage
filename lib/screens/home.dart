@@ -237,6 +237,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                                         ),
 
                                         onPressed: () {
+
                                           getTorneiAccettati().then((value) =>
                                           {
                                             Navigator.push(context, MaterialPageRoute(

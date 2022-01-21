@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
+import 'package:flutter_app_emad/screens/ricercaPartita.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
@@ -172,7 +173,11 @@ class _MyHomeGioState extends State<HomeGioState>{
                                           fixedSize: Size.fromWidth(270),
                                         ),
                                         onPressed: () {
-
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return VisRicercaPartita (giocatore:giocatore);
+                                              }
+                                          ));
                                         },
                                         child: const Text('Ricerca  partita',style: TextStyle(
                                           color:Colors.blue,

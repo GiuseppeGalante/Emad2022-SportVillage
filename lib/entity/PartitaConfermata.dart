@@ -60,17 +60,18 @@ DatabaseReference saveNuovaPartitaConfermata(PartitaConfermata richiesta)
 
 
 Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async{
-  DataSnapshot dataSnapshot = await databaseReference.child('partiteconfermate/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('partiteconfermate/').once()) as DatabaseEvent;
   List<PartitaConfermata> partiteConfermate = [];
   List<PartitaConfermata> allpartiteconfermate=[];
   PartitaConfermata pc;
   bool found=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
 
         String dajson;
         List<dynamic> tomap;
-        dataSnapshot.value.forEach((key,value) =>{
+        Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+        values.forEach((key,value) =>{
           pc= new PartitaConfermata(),
           pc.id_campo=value["id_campo"],
           pc.data=value["data"],

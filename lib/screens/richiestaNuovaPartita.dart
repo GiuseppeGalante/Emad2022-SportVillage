@@ -56,8 +56,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
-        richiestaNuovaPartita.data=selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString();
+
         selectedDate = picked;
+        richiestaNuovaPartita.data=selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString();
       });
     }
   }
@@ -73,8 +74,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
     if (picked_s != null && picked_s != selectedTime ) {
       setState(() {
-        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
+
         selectedTime = picked_s;
+        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
       });
     }
   }
@@ -164,7 +166,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                             print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
                                             if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
                                               filtered.add(centrisportivi[i]);
-                                              _idCentro=filtered[0].nome;
+                                              _idCentro=filtered[0].nome!;
                                             }
                                           }
                                         }
@@ -218,10 +220,10 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           });
                         },
                         items: filtered.map((e) {
-                          mapping[e.nome]=e;
+                          mapping[e.nome!]=e;
                           //print(e);
                           return DropdownMenuItem<String>(
-                            child: new Text(e.nome),
+                            child: new Text(e.nome!),
                             value: e.nome,
 
                           );
@@ -267,9 +269,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         print("Nessun errore");
                         _formKey.currentState?.save();
                         //centrosportivo.id_amministratore=amministratore.id.key;
-                        richiestaNuovaPartita.id_giocatore=giocatore.id.key;
+                        richiestaNuovaPartita.id_giocatore=giocatore.id.key!;
                         richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
-                        richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore;
+                        richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!;
                         saveRichiestaNuovaPartita(richiestaNuovaPartita);
                         //amministratore.centrisportivi.add(centrosportivo);
                         //updateAmministratoreCS(amministratore);

@@ -70,14 +70,15 @@ DatabaseReference saveSquadre(squadra)
 
 Future<List<Squadra>> getSquadre(String torneo) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('squadre/').orderByChild('id_torneo').equalTo(torneo).once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('squadre/').orderByChild('id_torneo').equalTo(torneo).once()) as DatabaseEvent ;
   Squadra squadra;
   List<Squadra> squadre=[];
   bool found=false;
   print("sono nelle richieste");
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
-    dataSnapshot.value.forEach((key,value) =>{
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+    values.forEach((key,value) =>{
       print(value),
       squadra = new Squadra(),
       squadra.id_squadra=value["id_squadra"],

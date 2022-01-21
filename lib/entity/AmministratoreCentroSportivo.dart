@@ -54,12 +54,13 @@ void updateAmministratoreCS(AmministstratoreCentroSportivo amministratore)
 
 
 Future<AmministstratoreCentroSportivo?> getAmministratoreCS(AmministstratoreCentroSportivo amm) async{
-  DataSnapshot dataSnapshot = await databaseReference.child('users/amministratorics/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('users/amministratorics/').once()) as DatabaseEvent;
   AmministstratoreCentroSportivo amministratore = new AmministstratoreCentroSportivo();
   bool found=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
-    dataSnapshot.value.forEach((key,value) =>{
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+    values.forEach((key,value) =>{
       if((value["nome_utente"] == amm.nome_utente) && (value["password"] == amm.password))
         {
 

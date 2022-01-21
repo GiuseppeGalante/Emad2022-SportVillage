@@ -71,12 +71,11 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
   Widget build(BuildContext context) {
     if(giocatore.bio=="")
       giocatore.bio="Nessuna Biografia";
-    return MaterialApp(
-        home:Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text("Informazioni Personali"),
           ),
-          body: Container(
+          body: SafeArea(child:Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -376,6 +375,7 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
 
 
           ),
+          ),
 
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -396,7 +396,6 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
             selectedItemColor: Colors.blue,
             onTap: _onItemTapped,
           ),
-        )
-    );
+        );
   }
 }

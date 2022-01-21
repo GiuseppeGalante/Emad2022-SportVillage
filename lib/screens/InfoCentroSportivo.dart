@@ -57,7 +57,7 @@ class _InfoCentroSportivoState extends State<InfoCentroSportivo> {
 
             children: <Widget>[
               Text("Nome centro Sportivo: "+ centroSportivo.nome.toString() + "/"+ "Indirizzo:"+centroSportivo.indirizzo.toString()+"/"+
-                  "Ragione Sociale:"+centroSportivo.ragione_sociale+"/"+
+                  "Ragione Sociale:"+centroSportivo.ragione_sociale!+"/"+
                   "Numero di Campi:"+ centroSportivo.numero_di_campi.toString()+"/"+
                   "Campi:"+ centroSportivo.campi.toString()+"/"),
               SizedBox(height: 20.0,),

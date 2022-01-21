@@ -48,13 +48,15 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
 
     Giocatore giocatore=widget.giocatore;
+    if(giocatore.partiteconfermate== null)
+        giocatore.partiteconfermate=[];
     return Scaffold(
         appBar: AppBar(
           title: Text("Richieste nuova partita"),
         ),
 
         body: ListView.builder(
-            itemCount: giocatore.partiteconfermate.length,
+            itemCount: giocatore.partiteconfermate!.length,
             itemBuilder: (context,index){
               return Card(
                 child: ListTile(
@@ -66,7 +68,7 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
                                 return FormInfoRichiestaNuovaPartita(richiestanuovapartita: richiestepartite[index],centrosportivo:value,amministratore:giocatore);
                               }
                           )))*/
-                  title: Text(giocatore.partiteconfermate[index].toString()),
+                  title: Text(giocatore.partiteconfermate![index].toString()),
                 ),
               );
             }

@@ -12,10 +12,10 @@ final databaseReference= FirebaseDatabase.instance.reference();
 class CentroSportivo{
   late DatabaseReference id;
   int numero_di_campi=0;
-  String nome="";
-  String ragione_sociale="";
-  String indirizzo="";
-  String id_amministratore="";
+  String? nome="";
+  String? ragione_sociale="";
+  String? indirizzo="";
+  String? id_amministratore="";
   List<Campo> campi=[];
 
 
@@ -59,18 +59,19 @@ void updateCentroSportivo(CentroSportivo centrosportivo)
 
 Future<List<CentroSportivo>> getCentroSportivoAmm(AmministstratoreCentroSportivo amministratore) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
+  DataSnapshot dataSnapshot = (await databaseReference.child('centrisportivi/').once()) as DataSnapshot;
   CentroSportivo centrosportivo;
   List<CentroSportivo> centrisportivi=[];
   bool found=false;
   if(dataSnapshot.value != null)
   {
-    dataSnapshot.value.forEach((key,value) =>{
+    Map<dynamic, dynamic> values=dataSnapshot.value as Map;
+    values.forEach((key,value) =>{
       if(value["id_amministratore"] == amministratore.id.key)
         {
           centrosportivo = new CentroSportivo(),
           centrosportivo.nome=value["nome"],
-          centrosportivo.id_amministratore=amministratore.id.key,
+          centrosportivo.id_amministratore=amministratore.id.key!,
           centrosportivo.ragione_sociale=value["ragione_sociale"],
           centrosportivo.numero_di_campi=value["numero_di_campi"],
           centrosportivo.indirizzo=value["indirizzo"],
@@ -89,14 +90,15 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
   CentroSportivo centrosportivo=CentroSportivo();
   if(key != null)
     {
-      DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/'+key).once();
+      DataSnapshot dataSnapshot = (await databaseReference.child('centrisportivi/'+key).once()) as DataSnapshot;
+      Map<dynamic, dynamic> values=dataSnapshot.value as Map;
       centrosportivo.id = databaseReference.child("centrisportivi/"+key);
-      centrosportivo.nome = dataSnapshot.value["nome"];
-      centrosportivo.numero_di_campi= dataSnapshot.value["numero_di_campi"];
-      centrosportivo.ragione_sociale= dataSnapshot.value["ragione_sociale"];
-      centrosportivo.id_amministratore= dataSnapshot.value["id_amministratore"];
-      centrosportivo.indirizzo=dataSnapshot.value["indirizzo"];
-      String dajson= jsonEncode(dataSnapshot.value["campi"]);
+      centrosportivo.nome = values["nome"];
+      centrosportivo.numero_di_campi= values["numero_di_campi"];
+      centrosportivo.ragione_sociale= values["ragione_sociale"];
+      centrosportivo.id_amministratore= values["id_amministratore"];
+      centrosportivo.indirizzo=values["indirizzo"];
+      String dajson= jsonEncode(values["campi"]);
       List<dynamic> tomap=jsonDecode(dajson);
       tomap.forEach((element) {
         Map<String, dynamic> prova= element;
@@ -113,13 +115,14 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
 
 Future<List<CentroSportivo>> getCentriSportivi() async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('centrisportivi/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('centrisportivi/').once()) as DatabaseEvent;
  late CentroSportivo centrosportivo;
   List<CentroSportivo> centrisportivi=[];
   bool found=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
-    dataSnapshot.value.forEach((key,value) =>{
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+    values.forEach((key,value) =>{
             centrosportivo=new CentroSportivo(),
           centrosportivo.nome=value["nome"],
           centrosportivo.id_amministratore=value["id_amministratore"],
@@ -136,7 +139,7 @@ Future<List<CentroSportivo>> getCentriSportivi() async
     );
     for(int i=0;i<centrisportivi.length;i++)
       {
-        await getCampi(centrisportivi[i].id.key).then((value) =>
+        await getCampi(centrisportivi[i].id.key!).then((value) =>
         {
           for(int k=0;k<centrisportivi.length;k++)
             {

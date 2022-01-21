@@ -32,7 +32,7 @@ class _FormCampoState extends State<FormCampo> {
   Campo campo= Campo();
   List<CentroSportivo>centrisportivi=[];
   late CentroSportivo centrosportivo;
-  late String _idCentro=centrisportivi[0].nome;
+  late String _idCentro=centrisportivi[0].nome!;
   late Map<String,String> mapping=new Map();
 
   @override
@@ -126,9 +126,9 @@ class _FormCampoState extends State<FormCampo> {
                           });
                         },
                         items: centrisportivi.map((e) {
-                          mapping[e.nome]=e.id.key;
+                          mapping[e.nome!]=e.id.key!;
                           return DropdownMenuItem<String>(
-                              child: new Text(e.nome),
+                              child: new Text(e.nome!),
                               value: e.nome,
 
                           );

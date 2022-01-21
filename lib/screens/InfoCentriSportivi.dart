@@ -55,14 +55,20 @@ class _InfoCentriSportiviState extends State<InfoCentriSportivi> {
       appBar: AppBar(
         title: Text("Info Centri Sportivi"),
       ),
-      body:
-          Row(
+        body: ListView.builder(
+            itemCount: centrosportivo.length,
+            itemBuilder: (context,index){
+              return Card(
+                child: ListTile(
 
-          children: <Widget>[
-          Text("Nome centro Sportivo: "+ centroSportivo.nome.toString() + "/"+ "Numero di Campi Centro Sportivo:"+centroSportivo.campi.toString()+ "/"+ "Indirizzo:"+centroSportivo.indirizzo.toString() ),
-    SizedBox(height: 20.0,),
-            ]
-          )
+                  title: Text("Nome centro Sportivo: "+ centroSportivo.nome.toString() + "/"+ "Numero di Campi Centro Sportivo:"+centroSportivo.campi.toString()+ "/"+ "Indirizzo:"+centroSportivo.indirizzo.toString() ),
+                    ),
+                );
+
+            }
+        )
+
+
 
     );
 

@@ -59,13 +59,13 @@ void updateCentroSportivo(CentroSportivo centrosportivo)
 
 Future<List<CentroSportivo>> getCentroSportivoAmm(AmministstratoreCentroSportivo amministratore) async
 {
-  DataSnapshot dataSnapshot = (await databaseReference.child('centrisportivi/').once()) as DataSnapshot;
+  DatabaseEvent dataSnapshot = (await databaseReference.child('centrisportivi/').once()) as DatabaseEvent;
   CentroSportivo centrosportivo;
   List<CentroSportivo> centrisportivi=[];
   bool found=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
-    Map<dynamic, dynamic> values=dataSnapshot.value as Map;
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
     values.forEach((key,value) =>{
       if(value["id_amministratore"] == amministratore.id.key)
         {

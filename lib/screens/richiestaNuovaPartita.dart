@@ -137,7 +137,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       SizedBox(height: 20.0,),
                       ElevatedButton(
                         onPressed: () => _selectTime(context),
-                        child: Text('Seleziona una data'),
+                        child: Text('Seleziona un orario'),
                       ),
                     ],
                   ),
@@ -205,13 +205,13 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                     ],
                   ),
                 ),Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Centro Sprotivo"),
                     Spacer(),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width/1.5,
                       child: DropdownButton<String>(
-                        hint: Text('Scegli un centro sportivo'),
+                        hint: Text('Seleziona sport'),
                         value: _idCentro,
                         onChanged: (value){
                           setState(() {
@@ -231,7 +231,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         }
                         ).toList(),
                       ),
-                    ),
+                    ),/*
                     ElevatedButton(
 
                         onPressed: (){
@@ -243,7 +243,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           ));
                         }
                         , child: Text("Info Centro Sportivo")
-                    )
+                    )*/
                   ],
                 ),/*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),

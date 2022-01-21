@@ -10,6 +10,7 @@ import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 
+import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
 
 
@@ -78,29 +79,31 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Richieste nuova partita"),
+          title: Text("Ricerca partita"),
         ),
 
         body: ListView.builder(
+
             itemCount: partite.length,
             itemBuilder: (context,index){
               return Card(
                 child: ListTile(
-                  /*onTap:()  =>
-                      getPartiteConfermate().then((value) async => {
-                        partite=value,
-                        await Navigator.push(context, MaterialPageRoute(
+                  leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                  onTap:()  =>
+
+                        Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
-                                FormInfoRichiestaNuovaPartita(
-                                    richiestanuovapartita: richiestepartite[index],
-                                    centrosportivo: value,
-                                    amministratore: giocatore)
+                                VisPartitaConfermata(partitaconfermata: partite[index],)
 
                         )),
-                        setState((){getRichiestePartite(acs:giocatore).then((value) =>{ setState((){widget.richiestepartite=value;})});})
-                      }),*/
 
-                  title: Text(partite[index].toString()),
+                  title: Text(partite[index].data),
+                  subtitle: Column(
+                    children: [
+                      Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
+                      Text('Sport:'+partite[index].sport.toString().split(".").last),
+                    ],
+                  ),
                 ),
               );
             }

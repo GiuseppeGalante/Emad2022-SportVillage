@@ -12,7 +12,7 @@ class Giocatore extends Utente
   late int vittorie;
   late int pareggi;
   late int sconfitte;
-  late List<PartitaConfermata> partiteconfermate=[];
+  late List<PartitaConfermata> ?partiteconfermate=[];
 
 
   @override
@@ -67,13 +67,14 @@ DatabaseReference saveGiocatore(Giocatore giocatore)
 }
 
 Future<Giocatore?> getGiocatore(Giocatore gio) async{
-  DataSnapshot dataSnapshot = await databaseReference.child('users/giocatori/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('users/giocatori/').once()) as DatabaseEvent;
   Giocatore giocatore = new Giocatore();
   bool found=false;
   bool complete=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
     {
-      dataSnapshot.value.forEach((key,value) =>{
+      Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+      values.forEach((key,value) =>{
         if((value["nome_utente"] == gio.nome_utente) && (value["password"] == gio.password))
           {
             found=true,
@@ -99,9 +100,9 @@ Future<Giocatore?> getGiocatore(Giocatore gio) async{
       );
       if(found)
         {
-          await getPartiteConfermate(idgioca: giocatore.id.key).then((value) =>
+          await getPartiteConfermate(idgioca: giocatore.id.key!).then((value) =>
           {
-            giocatore.partiteconfermate=value!,
+            giocatore.partiteconfermate=value,
           }
           );
         }

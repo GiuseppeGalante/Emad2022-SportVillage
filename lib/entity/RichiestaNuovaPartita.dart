@@ -58,16 +58,17 @@ DatabaseReference saveRichiestaNuovaPartita(RichiestaNuovaPartita richiesta)
 
 Future<List<RichiestaNuovaPartita>> getRichiestePartite({AmministstratoreCentroSportivo? acs}) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('richiestenuovepartite/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('richiestenuovepartite/').once()) as DatabaseEvent;
   RichiestaNuovaPartita richiestanuovapartita;
   List<RichiestaNuovaPartita> richiestenuovepartite=[];
   bool found=false;
   print("sono nelle richieste");
   if(acs != null)
     {
-      if(dataSnapshot.value != null)
+      if(dataSnapshot.snapshot.value != null)
       {
-        dataSnapshot.value.forEach((key,value) =>{
+        Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+        values.forEach((key,value) =>{
           if(value["id_amministratore"] == acs.id.key)
             {
               richiestanuovapartita = RichiestaNuovaPartita(),

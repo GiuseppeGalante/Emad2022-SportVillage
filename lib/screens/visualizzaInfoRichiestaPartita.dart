@@ -220,18 +220,18 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                           print("Nessun errore");
                                           _formKey.currentState?.save();
                                           PartitaConfermata pc= new PartitaConfermata();
-                                          pc.id_campo = mapping[_idCentro]!.id.key;
+                                          pc.id_campo = mapping[_idCentro]!.id.key!;
                                           pc.numero_di_partecipanti= richiestanuovapartita.numero_di_partecipanti;
                                           pc.orario=richiestanuovapartita.orario;
                                           pc.data=richiestanuovapartita.data;
                                           pc.id_centro_sportivo=centrosportivo.id.key;
-                                          pc.id_amministratore= centrosportivo.id_amministratore;
+                                          pc.id_amministratore= centrosportivo.id_amministratore!;
                                           pc.id_giocatore = richiestanuovapartita.id_giocatore;
                                           pc.metodo_di_pagamento= richiestanuovapartita.metodo_di_pagamento;
                                           pc.sport=richiestanuovapartita.sport;
                                           pc.partecipanti.add(richiestanuovapartita.id_giocatore);
                                           saveNuovaPartitaConfermata(pc);
-                                          deleteRichiestaPartita(richiestanuovapartita.id.key);
+                                          deleteRichiestaPartita(richiestanuovapartita.id.key!);
                                           //centrosportivo.id_amministratore=amministratore.id.key;
                                           //richiestaNuovaPartita.id_giocatore=giocatore.id.key;
                                           //richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
@@ -278,7 +278,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                       ),
                                       ElevatedButton(
                                       onPressed: (){
-                                        deleteRichiestaPartita(richiestanuovapartita.id.key);
+                                        deleteRichiestaPartita(richiestanuovapartita.id.key!);
                                         Navigator.pop(context_alert);
                                         Navigator.pop(context);
                                       }

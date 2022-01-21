@@ -39,13 +39,14 @@ DatabaseReference saveCampoSportivo(Campo campo)
 
 Future<List<Campo>> getCampi(String id) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('campi/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('campi/').once()) as DatabaseEvent;
   Campo campo;
   List<Campo> campi=[];
   bool found=false;
-  if(dataSnapshot.value != null)
+  if(dataSnapshot.snapshot.value != null)
   {
-    dataSnapshot.value.forEach((key,value) =>{
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+    values.forEach((key,value) =>{
       print("eccomi:"+id+":"+value["id_centrosportivo"]),
       if(id == value["id_centrosportivo"])
         {

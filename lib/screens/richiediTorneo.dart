@@ -47,7 +47,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
     // Build a Form widget using the _formKey created above.
 
     //print(centrisportivi);
-    Future<List> dati=getCentriSportivi().then((value) => centrisportivi = value).whenComplete(() => _idCentro = centrisportivi[0].nome);
+    Future<List> dati=getCentriSportivi().then((value) => centrisportivi = value).whenComplete(() => _idCentro = centrisportivi[0].nome!);
 
 
     Giocatore giocatore = widget.giocatore;
@@ -186,14 +186,14 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                    hint: Text('Scegli un centro sportivo'),
                                    onChanged: (value) {
                                      setState(() {
-                                    _idCentro = mapping[value]!.id.key;
-                                    idAdmin=mapping[value]!.id_amministratore;
+                                    _idCentro = mapping[value]!.id.key!;
+                                    idAdmin=mapping[value]!.id_amministratore!;
                                   });
                                 },
                                 items: centrisportivi.map((e) {
-                                  mapping[e.nome] = e;
+                                  mapping[e.nome!] = e;
                                   return DropdownMenuItem<String>(
-                                    child: new Text(e.nome),
+                                    child: new Text(e.nome!),
                                     value: e.nome,
 
                                   );
@@ -298,7 +298,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                 print("Nessun errore");
                                 _formKey.currentState?.save();
                                 richiestaTorneo.id_amministratore=idAdmin;
-                                richiestaTorneo.id_giocatore = giocatore.id.key;
+                                richiestaTorneo.id_giocatore = giocatore.id.key!;
                                 richiestaTorneo.id_centro_sportivo = mapping[_idCentro]!.id.key;
                                 saveRichiestaTorneo(richiestaTorneo);
                                 ScaffoldMessenger.of(context).showSnackBar(

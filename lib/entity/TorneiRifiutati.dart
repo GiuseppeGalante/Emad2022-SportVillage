@@ -50,16 +50,17 @@ DatabaseReference saveTorneoRifiutato(TorneoRifiutato torneo)
 
 Future<List<TorneoRifiutato>> getTorneiRifiutati({AmministstratoreCentroSportivo? acs}) async
 {
-  DataSnapshot dataSnapshot = await databaseReference.child('torneirifiutati/').once();
+  DatabaseEvent dataSnapshot = (await databaseReference.child('torneirifiutati/').once()) as DatabaseEvent;
   TorneoRifiutato richiestatorneo;
   List<TorneoRifiutato> richiestenuovitornei=[];
   bool found=false;
   print("sono nelle richieste");
   if(acs != null)
   {
-    if(dataSnapshot.value != null)
+    if(dataSnapshot.snapshot.value != null)
     {
-      dataSnapshot.value.forEach((key,value) =>{
+      Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+      values.forEach((key,value) =>{
         print(value),
         if(value["id_amministratore"] == acs.id.key)
           {

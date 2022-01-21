@@ -11,19 +11,19 @@ import 'home.dart';
 
 
 // Create a Form widget.
-class InfoCentroSportivo extends StatefulWidget {
-  AmministstratoreCentroSportivo amministratore;
+class InfoCentriSportivi extends StatefulWidget {
+
   //CentroSportivo centroSportivo;
   List<CentroSportivo>centrosportivo=[];
-  InfoCentroSportivo({required this.amministratore, required this.centrosportivo, Key? key}) : super(key: key);
+  InfoCentriSportivi({ required this.centrosportivo, Key? key}) : super(key: key);
   @override
-  _InfoCentroSportivoState createState() => _InfoCentroSportivoState();
+  _InfoCentriSportiviState createState() => _InfoCentriSportiviState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _InfoCentroSportivoState extends State<InfoCentroSportivo> {
+class _InfoCentriSportiviState extends State<InfoCentriSportivi> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -47,26 +47,27 @@ class _InfoCentroSportivoState extends State<InfoCentroSportivo> {
 
 
 
-    AmministstratoreCentroSportivo amministratore=widget.amministratore;
-    List<CentroSportivo>centrosportivo=widget.centrosportivo;
-    print(centrosportivo);
+    List<CentroSportivo>centrosportivo = widget.centrosportivo;
+    CentroSportivo centroSportivo;
+    centroSportivo= getCentroSportivo(centrosportivo.removeLast().toString()) as CentroSportivo;
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Info Centro Sportivo"),
-        ),
+      appBar: AppBar(
+        title: Text("Info Centri Sportivi"),
+      ),
+      body:
+          Row(
 
-        body: ListView.builder(
-            itemCount: centrosportivo.length,
-            itemBuilder: (context,index){
-              return Card(
-                child: ListTile(
+          children: <Widget>[
+          Text("Nome centro Sportivo: "+ centroSportivo.nome.toString() + "/"+ "Numero di Campi Centro Sportivo:"+centroSportivo.campi.toString()+ "/"+ "Indirizzo:"+centroSportivo.indirizzo.toString() ),
+    SizedBox(height: 20.0,),
+            ]
+          )
 
-                  title: Text(centrosportivo[index].toString()),
-                ),
-              );
-            }
-        )
     );
+
+
+
   }
 
 }

@@ -33,6 +33,7 @@ class CentroSportivo{
       "numero_di_campi": numero_di_campi,
       "nome": nome,
       "ragione_sociale": ragione_sociale,
+      "indirizzo": indirizzo,
       "id_centrosportivo":id.key,
       "id_amministratore": id_amministratore,
       "campi": List<dynamic>.from(this.campi.map((x) => x.toJson()))

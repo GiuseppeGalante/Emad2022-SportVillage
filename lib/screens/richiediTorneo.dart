@@ -35,10 +35,11 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
   List<CentroSportivo>centrisportivi = [];
 
   bool late = false;
-  late String _idCentro = "";
-  String idAdmin="";
+   String _idCentro="";
+   String nomeCentro="";
+   String idAdmin="";
   RichiestaTorneo richiestaTorneo = RichiestaTorneo();
-
+  List<CentroSportivo> filtered=[];
 
   late Map<String, CentroSportivo> mapping = new Map();
   @override
@@ -122,6 +123,18 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                             setState(() {
                                               richiestaTorneo.sport =
                                               value!;
+                                              filtered=[];
+                                              for(int i=0;i<centrisportivi.length;i++)
+                                              {
+
+                                                for(int k=0; k<centrisportivi[i].campi.length;k++) {
+                                                  print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
+                                                  if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                                    filtered.add(centrisportivi[i]);
+                                                    _idCentro=filtered[0].nome;
+                                                  }
+                                                }
+                                              }
                                             });
                                           },
                                           validator: (value) {
@@ -186,11 +199,11 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                    hint: Text('Scegli un centro sportivo'),
                                    onChanged: (value) {
                                      setState(() {
-                                    _idCentro = mapping[value]!.id.key;
+                                    nomeCentro = value!;
                                     idAdmin=mapping[value]!.id_amministratore;
                                   });
                                 },
-                                items: centrisportivi.map((e) {
+                                items: filtered.map((e) {
                                   mapping[e.nome] = e;
                                   return DropdownMenuItem<String>(
                                     child: new Text(e.nome),
@@ -256,15 +269,16 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                             ),
 
                                           ],
+
                                         ),
                                       ),
                                     ),
                                   )
                               ),
                             ],
+
                           ),
                         ),
-
                     Padding(
                       padding:EdgeInsets.only(top:10),
                       child:
@@ -273,13 +287,14 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           decoration: InputDecoration(
                             icon: Icon(Icons.groups, color: Colors.white, size: 30.0,
                             ),
-                              labelText: "Inserisci numero di squadre",
+                              labelText: "Inserisci numero di partecipanti",
                             filled: true,
                             fillColor: Colors.white,
                           ),
                           onChanged: (value) =>
                           richiestaTorneo.numero_di_partecipanti =
                               int.parse(value),
+
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return "Campo Obbligatorio";
@@ -299,7 +314,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                 _formKey.currentState?.save();
                                 richiestaTorneo.id_amministratore=idAdmin;
                                 richiestaTorneo.id_giocatore = giocatore.id.key;
-                                richiestaTorneo.id_centro_sportivo = mapping[_idCentro]!.id.key;
+                                richiestaTorneo.id_centro_sportivo =mapping[nomeCentro]!.id.key;
                                 saveRichiestaTorneo(richiestaTorneo);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

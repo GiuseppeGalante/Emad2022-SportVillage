@@ -46,7 +46,7 @@ Future<List<Campo>> getCampi(String id) async
   if(dataSnapshot.value != null)
   {
     dataSnapshot.value.forEach((key,value) =>{
-      print("eccomi:"+id+":"+value["id_centrosportivo"]),
+      //print("eccomi:"+id+":"+value["id_centrosportivo"]),
       if(id == value["id_centrosportivo"])
         {
 

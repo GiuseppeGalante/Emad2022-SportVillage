@@ -71,7 +71,7 @@ Future<List<RichiestaTorneo>> getRichiesteTornei({AmministstratoreCentroSportivo
   RichiestaTorneo richiestatorneo;
   List<RichiestaTorneo> richiestenuovitornei=[];
   bool found=false;
-  print("sono nelle richieste");
+  //print("sono nelle richieste");
   if(acs != null)
   {
     if(dataSnapshot.value != null)
@@ -91,7 +91,7 @@ Future<List<RichiestaTorneo>> getRichiesteTornei({AmministstratoreCentroSportivo
             richiestatorneo.sport= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"]),
             richiestatorneo.id = databaseReference.child('centrisportivi/'+key),
             richiestenuovitornei.add(richiestatorneo),
-            print(richiestenuovitornei)
+            //print(richiestenuovitornei)
           }
       }
       );

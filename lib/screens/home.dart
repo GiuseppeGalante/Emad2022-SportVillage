@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
+import 'package:flutter_app_emad/screens/RicercaTorneo.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
@@ -230,7 +232,15 @@ class _MyHomeGioState extends State<HomeGioState>{
                                         ),
 
                                         onPressed: () {
-
+                                          getTorneiAccettati().then((value) =>
+                                          {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context){
+                                                  return VisualizzaTorneo (tornei: value,giocatore:giocatore);
+                                                }
+                                            ))
+                                          }
+                                          );
 
                                         },
                                         child: const Text('Ricerca  torneo',style: TextStyle(

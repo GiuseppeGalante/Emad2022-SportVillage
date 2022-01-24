@@ -66,14 +66,13 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
   Widget build(BuildContext context) {
     if(giocatore.bio=="")
       giocatore.bio="Nessuna Biografia";
-    return MaterialApp(
-        home:Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text("Profilo"),
           ),
       body: Column(
         children: <Widget>[
-          Container(
+          SafeArea(child: Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -247,6 +246,7 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                 ),
               )
           ),
+          ),
           Container(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 16.0),
@@ -342,7 +342,6 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
             selectedItemColor: Colors.blue,
             onTap: _onItemTapped,
           ),
-    )
     );
   }
 }

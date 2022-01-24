@@ -204,8 +204,8 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                 context: context,
                                 barrierDismissible: false,
                                 builder: (BuildContext context_alert) => AlertDialog(
-                                  title: const Text('Composizione Squadre'),
-                                  content: const Text('Vuoi Procedere alla compilazione delle squadre con relative info?'),
+                                  title: const Text('Richiesta partita'),
+                                  content: const Text('Vuoi confermare la richiesta partita?'),
                                   actions: <Widget>[
                                     ElevatedButton(
                                       onPressed: (){
@@ -254,7 +254,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                             );
 
                           },
-                          child: Text("Accetta Torneo"),
+                          child: Text("Accetta richiesta partita"),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.green),
                             padding: MaterialStateProperty.all(EdgeInsets.all(20)),
@@ -263,14 +263,14 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
 
 
                         Padding(
-                          padding: EdgeInsets.only(left:10),
+                          padding: EdgeInsets.only(left:5),
                           child: ElevatedButton(
                             onPressed: (){
                               showDialog<String>(
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (BuildContext context_alert) => AlertDialog(
-                                    title: const Text('Rifiuta Torneo'),
+                                    title: const Text('Rifiuta richiesta partita'),
                                     content: const Text('Sei sicuro di voler rifiutare la richiesta partita?'),
                                     actions: <Widget>[
                                       ElevatedButton(
@@ -328,7 +328,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                               );
 
                             },
-                            child: Text("Rifiuta Torneo"),
+                            child: Text("Rifiuta richiesta partita"),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(Colors.red),
                               padding: MaterialStateProperty.all(EdgeInsets.all(20)),

@@ -52,23 +52,31 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
         giocatore.partiteconfermate=[];
     return Scaffold(
         appBar: AppBar(
-          title: Text("Richieste nuova partita"),
+          title: Text("Partite confermate"),
         ),
 
         body: ListView.builder(
+
             itemCount: giocatore.partiteconfermate!.length,
             itemBuilder: (context,index){
               return Card(
                 child: ListTile(
-                  /*onTap: () =>
+                  leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                  /*onTap:()  =>
 
-                      getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) =>
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context){
-                                return FormInfoRichiestaNuovaPartita(richiestanuovapartita: richiestepartite[index],centrosportivo:value,amministratore:giocatore);
-                              }
-                          )))*/
-                  title: Text(giocatore.partiteconfermate![index].toString()),
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              VisPartitaConfermata(partitaconfermata: partite[index],)
+
+                      ))*/
+
+                  title: Text(giocatore.partiteconfermate![index].data),
+                  subtitle: Column(
+                    children: [
+                      Text('Numero di partecipanti:'+giocatore.partiteconfermate![index].numero_di_partecipanti.toString()),
+                      Text('Sport:'+giocatore.partiteconfermate![index].sport.toString().split(".").last),
+                    ],
+                  ),
                 ),
               );
             }

@@ -66,6 +66,22 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
               Text(partitaconfermata.data),
               Text(partitaconfermata.orario),
             Text(partitaconfermata.sport.toString()),
+            Expanded(
+                child:SizedBox(
+                  height: 200.0,
+                  child:  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount:partitaconfermata.partecipanti.length,
+                      itemBuilder: (context,index){
+                        return Text(partitaconfermata.partecipanti[index]);
+                      }
+
+                  ),
+                )
+
+
+            ),
 
             Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,17 +89,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                   Column(
                     children:<Widget> [
                       //Text("Team 1"),
-                      Expanded(
-                          child:ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount:partitaconfermata.partecipanti.length,
-                              itemBuilder: (context,index){
-                                return Text(partitaconfermata.partecipanti[index]);
-                              }
 
-                          )
-                      ),
 
                     ],
                   ),

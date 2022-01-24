@@ -48,6 +48,7 @@ DatabaseReference saveTorneoAccettato(TorneoAccettato torneo)
   return id;
 }
 
+/*
 Future<List<TorneoAccettato>> getTorneiAccettati() async
 {
   DatabaseEvent dataSnapshot = (await databaseReference.child('torneiaccettati/').once()) as DatabaseEvent;
@@ -78,6 +79,8 @@ Future<List<TorneoAccettato>> getTorneiAccettati() async
 
   return richiestenuovitornei;
 }
+
+ */
 
 Future<void> deleteRichiestaAccettata(String id_torneo)
 {

@@ -61,6 +61,12 @@ DatabaseReference saveNuovaPartitaConfermata(PartitaConfermata richiesta)
   return id;
 }
 
+void updatePartitaConfermata(PartitaConfermata partita)
+{
+
+  partita.id.update(partita.toJson());
+}
+
 
 Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async{
   DatabaseEvent dataSnapshot = (await databaseReference.child('partiteconfermate/').once()) as DatabaseEvent;

@@ -80,6 +80,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                       onPressed:  () {
                         setState(() {
                           widget.partitaconfermata.partecipanti.add(giocatore.id.key!);
+                          updatePartitaConfermata(widget.partitaconfermata);
                           Navigator.of(ctx).pop();
                         });
                       },
@@ -111,6 +112,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                   onPressed:  () {
                     setState(() {
                       widget.partitaconfermata.partecipanti_trasf.add(giocatore.id.key!);
+                      updatePartitaConfermata(widget.partitaconfermata);
                       Navigator.of(ctx).pop();
                     });
                   },

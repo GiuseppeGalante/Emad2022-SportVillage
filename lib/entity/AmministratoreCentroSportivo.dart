@@ -48,7 +48,7 @@ DatabaseReference saveAmministratoreCS(AmministstratoreCentroSportivo amministra
 
 void updateAmministratoreCS(AmministstratoreCentroSportivo amministratore)
 {
-  print(amministratore.id.key);
+  //print(amministratore.id.key);
   amministratore.id.update(amministratore.toJson());
 }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 
 import 'Campo.dart';
@@ -22,7 +23,7 @@ class PartitaConfermata{
   List<String> partecipanti=[];
   List<String> partecipanti_trasf=[];
   late DatabaseReference id;
-  late Sport sport;
+  late SportClass sport;
   late String id_campo;
 
   @override
@@ -37,7 +38,7 @@ class PartitaConfermata{
       "data": data,
       "orario": orario,
       "numero_di_partecipanti":numero_di_partecipanti,
-      "sport": sport.toString().split('.').last,
+      "sport": sport.sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
       "id_richiesta_partita":id.key,
@@ -78,7 +79,7 @@ Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async
           pc.id_campo=value["id_campo"],
           pc.data=value["data"],
           pc.id=databaseReference.child('partiteconfermate/'+key),
-          pc.sport= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"]),
+          pc.sport= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
           pc.metodo_di_pagamento = value["metodo_di_pagamento"],
           pc.id_giocatore=value["id_giocatore"],
           pc.id_amministratore=value["id_amministratore"],
@@ -87,7 +88,7 @@ Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async
           pc.numero_di_partecipanti=value["numero_di_partecipanti"],
           dajson= jsonEncode(value["partecipanti"]),
           tomap=jsonDecode(dajson),
-          print(value["partecipanti"]),
+          //(value["partecipanti"]),
           tomap.forEach((element) {
           String prova= element;
             pc.partecipanti.add(prova);
@@ -95,12 +96,12 @@ Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async
           if(value["id_giocatore"] == idgioca)
             {
               found=true,
-              print("Partita confermata da classe:"+pc.toString()),
+              //print("Partita confermata da classe:"+pc.toString()),
               partiteConfermate.add(pc),
             },
           dajson= jsonEncode(value["partecipanti_trasf"]),
           tomap=jsonDecode(dajson),
-          print(value["partecipanti_trasf"]),
+          //print(value["partecipanti_trasf"]),
           if(tomap != null)
             {
               tomap.forEach((element) {

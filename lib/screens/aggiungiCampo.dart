@@ -3,6 +3,7 @@ import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
@@ -76,7 +77,7 @@ class _FormCampoState extends State<FormCampo> {
                                   hint: Text("Scegli Sport"),
                                   onChanged: (value){
                                     setState(() {
-                                      campo.tipo=value!;
+                                      campo.tipo=SportClass(value!);
                                     });
                                   },
                                   validator: (value){
@@ -85,7 +86,7 @@ class _FormCampoState extends State<FormCampo> {
                                       return "Campo obbligatorio";
                                     }
                                   },
-                                  onSaved: (value) => campo.tipo=value!,
+                                  onSaved: (value) => campo.tipo=new SportClass(value!),
                                   items: [
                                     DropdownMenuItem<Sport>(
                                       child: Text("Calcio",style: TextStyle(color:Colors.black54),),

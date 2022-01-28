@@ -16,20 +16,20 @@ import 'home.dart';
 
 
 // Create a Form widget.
-class VisRicercaPartita extends StatefulWidget {
+class VisInfoGiocatore extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
   List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
-  VisRicercaPartita({required this.giocatore, Key? key}) : super(key: key);
+  VisInfoGiocatore({required this.giocatore, Key? key}) : super(key: key);
   @override
-  _VisRicercaPartitaState createState() => _VisRicercaPartitaState();
+  _VisInfoGiocatoreState createState() => _VisInfoGiocatoreState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _VisRicercaPartitaState extends State<VisRicercaPartita> {
+class _VisInfoGiocatoreState extends State<VisInfoGiocatore> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -54,27 +54,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
 
     Giocatore giocatore=widget.giocatore;
-    List<PartitaConfermata> partite=widget.partite;
-    if(giocatore.partiteconfermate== null)
-      giocatore.partiteconfermate=[];
-    bool find=widget.find;
-    if(find)
-      {
-        getPartiteConfermate().then((value) =>
-        {
-          if(value != null)
-            {
-              partite=value,
-              for(var i=0;i<partite.length;i++)
-                for(var k=0;k<giocatore.partiteconfermate!.length;k++)
-                  if(partite[i].id.key==giocatore.partiteconfermate![k].id.key)
-                    partite.remove(partite[i])
-            },
 
-          setState((){widget.find=false;widget.partite=partite;})
-
-        });
-      }
 
 
     return Scaffold(
@@ -82,32 +62,21 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
           title: Text("Ricerca partita"),
         ),
 
-        body: ListView.builder(
-
-            itemCount: partite.length,
-            itemBuilder: (context,index){
-              return Card(
+        body: Card(
                 child: ListTile(
                   leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
-                  onTap:()  =>
 
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                VisPartitaConfermata(partitaconfermata: partite[index],giocatore: giocatore,)
-
-                        )),
-
-                  title: Text(partite[index].data),
+                  title: Text(giocatore.nome),
                   subtitle: Column(
                     children: [
-                      Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                      Text('Sport:'+partite[index].sport.toString().split(".").last),
+                      Text('Cognome:'+giocatore.cognome),
+                      Text('To String:'+giocatore.toString()),
                     ],
                   ),
                 ),
-              );
-            }
-        )
+              )
+
+
     );
   }
 }

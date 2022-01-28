@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -105,7 +106,7 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
           tomap.forEach((element) {
             Map<String, dynamic> prova= element;
             Campo campo=new Campo();
-            campo.tipo= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + prova["tipo"]);
+            campo.tipo= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + prova["tipo"]));
             campo.id_centro_sportivo=prova["id_centrosportivo"];
             campo.id = databaseReference.child("campi/"+prova["id_campo"]);
             campo.nome = prova["nome"];

@@ -3,6 +3,7 @@ import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
@@ -46,6 +47,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
   String idAdmin="";
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
+  List<int> partecipanti=[];
+  int? n_partecipanti=null;
 
 
   Future<void> _selectDate(BuildContext context) async {
@@ -209,14 +212,16 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                   hint: Text("Scegli Sport"),
                                   onChanged: (value){
                                     setState(() {
-                                      richiestaNuovaPartita.sport=value!;
+                                      richiestaNuovaPartita.sport=new SportClass(value!);
                                       filtered=[];
+                                      n_partecipanti=richiestaNuovaPartita.sport.partecipanti.first;
+                                      partecipanti=richiestaNuovaPartita.sport.partecipanti;
                                       for(int i=0;i<centrisportivi.length;i++)
                                         {
 
                                           for(int k=0; k<centrisportivi[i].campi.length;k++) {
-                                            print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
-                                            if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                            print(centrisportivi[i].campi[k].tipo.sport.toString()+":"+value.toString());
+                                            if(centrisportivi[i].campi[k].tipo.sport.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
                                               filtered.add(centrisportivi[i]);
                                               _idCentro=filtered[0].nome!;
                                             }
@@ -225,12 +230,12 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                     });
                                   },
                                   validator: (value){
-                                    if(value?.index==null)
+                                    if(value==null)
                                     {
                                       return "Campo obbligatorio";
                                     }
                                   },
-                                  onSaved: (value) => richiestaNuovaPartita.sport=value!,
+                                  onSaved: (value) => richiestaNuovaPartita.sport=new SportClass(value!),
                                   items: [
                                     DropdownMenuItem<Sport>(
                                       child: Text("Calcio",style: TextStyle(color:Colors.black54),),
@@ -333,28 +338,26 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       return "Campo Obbligatorio";
                     }
                   },
-                ),*/TextFormField(
+                ),*/
 
-          decoration: InputDecoration(
-            icon: Icon(Icons.people, color: Colors.white, size: 30.0,
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey,style: BorderStyle.solid,width: 1.0),
-            ),
-            /*focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black,style: BorderStyle.solid,width: 1.0),
-                            ),*/
-            labelText: "Inserisci numero di partecipanti",
-            filled: true,
-            fillColor: Colors.white,
-          ),
-                  onChanged: (value) => richiestaNuovaPartita.numero_di_partecipanti=int.parse(value),
-                  validator: (value){
-                    if(value?.isEmpty ?? true)
-                    {
-                      return "Campo Obbligatorio";
-                    }
-                  },
+                DropdownButton<int>(
+                  hint: Text('Seleziona numero di partecipanti'),
+                    value: n_partecipanti,
+                    onChanged: (value){
+                      setState(() {
+                        richiestaNuovaPartita.numero_di_partecipanti=value!;
+                        n_partecipanti=value;
+                      });
+                    },
+                  items: partecipanti.map((e)
+                      {
+                        return DropdownMenuItem<int>(
+                          child: new Text(e.toString()),
+                          value: e,
+                        );
+                      }
+
+                  ) .toList(),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
@@ -369,6 +372,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         richiestaNuovaPartita.id_giocatore=giocatore.id.key!;
                         richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
                         richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!;
+
                         saveRichiestaNuovaPartita(richiestaNuovaPartita);
                         //amministratore.centrisportivi.add(centrosportivo);
                         //updateAmministratoreCS(amministratore);

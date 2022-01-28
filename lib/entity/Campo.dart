@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 import 'RichiestaNuovaPartita.dart';
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -7,7 +8,7 @@ class Campo
 {
   late DatabaseReference id;
   String nome="";
-  late Sport tipo;
+  late SportClass tipo;
   String? id_centro_sportivo="";
 
 
@@ -16,7 +17,7 @@ class Campo
     return {
 
       "nome": nome,
-      "tipo": tipo.toString().split('.').last,
+      "tipo": tipo.sport.toString().split('.').last,
         "id_campo":id.key,
         "id_centrosportivo": id_centro_sportivo
     };
@@ -54,7 +55,7 @@ Future<List<Campo>> getCampi(String id) async
           campo = new Campo(),
           campo.nome=value["nome"],
           campo.id_centro_sportivo=value["id_centrosportivo"],
-          campo.tipo= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["tipo"]),
+          campo.tipo= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["tipo"])),
           campo.id = databaseReference.child('campi/'+key),
           print(campo),
           campi.add(campo)

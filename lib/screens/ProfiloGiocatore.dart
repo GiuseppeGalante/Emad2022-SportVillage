@@ -1,9 +1,38 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/DettaglioGiocatore.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+import 'package:flutter_app_emad/widgets/top_container.dart';
+import 'package:flutter_app_emad/widgets/task_column.dart';
+import 'package:flutter_app_emad/widgets/task_container.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:flutter_app_emad/widgets/active_project_card.dart';
 
 class ProfiloGio extends StatelessWidget {
+  Text subheading(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+          color: LightColors.kDarkBlue,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 1.2),
+    );
+  }
+  static CircleAvatar calendarIcon() {
+    return CircleAvatar(
+      radius: 25.0,
+      backgroundColor: LightColors.kGreen,
+      child: Icon(
+        Icons.calendar_today,
+        size: 20.0,
+        color: Colors.white,
+      ),
+    );
+  }
 
   const ProfiloGio({required this.title,required this.giocatore,Key? key}) : super(key: key);
   final Giocatore giocatore;
@@ -66,282 +95,189 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
   Widget build(BuildContext context) {
     if(giocatore.bio=="")
       giocatore.bio="Nessuna Biografia";
-    return Scaffold(
-          appBar: AppBar(
-            title: Text("Profilo"),
-          ),
-      body: Column(
-        children: <Widget>[
-          SafeArea(child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color.fromRGBO(198, 170, 255, 1), Color.fromRGBO(14, 209, 69, 1)]
-                  )
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 420.0,
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                      padding:EdgeInsets.only(top:10),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://www.corriere.it/methode_image/2020/12/07/Salute/Foto%20Salute%20-%20Trattate/furetto-kyJF-U32302148665584UE-656x492@Corriere-Web-Sezioni.jpg",
-                        ),
-                        radius: 50.0,
-                      ),
-              ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        giocatore.nome+" "+giocatore.cognome,
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Card(
-                        margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                        clipBehavior: Clip.antiAlias,
-                        color: Colors.white,
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 22.0),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-
-                                  children: <Widget>[
-                                    Text(
-                                      "Vittorie",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      giocatore.vittorie.toString(),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.lightBlueAccent,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-
-                                  children: <Widget>[
-                                    Text(
-                                      "Pareggi",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      giocatore.pareggi.toString(),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.lightBlueAccent,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-
-                                  children: <Widget>[
-                                    Text(
-                                      "Sconfitte",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      giocatore.sconfitte.toString(),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.lightBlueAccent,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Card(
-                        margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                        clipBehavior: Clip.antiAlias,
-                        color: Colors.white,
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 22.0),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-
-                                  children: <Widget>[
-                                    Text(
-                                      "Valutazione",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        for(int i=0;i<4;i++)
-                                                 star[i]
-                                      ],
-                                    )
-                                      ],
-                                    )
+    double width = MediaQuery.of(context).size.width;
+    var bottomNavigationBar;
 
 
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-
-                    ],
-                  ),
-                ),
-              )
-          ),
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 16.0),
+    return MaterialApp(
+        home:Scaffold(
+          backgroundColor: LightColors.kLightYellow,
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+            TopContainer(
+              height: 200,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Bio:",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 28.0
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                              Icon(Icons.menu,
+                                  color: LightColors.kDarkBlue, size: 30.0),
+                              Icon(Icons.search,
+                                  color: LightColors.kDarkBlue, size: 25.0),
+                          ],
+                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 0, vertical: 0.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                        CircularPercentIndicator(
+                          radius: 60.0,
+                          lineWidth: 3.0,
+                          animation: true,
+                          percent: 0.75,
+                          circularStrokeCap: CircularStrokeCap.round,
+                          progressColor: LightColors.kRed,
+                          backgroundColor: LightColors.kDarkYellow,
+                          center: CircleAvatar(
+                            backgroundColor: LightColors.kBlue,
+                            radius: 20.0,
+                            backgroundImage: AssetImage(
+                                'assets/images/avatar.png',
+                            ),
+                          ),
+                        ),
+                        Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              giocatore.nome+ ' '+giocatore.cognome ,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 40.0,
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              'Username:  '+giocatore.nome_utente,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w400,
+                               ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    giocatore.bio.toString(),
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                      letterSpacing: 2.0,
+                )
+            ]),
+          ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                children: <Widget>[
+                  Container(
+                  color: Colors.transparent,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+                    child: Column(
+                    children: <Widget>[
+                      Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                      Text('Il mio Profilo',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 40.0),
+                      TaskColumn(
+                      icon: Icons.alarm,
+                      iconBackgroundColor: LightColors.kRed,
+                      title: 'Partite prenotate',
+                      subtitle: giocatore.partiteconfermate.toString() ,
+                    ),
+                      SizedBox(height: 40.0,),
+                      TaskColumn(
+                      icon: Icons.blur_circular,
+                      iconBackgroundColor: LightColors.kDarkYellow,
+                      title: 'Partite giocate',
+                      subtitle: 'vittorie '+giocatore.vittorie.toString()+' '+'sconfitte  '+giocatore.sconfitte.toString()+'  pareggi '+giocatore.pareggi.toString(),
+                    ),
+                      SizedBox(height: 40.0),
+                      TaskColumn(
+                        icon: Icons.check_circle_outline,
+                        iconBackgroundColor: LightColors.kBlue,
+                        title: 'Bio Giocatore',
+                        subtitle:giocatore.bio.toString(),
+                      ),
+                    ],
+                    ),
+                  ), Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Le mie skill'
+                        ),
+                        SizedBox(height: 2.0),
+                        Row(
+                          children: <Widget>[
+                            ActiveProjectsCard(
+                              cardColor: LightColors.kGreen,
+                              loadingPercent: 0.7,
+                              title: 'Partite vinte',
+                              subtitle: '',
+                                    ),
+                            SizedBox(width: 10.0),
+                            ActiveProjectsCard(
+                              cardColor: LightColors.kRed,
+                              loadingPercent: 0.1,
+                              title: 'Partite con pareggi',
+                              subtitle: '',
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            ActiveProjectsCard(
+                              cardColor: LightColors.kDarkYellow,
+                              loadingPercent: 0.2,
+                              title: 'Partite Perse',
+                              subtitle: '',
+                            ),
+                            SizedBox(width: 10.0),
+                            ActiveProjectsCard(
+                              cardColor: LightColors.kBlue,
+                              loadingPercent: 0.3,
+                              title: 'Gol Fatti ',
+                              subtitle: '',
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Container(
-            width: 300.00,
-
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0),
-                  ),
                 ),
-                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
-                elevation: MaterialStateProperty.all<double>(0),
               ),
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        return DettaglioGio(giocatore:giocatore);
-                      }
-                  ));
-                },
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        colors: [Colors.blue,Colors.lightBlueAccent]
-                    ),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text("Altro",
-                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight:FontWeight.w300),
-                    ),
-                  ),
-                )
             ),
-          ),
-        ],
-      ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Ricerca Partita',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profilo',
-              ),
             ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.blue,
-            onTap: _onItemTapped,
           ),
+        ),
+        ),
     );
   }
 }

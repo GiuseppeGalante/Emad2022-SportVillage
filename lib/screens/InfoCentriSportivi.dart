@@ -15,7 +15,7 @@ class InfoCentriSportivi extends StatefulWidget {
 
   //CentroSportivo centroSportivo;
   List<CentroSportivo>centrosportivo=[];
-  InfoCentriSportivi({ required this.centrosportivo, Key? key}) : super(key: key);
+  InfoCentriSportivi({ Key? key}) : super(key: key);
   @override
   _InfoCentriSportiviState createState() => _InfoCentriSportiviState();
 

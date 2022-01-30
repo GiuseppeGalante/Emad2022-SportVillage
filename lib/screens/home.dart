@@ -8,6 +8,8 @@ import 'package:flutter_app_emad/screens/ricercaPartita.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
+import 'package:flutter_app_emad/screens/InfoCentriSportivi.dart';
+import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 
 // annarosa
 // Create a Form widget.
@@ -34,6 +36,7 @@ class HomeGioState extends StatefulWidget
   var title;
   final Giocatore giocatore;
 
+
   HomeGioState({Key? key, required this.title, required this.giocatore}) : super(key: key);
   @override
   State<HomeGioState> createState() => _MyHomeGioState(title: title,giocatore: giocatore);
@@ -43,6 +46,7 @@ class HomeGioState extends StatefulWidget
 // This class holds data related to the form.
 class _MyHomeGioState extends State<HomeGioState>{
   int _selectedIndex = 0;
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -196,7 +200,33 @@ class _MyHomeGioState extends State<HomeGioState>{
                                   size:90,
                                   color: Colors.white,),
                               ),
+                              Row(
+                                  children: [
 
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          fixedSize: Size.fromWidth(270),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return InfoCentriSportivi ();
+                                              }
+                                          ));
+                                        },
+                                        child: const Text('Info Centri Sportivi',style: TextStyle(
+                                          color:Colors.blue,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
                               Row(
                                   children: [
 

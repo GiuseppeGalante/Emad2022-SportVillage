@@ -1,16 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 final databaseReference= FirebaseDatabase.instance.reference();
 
 
-enum Sport{
-  calcio,
-  pallavolo,
-  padel,
-  tennis,
-  pingpong,
-}
 
 
 class RichiestaNuovaPartita
@@ -23,7 +17,7 @@ class RichiestaNuovaPartita
   String id_giocatore="";
   String id_amministratore="";
   late DatabaseReference id;
-  late Sport sport;
+  late SportClass sport;
 
 
   Map<String, dynamic> toJson({bool hide=false})
@@ -33,7 +27,7 @@ class RichiestaNuovaPartita
       "data": data,
       "orario": orario,
       "numero_di_partecipanti":numero_di_partecipanti,
-      "sport": sport.toString().split('.').last,
+      "sport": sport.sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
       "id_richiesta_partita":id.key,
@@ -78,7 +72,7 @@ Future<List<RichiestaNuovaPartita>> getRichiestePartite({AmministstratoreCentroS
               richiestanuovapartita.id_giocatore=value["id_giocatore"],
               richiestanuovapartita.numero_di_partecipanti=value["numero_di_partecipanti"],
               richiestanuovapartita.orario=value["orario"],
-              richiestanuovapartita.sport= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"]),
+              richiestanuovapartita.sport= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
               richiestanuovapartita.id = databaseReference.child('centrisportivi/'+key),
               richiestenuovepartite.add(richiestanuovapartita),
               print(richiestanuovapartita)

@@ -93,7 +93,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
-                                VisPartitaConfermata(partitaconfermata: partite[index],)
+                                VisPartitaConfermata(partitaconfermata: partite[index],giocatore: giocatore,)
 
                         )),
 

@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -90,8 +91,8 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
   CentroSportivo centrosportivo=CentroSportivo();
   if(key != null)
     {
-      DataSnapshot dataSnapshot = (await databaseReference.child('centrisportivi/'+key).once()) as DataSnapshot;
-      Map<dynamic, dynamic> values=dataSnapshot.value as Map;
+      DatabaseEvent dataSnapshot = (await databaseReference.child('centrisportivi/'+key).once()) as DatabaseEvent;
+      Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
       centrosportivo.id = databaseReference.child("centrisportivi/"+key);
       centrosportivo.nome = values["nome"];
       centrosportivo.numero_di_campi= values["numero_di_campi"];
@@ -100,15 +101,19 @@ Future<CentroSportivo> getCentroSportivo(String? key) async
       centrosportivo.indirizzo=values["indirizzo"];
       String dajson= jsonEncode(values["campi"]);
       List<dynamic> tomap=jsonDecode(dajson);
-      tomap.forEach((element) {
-        Map<String, dynamic> prova= element;
-        Campo campo=new Campo();
-        campo.tipo= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + prova["tipo"]);
-        campo.id_centro_sportivo=prova["id_centrosportivo"];
-        campo.id = databaseReference.child("campi/"+prova["id_campo"]);
-        campo.nome = prova["nome"];
-        centrosportivo.campi.add(campo);
-      });
+      if(tomap != null)
+        {
+          tomap.forEach((element) {
+            Map<String, dynamic> prova= element;
+            Campo campo=new Campo();
+            campo.tipo= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + prova["tipo"]));
+            campo.id_centro_sportivo=prova["id_centrosportivo"];
+            campo.id = databaseReference.child("campi/"+prova["id_campo"]);
+            campo.nome = prova["nome"];
+            centrosportivo.campi.add(campo);
+          });
+        }
+
     }
   return centrosportivo;
 }

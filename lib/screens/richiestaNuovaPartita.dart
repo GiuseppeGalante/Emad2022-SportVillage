@@ -3,6 +3,7 @@ import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
@@ -46,6 +47,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
   String idAdmin="";
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
+  List<int> partecipanti=[];
+  int? n_partecipanti=null;
 
 
   Future<void> _selectDate(BuildContext context) async {
@@ -97,15 +100,31 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
     //print("id giocatore bl:"+giocatore.toString());
     print("i filtered:"+filtered.toString());
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text("Registrazione"),
+        title: Text("Richiedi nuova partita"),
       ),
       body: Form(
+
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.all(16),
             child: ListView(
               children: <Widget>[
+                Container(
+
+                  child:Text("RICHIESTA NUOVA PARTITA",
+
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+
+                ),
+                SizedBox(height: 30.0,),
+                //Image.asset("assets/images/logo.png"),
                 /*TextFormField(
                   decoration: InputDecoration(labelText: "Seleziona data"),
                   onChanged: (value) => richiestaNuovaPartita.data=value,
@@ -117,35 +136,71 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                   },
                 ),*/
                 Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Row(
+                    //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString()),
-                      SizedBox(height: 20.0,),
+
+
+                      SizedBox(width: 40.0,),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                        ),
                         onPressed: () => _selectDate(context),
-                        child: Text('Seleziona una data'),
+                        child: Icon(
+                          Icons.date_range ,
+                          color: Colors.blue,
+                          size: 24.0,
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
-                      SizedBox(height: 20.0,),
+                      SizedBox(width: 20.0,),
+                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString()),
+                      SizedBox(width: 40.0,),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                        ),
                         onPressed: () => _selectTime(context),
-                        child: Text('Seleziona un orario'),
+                        child: Icon(
+                          Icons.access_time_rounded ,
+                          color: Colors.blue,
+                          size: 24.0,
+                        ),
                       ),
+                      SizedBox(width: 20.0,),
+                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
                     ],
                   ),
                 ),
+               /* Center(
+                  child: Row(
+                    //mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+
+                      SizedBox(width: 40.0,),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                        ),
+                        onPressed: () => _selectTime(context),
+                        child: Icon(
+                          Icons.access_time_rounded ,
+                          color: Colors.blue,
+                          size: 24.0,
+                        ),
+                      ),
+                      SizedBox(width: 50.0,),
+                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
+
+                    ],
+                  ),
+                ),*/
                 Padding(
                   padding:EdgeInsets.only(top:10),
                   child: Row(
                     children: <Widget>[
+                      Icon(Icons.emoji_events, color: Colors.white, size: 30.0,),
+                      SizedBox(width: 10),
                       Padding(padding:EdgeInsets.only(bottom:20),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width-78,
@@ -157,14 +212,16 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                   hint: Text("Scegli Sport"),
                                   onChanged: (value){
                                     setState(() {
-                                      richiestaNuovaPartita.sport=value!;
+                                      richiestaNuovaPartita.sport=new SportClass(value!);
                                       filtered=[];
+                                      n_partecipanti=richiestaNuovaPartita.sport.partecipanti.first;
+                                      partecipanti=richiestaNuovaPartita.sport.partecipanti;
                                       for(int i=0;i<centrisportivi.length;i++)
                                         {
 
                                           for(int k=0; k<centrisportivi[i].campi.length;k++) {
-                                            print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
-                                            if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                            print(centrisportivi[i].campi[k].tipo.sport.toString()+":"+value.toString());
+                                            if(centrisportivi[i].campi[k].tipo.sport.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
                                               filtered.add(centrisportivi[i]);
                                               _idCentro=filtered[0].nome!;
                                             }
@@ -173,12 +230,12 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                     });
                                   },
                                   validator: (value){
-                                    if(value?.index==null)
+                                    if(value==null)
                                     {
                                       return "Campo obbligatorio";
                                     }
                                   },
-                                  onSaved: (value) => richiestaNuovaPartita.sport=value!,
+                                  onSaved: (value) => richiestaNuovaPartita.sport=new SportClass(value!),
                                   items: [
                                     DropdownMenuItem<Sport>(
                                       child: Text("Calcio",style: TextStyle(color:Colors.black54),),
@@ -204,34 +261,51 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       ),
                     ],
                   ),
-                ),Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Centro Sprotivo"),
-                    Spacer(),
-                    SizedBox(
-                      child: DropdownButton<String>(
-                        hint: Text('Seleziona sport'),
-                        value: _idCentro,
-                        onChanged: (value){
-                          setState(() {
-                            _idCentro=value!;
+                ),
+                Row(
 
-                          });
-                        },
-                        items: filtered.map((e) {
-                          mapping[e.nome!]=e;
-                          //print(e);
-                          return DropdownMenuItem<String>(
-                            child: new Text(e.nome!),
-                            value: e.nome,
+                  children: [
+                    Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                    SizedBox(width: 20),
+                    Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.elliptical(5,5))
+                        ),
+                        margin:  const EdgeInsets.only(bottom: 20.0),
+                        //color: Colors.white,
+                        child:Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            SizedBox(width: 10),
+                            Text("Centro Sprotivo"),
+                            SizedBox(width: 30),
+                            SizedBox(
+                              child: DropdownButton<String>(
+                                hint: Text('Seleziona sport'),
+                                value: _idCentro,
+                                onChanged: (value){
+                                  setState(() {
+                                    _idCentro=value!;
 
-                          );
+                                  });
+                                },
+                                items: filtered.map((e) {
+                                  mapping[e.nome!]=e;
+                                  //print(e);
+                                  return DropdownMenuItem<String>(
+                                    child: new Text(e.nome!),
+                                    value: e.nome,
 
-                        }
-                        ).toList(),
-                      ),
-                    ),/*
+                                  );
+
+                                }
+                                ).toList(),
+                              ),
+                            ),/*
                     ElevatedButton(
 
                         onPressed: (){
@@ -243,10 +317,18 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           ));
                         }
                         , child: Text("Info Centro Sportivo")
-                    )*/
-                  ],
+                    )*/SizedBox(width: 20),
+                          ],
 
-                ),
+                        )
+
+                    )
+                  ],
+                )
+
+
+
+                ,
                 /*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),
                   onChanged: (value) => richiestaNuovaPartita.orario=value,
@@ -256,16 +338,32 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       return "Campo Obbligatorio";
                     }
                   },
-                ),*/TextFormField(
-                  decoration: InputDecoration(labelText: "Inserisci numero di partecipanti"),
-                  onChanged: (value) => richiestaNuovaPartita.numero_di_partecipanti=int.parse(value),
-                  validator: (value){
-                    if(value?.isEmpty ?? true)
-                    {
-                      return "Campo Obbligatorio";
-                    }
-                  },
-                ),ElevatedButton(
+                ),*/
+
+                DropdownButton<int>(
+                  hint: Text('Seleziona numero di partecipanti'),
+                    value: n_partecipanti,
+                    onChanged: (value){
+                      setState(() {
+                        richiestaNuovaPartita.numero_di_partecipanti=value!;
+                        n_partecipanti=value;
+                      });
+                    },
+                  items: partecipanti.map((e)
+                      {
+                        return DropdownMenuItem<int>(
+                          child: new Text(e.toString()),
+                          value: e,
+                        );
+                      }
+
+                  ) .toList(),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                    ),
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         print("Nessun errore");
@@ -274,6 +372,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         richiestaNuovaPartita.id_giocatore=giocatore.id.key!;
                         richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
                         richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!;
+
                         saveRichiestaNuovaPartita(richiestaNuovaPartita);
                         //amministratore.centrisportivi.add(centrosportivo);
                         //updateAmministratoreCS(amministratore);
@@ -288,7 +387,10 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       }
 
                     }
-                    , child: Text("Registra centro sportivo")
+                    , child: Text("Richiedi nuova partita",
+                    style: TextStyle(
+                    color: Colors.blue,
+                    )),
                 )
               ],
             ),

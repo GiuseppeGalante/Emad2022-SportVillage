@@ -1,29 +1,35 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 
+import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
 
 
 
 // Create a Form widget.
-class VisualizzaPartiteConfermate extends StatefulWidget {
+class VisInfoGiocatore extends StatefulWidget {
   Giocatore giocatore;
+  bool find=true;
+  List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
-  VisualizzaPartiteConfermate({required this.giocatore, Key? key}) : super(key: key);
+  VisInfoGiocatore({required this.giocatore, Key? key}) : super(key: key);
   @override
-  _VisualizzaPartiteConfermateState createState() => _VisualizzaPartiteConfermateState();
+  _VisInfoGiocatoreState createState() => _VisInfoGiocatoreState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermate> {
+class _VisInfoGiocatoreState extends State<VisInfoGiocatore> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -48,41 +54,34 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
 
     Giocatore giocatore=widget.giocatore;
-    if(giocatore.partiteconfermate== null)
-        giocatore.partiteconfermate=[];
+
+
+
     return Scaffold(
         appBar: AppBar(
-          title: Text("Partite confermate"),
+          title: Text("Ricerca partita"),
         ),
 
-        body: ListView.builder(
-
-            itemCount: giocatore.partiteconfermate!.length,
-            itemBuilder: (context,index){
-              return Card(
+        body: Card(
                 child: ListTile(
                   leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
-                  /*onTap:()  =>
 
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) =>
-                              VisPartitaConfermata(partitaconfermata: partite[index],)
-
-                      ))*/
-
-                  title: Text(giocatore.partiteconfermate![index].data),
+                  title: Text(giocatore.nome),
                   subtitle: Column(
                     children: [
-                      Text('Numero di partecipanti:'+giocatore.partiteconfermate![index].numero_di_partecipanti.toString()),
-                      Text('Sport:'+giocatore.partiteconfermate![index].sport.toString().split(".").last),
+                      Text('Cognome:'+giocatore.cognome),
+                      Text('To String:'+giocatore.toString()),
                     ],
                   ),
                 ),
-              );
-            }
-        )
+              )
+
+
     );
   }
-
 }
+
+
+
+
 

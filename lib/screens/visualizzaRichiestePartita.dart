@@ -64,22 +64,30 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
           itemBuilder: (context,index){
         return Card(
           child: ListTile(
-            onTap:() async =>
+            leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+              onTap:() async =>
 
-                getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) async =>
-                {
-                  await Navigator.push(context, MaterialPageRoute(
-                      builder: (context) =>
-                          FormInfoRichiestaNuovaPartita(
-                              richiestanuovapartita: richiestepartite[index],
-                              centrosportivo: value,
-                              amministratore: amministratore)
+                  getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) async =>
+                  {
+                    await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            FormInfoRichiestaNuovaPartita(
+                                richiestanuovapartita: richiestepartite[index],
+                                centrosportivo: value,
+                                amministratore: amministratore)
 
-                  )),
-                  setState((){getRichiestePartite(acs:amministratore).then((value) =>{ setState((){widget.richiestepartite=value;})});})
-                }
-                ),
-            title: Text(richiestepartite[index].toString()),
+                    )),
+                    setState((){getRichiestePartite(acs:amministratore).then((value) =>{ setState((){widget.richiestepartite=value;})});})
+                  }
+                  ),
+
+            title: Text(richiestepartite[index].data),
+            subtitle: Column(
+              children: [
+                Text('Numero di partecipanti:'+richiestepartite[index].numero_di_partecipanti.toString()),
+                Text('Sport:'+richiestepartite[index].sport.toString().split(".").last),
+              ],
+            ),
           ),
         );
       }

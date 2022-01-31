@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/DettaglioGiocatore.dart';
+import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:flutter_app_emad/widgets/top_container.dart';
 import 'package:flutter_app_emad/widgets/task_column.dart';
@@ -201,12 +202,22 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                       ],
                     ),
                     SizedBox(height: 40.0),
-                      TaskColumn(
-                      icon: Icons.alarm,
-                      iconBackgroundColor: LightColors.kRed,
-                      title: 'Partite prenotate',
-                      subtitle: giocatore.partiteconfermate.toString() ,
-                    ),
+                      GestureDetector(
+                        onTap: ()  {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context){
+                                return VisualizzaPartiteConfermate (giocatore:giocatore);
+                              }
+                          ));
+                        },
+                        child: TaskColumn(
+                          icon: Icons.alarm,
+                          iconBackgroundColor: LightColors.kRed,
+                          title: 'Partite prenotate',
+                          subtitle: giocatore.partiteconfermate!.length.toString() ,
+                        ),
+                      )
+                      ,
                       SizedBox(height: 40.0,),
                       TaskColumn(
                       icon: Icons.blur_circular,

@@ -104,7 +104,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             )),
-                            subtitle: Text(torneo.sport.toString().split(".").last,style: TextStyle(
+                            subtitle: Text(torneo.sport.sport.toString().split(".").last,style: TextStyle(
                               fontSize: 22.0,
                               color: Colors.lightBlueAccent,
                               fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                                 torneoaccettato.id_amministratore=torneo.id_amministratore;
                                                 torneoaccettato.numero_di_partecipanti=torneo.numero_di_partecipanti;
                                                 torneoaccettato.nome=torneo.nome;
-                                                torneoaccettato.sport=torneo.sport.toString();
+                                                torneoaccettato.sport=torneo.sport;
                                                 torneoaccettato.modalita=torneo.modalita.toString();
                                                 torneoaccettato.id_giocatore=torneo.id_giocatore;
 
@@ -284,7 +284,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
 
 
 
-                                                        saveTorneoRifiutato(torneorif);
+                                                        //saveTorneoRifiutato(torneorif);
                                                         deleteTorneoRifiutato(torneo.id_richiesta_torneo);
                                                         ScaffoldMessenger.of(context).showSnackBar(
                                                           SnackBar(

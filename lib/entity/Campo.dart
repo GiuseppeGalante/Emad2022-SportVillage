@@ -66,5 +66,33 @@ Future<List<Campo>> getCampi(String id) async
   return campi;
 }
 
+Future<List<Campo>> getCampiBySport(String id,String sport) async
+{
+  DatabaseEvent dataSnapshot = (await databaseReference.child('campi/').once()) as DatabaseEvent;
+  Campo campo;
+  List<Campo> campi=[];
+  bool found=false;
+  if(dataSnapshot.snapshot.value != null)
+  {
+    Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
+    values.forEach((key,value) =>{
+      print("eccomi:"+id+":"+value["id_centrosportivo"]),
+      if(id == value["id_centrosportivo"] && value["tipo"]==sport)
+        {
+
+          campo = new Campo(),
+          campo.nome=value["nome"],
+          campo.id_centro_sportivo=value["id_centrosportivo"],
+          campo.tipo= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["tipo"])),
+          campo.id = databaseReference.child('campi/'+key),
+          print(campo),
+          campi.add(campo)
+        }
+    }
+    );
+  }
+  return campi;
+}
+
 
 

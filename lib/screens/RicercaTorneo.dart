@@ -68,14 +68,12 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
                 child: ListTile(
                   leading:Icon(Icons.request_page, color: Colors.black, size: 50.0,),
                   title: Text("Nome Torneo: "+tornei[index].nome),
-                  subtitle:  Text("Sport: "+tornei[index].sport.toString().split(".").last),
+                  subtitle:  Text("Sport: "+tornei[index].sport.sport.toString().split(".").last),
                   onTap: (){
-                    getSquadre(tornei[index].id_torneo).then((value) =>
+                    getSquadre(tornei[index].id_torneo).then((value) async =>
                     {
-                      Navigator.push(context, MaterialPageRoute(
+                      await Navigator.push(context, MaterialPageRoute(
                           builder: (context){
-                            print("CASA "+tornei[index].id_torneo);
-                            print(value.length);
                             return DettaglioTorneoAccettato(torneo: tornei[index],giocatore:giocatore,squadre:value);
                           }
                       ))

@@ -5,6 +5,7 @@ import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/login.dart';
@@ -121,15 +122,14 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                           hint: Text("Scegli Sport"),
                                           onChanged: (value) {
                                             setState(() {
-                                              richiestaTorneo.sport =
-                                              value!;
+                                              richiestaTorneo.sport = new SportClass(value!);
                                               filtered=[];
                                               for(int i=0;i<centrisportivi.length;i++)
                                               {
 
                                                 for(int k=0; k<centrisportivi[i].campi.length;k++) {
                                                   print(centrisportivi[i].campi[k].tipo.toString()+":"+value.toString());
-                                                  if(centrisportivi[i].campi[k].tipo.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                                  if(centrisportivi[i].campi[k].tipo.sport.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
                                                     filtered.add(centrisportivi[i]);
                                                     _idCentro=filtered[0].nome!;
                                                   }
@@ -143,7 +143,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                             }
                                           },
                                           onSaved: (value) =>
-                                          richiestaTorneo.sport = value!,
+                                          richiestaTorneo.sport = new SportClass(value!),
                                           items: [
                                             DropdownMenuItem<Sport>(
                                               child: Text(
@@ -287,7 +287,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           decoration: InputDecoration(
                             icon: Icon(Icons.groups, color: Colors.white, size: 30.0,
                             ),
-                              labelText: "Inserisci numero di partecipanti",
+                              labelText: "Inserisci numero di squadre",
                             filled: true,
                             fillColor: Colors.white,
                           ),

@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 
 final databaseReference= FirebaseDatabase.instance.reference();
@@ -24,7 +25,7 @@ class Squadra
     };
   }
 
-  void creaSquadre(int p,String sp,String id)
+  void creaSquadre(int p,SportClass sp,String id)
   {
     Squadra s=Squadra();
     String sport=sp.toString().split('.').last;
@@ -36,7 +37,8 @@ class Squadra
         s.nome="Squadra "+(i+1).toString();
       s.partecipanti=0;
       s.id_torneo=id;
-      switch(sport)
+      s.max_partecipanti=sp.partecipanti[0] as int;
+      /*switch(sport)
       {
         case "calcio":
           s.max_partecipanti=11;
@@ -44,14 +46,14 @@ class Squadra
         case "tennis":
           s.max_partecipanti=2;
           break;
-      }
+      }*/
       saveSquadre(s);
     }
   }
 
   Future<void> aggiungiComponente(String id_squadra,int partecipanti)
   {
-    var id=databaseReference.child("squadre/").child(id_squadra).update({'partecipanti':partecipanti});
+    var id=databaseReference.child("squadre/").child(id_squadra).child('partecipanti').set(ServerValue.increment(1));
     return id;
   }
 
@@ -86,7 +88,7 @@ Future<List<Squadra>> getSquadre(String torneo) async
       squadra.partecipanti=value["partecipanti"],
       squadra.max_partecipanti=value["max_partecipanti"],
       squadre.add(squadra),
-      print("Squadre "+squadre[0].nome),
+      //print("Squadre "+squadre[0].nome),
     }
     );
   }

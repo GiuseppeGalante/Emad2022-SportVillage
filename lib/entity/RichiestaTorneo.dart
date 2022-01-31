@@ -1,16 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 final databaseReference= FirebaseDatabase.instance.reference();
-
-
-enum Sport{
-  calcio,
-  pallavolo,
-  padel,
-  tennis,
-  pingpong,
-}
 
 enum Modalita{
   Andata,
@@ -23,12 +15,13 @@ class RichiestaTorneo
 {
   String? id_centro_sportivo="";
   int numero_di_partecipanti=0;
+  int squadre_confermate=0;
   String nome="";
   String id_giocatore="";
   String id_richiesta_torneo="";
   String id_amministratore="";
   late DatabaseReference id;
-  late Sport sport;
+  late SportClass sport;
   late Modalita modalita;
 
 
@@ -39,7 +32,8 @@ class RichiestaTorneo
       "nome": nome,
       "modalita": modalita.toString().split('.').last,
       "numero_di_partecipanti":numero_di_partecipanti,
-      "sport": sport.toString().split('.').last,
+      "squadre_confermate":squadre_confermate,
+      "sport": sport.sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
       "id_richiesta_torneo":id.key,
@@ -79,6 +73,7 @@ Future<List<RichiestaTorneo>> getRichiesteTornei({AmministstratoreCentroSportivo
       Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
       values.forEach((key,value) =>{
         print(value),
+        print(acs.id.key),
         if(value["id_amministratore"] == acs.id.key)
           {
             richiestatorneo = new RichiestaTorneo(),
@@ -88,11 +83,12 @@ Future<List<RichiestaTorneo>> getRichiesteTornei({AmministstratoreCentroSportivo
             richiestatorneo.id_amministratore=value["id_amministratore"],
             richiestatorneo.id_giocatore=value["id_giocatore"],
             richiestatorneo.numero_di_partecipanti=value["numero_di_partecipanti"],
+            richiestatorneo.squadre_confermate=value["squadre_confermate"],
             richiestatorneo.modalita=Modalita.values.firstWhere((e) => e.toString() == 'Modalita.' + value["modalita"]),
-            richiestatorneo.sport= Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"]),
+            richiestatorneo.sport= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
             richiestatorneo.id = databaseReference.child('centrisportivi/'+key),
             richiestenuovitornei.add(richiestatorneo),
-            //print(richiestenuovitornei)
+            print(richiestenuovitornei)
           }
       }
       );

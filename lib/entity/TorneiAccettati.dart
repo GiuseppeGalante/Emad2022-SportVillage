@@ -1,18 +1,21 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
+import 'package:flutter_app_emad/entity/Sport.dart';
 
 final databaseReference= FirebaseDatabase.instance.reference();
 
 class TorneoAccettato
 {
+  late DatabaseReference id;
   String? id_centro_sportivo="";
   int numero_di_partecipanti=0;
+  int squadre_confermate=0;
   String nome="";
   String id_torneo="";
   String id_giocatore="";
   String id_amministratore="";
-  String sport="";
+  late SportClass sport;
   String modalita="";
 
 
@@ -23,7 +26,8 @@ class TorneoAccettato
       "nome": nome,
       "modalita": modalita.toString().split('.').last,
       "numero_di_partecipanti":numero_di_partecipanti,
-      "sport": sport.toString().split('.').last,
+      "squadre_confermate":squadre_confermate,
+      "sport": sport.sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
       "id_torneo":id_torneo,
@@ -34,8 +38,14 @@ class TorneoAccettato
   @override
   String toString() {
     String m=modalita.toString().split(".").last;
-    String s=sport.toString().split(".").last;
+    String s=sport.sport.toString().split(".").last;
     return 'RichiestaTorneo{nome: $nome, modalita: $m, numero_partecipanti: $numero_di_partecipanti, id_centro_sportivo: $id_centro_sportivo,id_giocatore: $id_giocatore, id_amministratore: $id_amministratore, sport: $s}';
+  }
+
+  Future<void> aggiungiSquadraCompletata(String id_torneo)
+  {
+    var id=databaseReference.child("torneiaccettati/").child(id_torneo).child("squadre_confermate").set(ServerValue.increment(1));
+    return id;
   }
 
 }
@@ -59,7 +69,6 @@ Future<List<TorneoAccettato>> getTorneiAccettati() async
 {
   DatabaseEvent dataSnapshot = await databaseReference.child('torneiaccettati/').once() as DatabaseEvent;
   TorneoAccettato richiestatorneo;
-  List<TorneoAccettato> richiestenuovitornei=[];
   List<TorneoAccettato> tornei=[];
   bool found=false;
   print("sono nelle richieste");
@@ -73,16 +82,15 @@ Future<List<TorneoAccettato>> getTorneiAccettati() async
 
         richiestatorneo = new TorneoAccettato(),
         richiestatorneo.nome = value["nome"],
-        //richiestatorneo.id=value["id"],
-        richiestatorneo.id_torneo = value["id_torneo_accettato"],
+        richiestatorneo.id_torneo = value["id_torneo"],
         richiestatorneo.id_centro_sportivo = value["id_centrosportivo"],
         richiestatorneo.id_amministratore = value["id_amministratore"],
         richiestatorneo.id_giocatore = value["id_giocatore"],
-        richiestatorneo.numero_di_partecipanti =
-        value["numero_di_partecipanti"],
+        richiestatorneo.numero_di_partecipanti = value["numero_di_partecipanti"],
+        richiestatorneo.squadre_confermate=value["squadre_confermate"],
         richiestatorneo.modalita = value["modalita"],
-        richiestatorneo.sport = value["sport"],
-        //richiestatorneo.id = databaseReference.child('centrisportivi/'+key),
+        richiestatorneo.sport =new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
+        richiestatorneo.id = databaseReference.child('torneiaccettati/'+key),
         tornei.add(richiestatorneo),
         print(tornei)
       }
@@ -90,3 +98,5 @@ Future<List<TorneoAccettato>> getTorneiAccettati() async
       }
   return tornei;
     }
+
+

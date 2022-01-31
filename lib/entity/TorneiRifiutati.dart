@@ -8,6 +8,7 @@ class TorneoRifiutato
 {
   String? id_centro_sportivo="";
   int numero_di_partecipanti=0;
+  int squadre_confermate=0;
   String nome="";
   String id_torneo="";
   String id_giocatore="";
@@ -23,6 +24,7 @@ class TorneoRifiutato
       "nome": nome,
       "modalita": modalita.toString().split('.').last,
       "numero_di_partecipanti":numero_di_partecipanti,
+      "squadre_confermate":squadre_confermate,
       "sport": sport.toString().split('.').last,
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
@@ -71,6 +73,7 @@ Future<List<TorneoRifiutato>> getTorneiRifiutati({AmministstratoreCentroSportivo
             richiestatorneo.id_amministratore=value["id_amministratore"],
             richiestatorneo.id_giocatore=value["id_giocatore"],
             richiestatorneo.numero_di_partecipanti=value["numero_di_partecipanti"],
+            richiestatorneo.squadre_confermate=value["squadre_confermate"],
             richiestatorneo.modalita=value["modalita"],
             richiestatorneo.sport= value["sport"],
             //richiestatorneo.id = databaseReference.child('centrisportivi/'+key),

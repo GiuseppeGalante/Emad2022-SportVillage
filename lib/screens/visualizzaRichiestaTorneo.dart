@@ -65,13 +65,14 @@ class _VisualizzaRichiesteTorneoState extends State<VisualizzaRichiesteTorneo> {
                 child: ListTile(
                   leading:Icon(Icons.request_page, color: Colors.black, size: 50.0,),
                   title: Text("Nome Torneo: "+richiestetornei[index].nome),
-                  subtitle:  Text("Sport: "+richiestetornei[index].sport.toString().split(".").last),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
+                  subtitle:  Text("Sport: "+richiestetornei[index].sport.sport.toString().split(".").last),
+                  onTap: () async {
+                    await Navigator.push(context, MaterialPageRoute(
                         builder: (context){
                           return DettaglioTorneo(torneo: richiestetornei[index],amministratore:amministratore);
                         }
                     ));
+                    setState((){getRichiesteTornei(acs:amministratore).then((value) =>{ setState((){widget.richiestetornei=value;})});});
                   },
                 ),
               );

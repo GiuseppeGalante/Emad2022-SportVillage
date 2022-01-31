@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
+import 'package:flutter_app_emad/entity/TorneiPronti.dart';
+import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/RicercaTorneo.dart';
 import 'package:flutter_app_emad/screens/ricercaPartita.dart';
@@ -259,7 +261,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                                   children: [
 
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0,bottom: 40),
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.white,
@@ -279,7 +281,48 @@ class _MyHomeGioState extends State<HomeGioState>{
                                           );
 
                                         },
-                                        child: const Text('Ricerca  torneo',style: TextStyle(
+                                        child: const Text('Ricerca torneo',style: TextStyle(
+                                          color:Colors.blue,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+
+
+                              Row(
+                                  children: [
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0,bottom: 40),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          fixedSize: Size.fromWidth(270),
+                                        ),
+
+                                        onPressed: () {
+
+                                          getTorneiPronti(giocatore.id.key.toString()).then((value) =>
+                                          {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context){
+                                                  var t=<TorneoPronto>[];
+                                                  for(int i=0;i<value.length;i++) {
+                                                    if (value[i].squadre_confermate.toInt() == value[i].numero_di_partecipanti.toInt())
+                                                      t.add(value[i]);
+                                                  }
+                                                  return OrganizzaTorneo (tornei: t,giocatore:giocatore);
+                                          }
+                                            ))
+                                          },
+                                          );
+
+                                        },
+                                        child: const Text('Organizza torneo',style: TextStyle(
                                           color:Colors.blue,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,

@@ -231,6 +231,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                           pc.sport=richiestanuovapartita.sport;
                                           pc.partecipanti.add(richiestanuovapartita.id_giocatore);
                                           pc.partecipanti_trasf=[];
+                                          pc.indirizzo=centrosportivo.indirizzo!;
                                           saveNuovaPartitaConfermata(pc);
                                           deleteRichiestaPartita(richiestanuovapartita.id.key!);
                                           //centrosportivo.id_amministratore=amministratore.id.key;

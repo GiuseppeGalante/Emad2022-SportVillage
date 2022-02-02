@@ -7,6 +7,7 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
+import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/infoGiocatore.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
@@ -210,7 +211,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                                       {
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context) =>
-                                                VisInfoGiocatore(giocatore: casa[index]!,)
+                                                ProfiloGio(giocatore: casa[index]!, title: 'Info Giocatore',)
 
                                         ));
                                       }

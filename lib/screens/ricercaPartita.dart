@@ -9,6 +9,9 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
@@ -46,6 +49,38 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
   late Map<String,String> mapping=new Map();
 
+  Future<List<PartitaConfermata>> getDistancePartite() async
+  {
+    List<PartitaConfermata>? partiteconfermate= await getPartiteConfermate();
+    Giocatore giocatore=widget.giocatore;
+    if(partiteconfermate != null)
+    {
+
+      for(var i=0;i<partiteconfermate.length;i++)
+      for(var k=0;k<giocatore.partiteconfermate!.length;k++)
+      if(partiteconfermate[i].id.key==giocatore.partiteconfermate![k].id.key)
+        partiteconfermate.remove(partiteconfermate[i]);
+    }
+    Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    for(int i=0;i<partiteconfermate!.length;i++)
+    {
+      if(partiteconfermate[i].indirizzo != "")
+      {
+        List<Location> locations = await locationFromAddress(partiteconfermate[i].indirizzo);
+        if(locations.isNotEmpty)
+          {
+            partiteconfermate[i].distanza= await Geolocator.distanceBetween(posizione.latitude, posizione.longitude, locations.first.latitude, locations.first.longitude)/1000;
+            partiteconfermate[i].distanza=num.parse(partiteconfermate[i].distanza.toStringAsFixed(2)).toDouble();
+          }
+
+      }
+
+    }
+    partiteconfermate.sort((a, b) => a.distanza.compareTo(b.distanza));
+    return partiteconfermate;
+  }
+
   @override
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
@@ -54,7 +89,8 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
 
     Giocatore giocatore=widget.giocatore;
-    List<PartitaConfermata> partite=widget.partite;
+
+    /*
     if(giocatore.partiteconfermate== null)
       giocatore.partiteconfermate=[];
     bool find=widget.find;
@@ -74,7 +110,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
           setState((){widget.find=false;widget.partite=partite;})
 
         });
-      }
+      }*/
 
 
     return Scaffold(
@@ -82,32 +118,49 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
           title: Text("Ricerca partita"),
         ),
 
-        body: ListView.builder(
-
-            itemCount: partite.length,
-            itemBuilder: (context,index){
-              return Card(
-                child: ListTile(
-                  leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
-                  onTap:()  =>
-
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                VisPartitaConfermata(partitaconfermata: partite[index],giocatore: giocatore,)
-
-                        )),
-
-                  title: Text(partite[index].data),
-                  subtitle: Column(
-                    children: [
-                      Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                      Text('Sport:'+partite[index].sport.toString().split(".").last),
-                    ],
-                  ),
-                ),
+        body: FutureBuilder(
+          future: Future.wait([getDistancePartite()]),
+          builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+            if (!snapshot.hasData) {
+              // while data is loading:
+              return Center(
+                child: CircularProgressIndicator(),
               );
             }
+            else
+              {
+                List<PartitaConfermata> partite=snapshot.data![0];
+                return ListView.builder(
+                    itemCount: partite.length,
+                    itemBuilder: (context,index){
+                      return Card(
+                        child: ListTile(
+                          leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                          onTap:()  =>
+
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) =>
+                                      VisPartitaConfermata(partitaconfermata: partite[index],giocatore: giocatore,)
+
+                              )),
+
+                          title: Text(partite[index].data),
+                          subtitle: Column(
+                            children: [
+                              Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
+                              Text('Sport:'+partite[index].sport.toString().split(".").last),
+                              Text("Distanza:"+partite[index].distanza.toString()+" km")
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                );
+              }
+          },
         )
+
+
     );
   }
 }

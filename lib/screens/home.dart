@@ -3,6 +3,7 @@ import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiPronti.dart';
+import 'package:flutter_app_emad/screens/MappaView.dart';
 import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/RicercaTorneo.dart';
@@ -215,11 +216,11 @@ class _MyHomeGioState extends State<HomeGioState>{
                                         onPressed: () {
                                           Navigator.push(context, MaterialPageRoute(
                                               builder: (context){
-                                                return InfoCentriSportivi ();
+                                                return MapSample (giocatore: giocatore,);
                                               }
                                           ));
                                         },
-                                        child: const Text('Info Centri Sportivi',style: TextStyle(
+                                        child: const Text('Visualizza Mappa',style: TextStyle(
                                           color:Colors.blue,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,

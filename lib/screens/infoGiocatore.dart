@@ -9,6 +9,9 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+import 'package:flutter_app_emad/widgets/active_project_card.dart';
+
 
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
@@ -59,18 +62,39 @@ class _VisInfoGiocatoreState extends State<VisInfoGiocatore> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkYellow,
           title: Text("Ricerca partita"),
         ),
 
         body: Card(
+          color: Colors.white,
                 child: ListTile(
-                  leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
 
-                  title: Text(giocatore.nome),
+                  leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
+
+                  title: Text(giocatore.nome,
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      color: LightColors.kDarkBlue,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   subtitle: Column(
                     children: [
-                      Text('Cognome:'+giocatore.cognome),
-                      Text('To String:'+giocatore.toString()),
+
+                      Text('Cognome:'+giocatore.cognome,
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      ),
+                      Text('To String:'+giocatore.toString(),
+                        style: TextStyle(
+                          fontSize: 40.0,
+                          color: LightColors.kDarkBlue,
+                          fontWeight: FontWeight.w800,
+                        ),),
                     ],
                   ),
                 ),

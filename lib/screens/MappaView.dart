@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:http/http.dart' as http;
 
 import 'dettaglioPartitaConfermata.dart';
 
@@ -34,14 +36,23 @@ class MapSampleState extends State<MapSample> {
       {
         if(partite[i].indirizzo != "")
           {
-          List<Location> locations = await locationFromAddress(partite[i].indirizzo);
-            if(locations.isNotEmpty)
+            http.Response response= await http.get(Uri.parse('https://atlas.microsoft.com/search/address/json?&limit=1&subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&language=it&query='+partite[i].indirizzo));
+            print(jsonDecode(response.body)["results"][0]["position"]["lat"]);
+            double lat=jsonDecode(response.body)["results"][0]["position"]["lat"];
+            double long=jsonDecode(response.body)["results"][0]["position"]["lon"];
+            //List<Address> locations = await Geocoder.local.findAddressesFromQuery(partiteconfermate[i].indirizzo);
+            //print(locations.first);
+
+
+         // List<Location> locations = await locationFromAddress(partite[i].indirizzo);
+            //if(locations.isNotEmpty)
+            if(!lat.isNaN && !long.isNaN)
               {
-                latlng.add(LatLng(locations.first.latitude,locations.first.longitude));
+                latlng.add(LatLng(lat,long));
                 markers.add(new Marker(
                   width: 300.0,
                   height: 300.0,
-                  point: LatLng(locations.first.latitude,locations.first.longitude),
+                  point: LatLng(lat,long),
                   builder: (ctx) =>
                   new Container(
                     child: GestureDetector(

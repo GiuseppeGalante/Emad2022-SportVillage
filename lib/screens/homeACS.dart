@@ -6,6 +6,7 @@ import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
 import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 // annarosa
 // Create a Form widget.
@@ -46,6 +47,7 @@ class MyHomeACSState extends StatelessWidget {
 //Build a screen with 4 button and a bar on the top
     return Scaffold(
         appBar:AppBar(
+          backgroundColor: LightColors.kDarkYellow,
           title: Text("Home"),
         ),
         body:Theme(
@@ -55,7 +57,7 @@ class MyHomeACSState extends StatelessWidget {
             child:Stack(
                 children: [
                   Container(
-                    color: Colors.blue,
+                    color: LightColors.kDarkBlue,
                   ),
 
                   Container(
@@ -67,7 +69,7 @@ class MyHomeACSState extends StatelessWidget {
                                   child:Center(
                                       child:Text("Benvenuto ${amministratore.nome}",style: TextStyle(
                                         fontSize: 30,
-                                        color: Colors.white,
+                                        color: LightColors.kDarkYellow,
                                         fontWeight: FontWeight.bold,
                                       ),)
                                   ),
@@ -76,7 +78,7 @@ class MyHomeACSState extends StatelessWidget {
                               Padding(padding: EdgeInsets.only(top:30),
                                   child:Icon(Icons.add_business,
                                     size:90,
-                                    color: Colors.white,),
+                                    color: LightColors.kDarkYellow,),
                               ),
 
                               Padding(
@@ -165,7 +167,7 @@ class MyHomeACSState extends StatelessWidget {
 
                                         },
                                         child: const Text('Visualizza richieste partita',style: TextStyle(
-                                          color:Colors.blue,
+                                          color: LightColors.kLavender,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                           fontStyle: FontStyle.italic,

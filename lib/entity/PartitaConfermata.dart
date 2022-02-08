@@ -20,11 +20,13 @@ class PartitaConfermata{
   String metodo_di_pagamento="";
   String id_giocatore="";
   String id_amministratore="";
+  String indirizzo="";
   List<String> partecipanti=[];
   List<String> partecipanti_trasf=[];
   late DatabaseReference id;
   late SportClass sport;
   late String id_campo;
+  late double distanza;
 
   @override
   String toString() {
@@ -46,7 +48,8 @@ class PartitaConfermata{
         "partecipanti": List<dynamic>.from(this.partecipanti.map((x) => x)),
         "partecipanti_trasf": List<dynamic>.from(this.partecipanti_trasf.map((x) => x)),
       "metodo_di_pagamento": metodo_di_pagamento,
-      "campo": id_campo
+      "campo": id_campo,
+      "indirizzo":indirizzo
     };
   }
 
@@ -92,6 +95,7 @@ Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async
           pc.id_centro_sportivo=value["id_centrosportivo"],
           pc.orario=value["orario"],
           pc.numero_di_partecipanti=value["numero_di_partecipanti"],
+          pc.indirizzo=value["indirizzo"],
           dajson= jsonEncode(value["partecipanti"]),
           tomap=jsonDecode(dajson),
           //(value["partecipanti"]),

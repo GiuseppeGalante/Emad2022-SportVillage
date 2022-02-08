@@ -6,6 +6,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
 import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class MainLogin extends StatelessWidget {
   const MainLogin({Key? key}) : super(key: key);
@@ -29,7 +30,10 @@ class Struttura_Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+
+      appBar: AppBar(backgroundColor:LightColors.kDarkYellow,
+          title: Text(title)
+      ),
       body: Container(
           child:TemplateLogin()
       ),
@@ -61,14 +65,15 @@ class _TemplateLogin extends State<TemplateLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         body:Theme(
             data: ThemeData(
-                unselectedWidgetColor: Colors.white
+                backgroundColor: LightColors.kDarkBlue
             ),
             child:Stack(
                 children: [
                   Container(
-                    color: Colors.blue,
+                    color: LightColors.kDarkBlue
                   ),
 
                   Container(

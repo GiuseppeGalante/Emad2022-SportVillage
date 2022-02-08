@@ -214,7 +214,7 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                           icon: Icons.alarm,
                           iconBackgroundColor: LightColors.kRed,
                           title: 'Partite prenotate',
-                          subtitle: giocatore.partiteconfermate!.length.toString() ,
+                          subtitle: "Numero di partite prenotate:"+giocatore.partiteconfermate!.length.toString() ,
                         ),
                       )
                       ,

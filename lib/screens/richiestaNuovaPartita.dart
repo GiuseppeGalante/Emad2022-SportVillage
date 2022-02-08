@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
+import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/Prenotazioni.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
@@ -37,7 +41,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay selectedTime = TimeOfDay(hour: TimeOfDay.now().hour, minute: 0);
 
 
   bool late=false;
@@ -50,6 +54,11 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
   List<int> partecipanti=[];
   int? n_partecipanti=null;
 
+  String nomeCampo="";
+  late Map<String, Campo> mapping_campo = new Map();
+  List<Campo> campi=[];
+
+  String _idCampo="";
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -75,13 +84,29 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
     );
 
-    if (picked_s != null && picked_s != selectedTime ) {
+    if (picked_s != null && picked_s != selectedTime && picked_s.minute==0) {
       setState(() {
 
         selectedTime = picked_s;
-        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
+        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0";
       });
     }
+    else
+      {
+        if(picked_s?.minute==0) {
+          richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0";
+        }else
+        {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Orario non disponibile'),
+              backgroundColor: Colors.red,
+              action: SnackBarAction(textColor:Colors.white,
+                label: 'OK', onPressed: () {},),
+            ),
+          );
+        }
+      }
   }
 
   late Map<String,CentroSportivo> mapping=new Map();
@@ -168,7 +193,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         ),
                       ),
                       SizedBox(width: 20.0,),
-                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
+                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0"),
                     ],
                   ),
                 ),
@@ -281,16 +306,20 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             SizedBox(width: 10),
-                            Text("Centro Sprotivo"),
+                            Text("Centro Sportivo"),
                             SizedBox(width: 30),
                             SizedBox(
                               child: DropdownButton<String>(
-                                hint: Text('Seleziona sport'),
+                                hint: Text('Seleziona centro'),
                                 value: _idCentro,
-                                onChanged: (value){
+                                onChanged: (value) {
                                   setState(() {
                                     _idCentro=value!;
-
+                                  });
+                                  getCampiBySport(mapping[_idCentro]!.id.key.toString(), richiestaNuovaPartita.sport.sport.toString().substring(6)).then((value) => campi = value).whenComplete(() =>{
+                                  setState(() {
+                                    _idCampo = campi[0].nome!;
+                                      })
                                   });
                                 },
                                 items: filtered.map((e) {
@@ -324,11 +353,80 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
                     )
                   ],
-                )
+                ),
 
 
 
-                ,
+
+
+                Row(
+
+                  children: [
+                    Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                    SizedBox(width: 20),
+                    Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.elliptical(5,5))
+                        ),
+                        margin:  const EdgeInsets.only(bottom: 20.0),
+                        //color: Colors.white,
+                        child:Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            SizedBox(width: 10),
+                            Text("Campo"),
+                            SizedBox(width: 30),
+                            SizedBox(
+                              width: 190,
+                              child: DropdownButtonFormField<String>(
+                                hint: Text('Scegli un campo'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    nomeCampo = value!;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null) {
+                                    return "Campo obbligatorio";
+                                  }
+                                },
+                                items: campi.map((e) {
+                                  mapping_campo[e.nome!] = e;
+                                  return DropdownMenuItem<String>(
+                                    child: new Text(e.nome!),
+                                    value: e.nome,
+
+                                  );
+                                }
+                                ).toList(),
+                              ),
+                            ),/*
+                    ElevatedButton(
+
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context){
+
+                                return InfoCentroSportivo(  centroSportivo: centroSportivo);
+                              }
+                          ));
+                        }
+                        , child: Text("Info Centro Sportivo")
+                    )*/SizedBox(width: 20),
+                          ],
+
+                        )
+
+                    )
+                  ],
+                ),
+
+
+
                 /*TextFormField(
                   decoration: InputDecoration(labelText: "Inserisci orario"),
                   onChanged: (value) => richiestaNuovaPartita.orario=value,
@@ -367,22 +465,55 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         print("Nessun errore");
-                        _formKey.currentState?.save();
-                        //centrosportivo.id_amministratore=amministratore.id.key;
-                        richiestaNuovaPartita.id_giocatore=giocatore.id.key!;
-                        richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
-                        richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!;
-
-                        saveRichiestaNuovaPartita(richiestaNuovaPartita);
-                        //amministratore.centrisportivi.add(centrosportivo);
-                        //updateAmministratoreCS(amministratore);
-                        //print("${this.amministratore}");
-                        //print(centrosportivo);
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context){
-                              return MyHomeGio(giocatore:giocatore);
+                        List<String> data_divisa=[];
+                        List<String> ora_divisa=[];
+                        data_divisa=richiestaNuovaPartita.data.split("/");
+                        print(data_divisa);
+                        ora_divisa=richiestaNuovaPartita.orario.split(":");
+                        DateTime d=new DateTime(int.parse(data_divisa[2]),int.parse(data_divisa[1]),int.parse(data_divisa[0]));
+                        TimeOfDay t=new TimeOfDay(hour: int.parse(ora_divisa[0]), minute: int.parse(ora_divisa[1]));
+                        print(d);
+                        print(t);
+                        getPrenotazioni(mapping_campo[nomeCampo]!.id.key!,d,t).then((value) =>
+                        {
+                          print(mapping_campo[nomeCampo]!.id.key!),
+                          if(value==true)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Orario già occupato'),
+                                  backgroundColor: Colors.red,
+                                  action: SnackBarAction(textColor:Colors.white,
+                                    label: 'OK', onPressed: () {},),
+                                ),
+                              )
+                            }else
+                            {
+                              _formKey.currentState?.save(),
+                                richiestaNuovaPartita.id_giocatore=giocatore.id.key!,
+                                richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key,
+                                richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!,
+                                richiestaNuovaPartita.campo=mapping_campo[_idCampo]!.id.key!,
+                                saveRichiestaNuovaPartita(richiestaNuovaPartita),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Partita Creata'),
+                                  backgroundColor: Colors.green,
+                                  action: SnackBarAction(textColor:Colors.white,
+                                    label: 'OK', onPressed: () {},),
+                                ),
+                              ),
+                              Timer(Duration(seconds: 2), ()
+                              {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context){
+                                      return MyHomeGio(giocatore:giocatore);
+                                    }
+                                ));
+                              }),
                             }
-                        ));
+                        },
+                        );
 
                       }
 

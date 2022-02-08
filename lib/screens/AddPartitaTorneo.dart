@@ -7,6 +7,7 @@ import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/ComponenteSquadra.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/Prenotazioni.dart';
 import 'package:flutter_app_emad/entity/Squadre.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:time_picker_widget/time_picker_widget.dart';
 
 class AddPartitaTorneo extends StatelessWidget {
 
@@ -57,7 +59,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay selectedTime = TimeOfDay(hour: TimeOfDay.now().hour,minute: 0);
 
   var title;
   final List<Squadra> squadre;
@@ -90,6 +92,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
         FutureBuilder<List>(
         future: dati,
         builder:(BuildContext context, AsyncSnapshot<List> snapshot) {
+
           Future<void> _selectDate(BuildContext context) async {
             final DateTime? picked = await showDatePicker(
                 context: context,
@@ -114,18 +117,32 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
 
             );
 
-            if (picked_s != null && picked_s != selectedTime ) {
+            if (picked_s != null && picked_s != selectedTime && picked_s.minute==0) {
               setState(() {
 
                 selectedTime = picked_s;
-                partita.ora= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
+                partita.ora= selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0";
               });
             }
             else
               {
-                partita.ora= selectedTime.hour.toString()+":"+selectedTime.minute.toString();
+                if(picked_s?.minute==0) {
+                  partita.ora = selectedTime.hour.toString() + ":" +
+                      selectedTime.minute.toString()+"0";
+                }else
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Orario non disponibile'),
+                        backgroundColor: Colors.red,
+                        action: SnackBarAction(textColor:Colors.white,
+                          label: 'OK', onPressed: () {},),
+                      ),
+                    );
+                  }
               }
           }
+
           if (snapshot.hasData) {
             return
               Container(
@@ -302,41 +319,69 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                             SizedBox(
                                 height: 10.0
                             ),
-                            ElevatedButton(onPressed: () {
+                            ElevatedButton(onPressed: () async {
+
                               if(_formKey.currentState!.validate()){
                                 if(partita.data!="")
+                                {
+                                  if(partita.ora!="")
                                   {
-                                    if(partita.ora!="")
+                                    List<String> data_divisa=[];
+                                    List<String> ora_divisa=[];
+                                    data_divisa=partita.data.split("/");
+                                    ora_divisa=partita.ora.split(":");
+                                    DateTime d=new DateTime(int.parse(data_divisa[2]),int.parse(data_divisa[1]),int.parse(data_divisa[0]));
+                                    TimeOfDay t=new TimeOfDay(hour: int.parse(ora_divisa[0]), minute: int.parse(ora_divisa[1]));
+                                    print(d);
+                                    print(t);
+                                    getPrenotazioni(mapping[nomeCampo]!.id.key!,d,t).then((value) =>
                                     {
-                                      _formKey.currentState?.save();
-                                      partita.id_torneo=torneo.id_torneo;
-                                      partita.squadra1=mapping1[squadra1]!.nome;
-                                      partita.squadra2=mapping2[squadra2]!.nome;
-                                      partita.id_squadra1=mapping1[squadra1]!.id_squadra;
-                                      partita.id_squadra2=mapping2[squadra2]!.id_squadra;
-                                      partita.campo=mapping[nomeCampo]!.nome;
-                                      savePartita(partita);
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: const Text('Partita Creata'),
-                                          backgroundColor: Colors.green,
-                                          action: SnackBarAction(textColor:Colors.white,
-                                            label: 'OK', onPressed: () {},),
-                                        ),
-                                      );
-                                      Timer(Duration(seconds: 2), ()
-                                      {
-                                        getPartiteTorneo(torneo.id_torneo).then((value) =>
+                                      print(mapping[nomeCampo]!.id.key!),
+                                      if(value==true)
                                         {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context){
-                                                return PartiteTorneo(torneo: torneo,giocatore:giocatore,partite:value);
-                                              }
-                                          )),
-                                        });
-                                      });
-                                    }
-                                  }
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: const Text('Orario già occupato'),
+                                              backgroundColor: Colors.red,
+                                              action: SnackBarAction(textColor:Colors.white,
+                                                label: 'OK', onPressed: () {},),
+                                            ),
+                                          )
+                                        }else
+                                        {
+                                          _formKey.currentState?.save(),
+                                          partita.id_torneo=torneo.id_torneo,
+                                          partita.squadra1=mapping1[squadra1]!.nome,
+                                          partita.squadra2=mapping2[squadra2]!.nome,
+                                          partita.id_squadra1=mapping1[squadra1]!.id_squadra,
+                                          partita.id_squadra2=mapping2[squadra2]!.id_squadra,
+                                          partita.campo=mapping[nomeCampo]!.id.key!,
+                                          savePartita(partita),
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: const Text('Partita Creata'),
+                                              backgroundColor: Colors.green,
+                                              action: SnackBarAction(textColor:Colors.white,
+                                                label: 'OK', onPressed: () {},),
+                                            ),
+                                          ),
+                                          Timer(Duration(seconds: 2), ()
+                                          {
+                                            getPartiteTorneo(torneo.id_torneo).then((value) =>
+                                            {
+                                              Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context){
+                                                    return PartiteTorneo(torneo: torneo,giocatore:giocatore,partite:value);
+                                                  }
+                                              )),
+                                            });
+                                          }),
+                                        }
+                                    },
+                                    );
+
+                              }
+                              }
 
 
 

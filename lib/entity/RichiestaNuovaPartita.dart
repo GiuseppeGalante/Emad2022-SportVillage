@@ -18,6 +18,7 @@ class RichiestaNuovaPartita
   String id_amministratore="";
   late DatabaseReference id;
   late SportClass sport;
+  String campo="";
 
 
   Map<String, dynamic> toJson({bool hide=false})
@@ -31,7 +32,8 @@ class RichiestaNuovaPartita
       "id_centrosportivo":id_centro_sportivo,
       "id_giocatore": id_giocatore,
       "id_richiesta_partita":id.key,
-      "id_amministratore": id_amministratore
+      "id_amministratore": id_amministratore,
+      "campo":campo,
     };
   }
 
@@ -74,6 +76,7 @@ Future<List<RichiestaNuovaPartita>> getRichiestePartite({AmministstratoreCentroS
               richiestanuovapartita.orario=value["orario"],
               richiestanuovapartita.sport= new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
               richiestanuovapartita.id = databaseReference.child('centrisportivi/'+key),
+              richiestanuovapartita.campo=value["campo"],
               richiestenuovepartite.add(richiestanuovapartita),
               print(richiestanuovapartita)
             }

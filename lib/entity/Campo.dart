@@ -77,9 +77,10 @@ Future<List<Campo>> getCampiBySport(String id,String sport) async
     Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
     values.forEach((key,value) =>{
       print("eccomi:"+id+":"+value["id_centrosportivo"]),
+      print("eccomi:"+sport),
+      print(value),
       if(id == value["id_centrosportivo"] && value["tipo"]==sport)
         {
-
           campo = new Campo(),
           campo.nome=value["nome"],
           campo.id_centro_sportivo=value["id_centrosportivo"],

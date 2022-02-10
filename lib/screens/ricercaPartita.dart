@@ -14,6 +14,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:http/http.dart' as http;
 
 import 'dettaglioPartitaConfermata.dart';
@@ -140,6 +141,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Ricerca partita"),
         ),
 
@@ -159,8 +161,9 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
                     itemCount: partite.length,
                     itemBuilder: (context,index){
                       return Card(
+                        color: LightColors.kLightYellow,
                         child: ListTile(
-                          leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                          leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
                           onTap:()  =>
 
                               Navigator.push(context, MaterialPageRoute(
@@ -172,9 +175,18 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
                           title: Text(partite[index].data),
                           subtitle: Column(
                             children: [
-                              Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                              Text('Sport:'+partite[index].sport.toString().split(".").last),
-                              Text("Distanza:"+partite[index].distanza.toString()+" km")
+                              Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString(),style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
+                              Text('Sport:'+partite[index].sport.toString().split(".").last,style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
+                              Text("Distanza:"+partite[index].distanza.toString()+" km",style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),)
                             ],
                           ),
                         ),

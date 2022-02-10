@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 
 // Create a Form widget.
@@ -32,13 +33,14 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Registrazione"),
       ),
 
       body:Stack(
         children:[
           Container(
-        color: Colors.blue,
+        color: LightColors.kLightYellow,
       ),
       Form(
         key: _formKey,
@@ -50,10 +52,10 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                        padding:EdgeInsets.only(top:10),
                        child: TextFormField(
                          decoration: InputDecoration(labelText: "Nome",
-                  icon: Icon(Icons.person, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.person, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.nome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -68,7 +70,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           child: TextFormField(
                 decoration: InputDecoration(labelText: "Cognome",
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.cognome=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -82,10 +84,10 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           padding:EdgeInsets.only(top:10),
               child: TextFormField(
                 decoration: InputDecoration(labelText: "e-mail",
-                  icon: Icon(Icons.alternate_email, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.alternate_email, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.email=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -99,10 +101,10 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           padding:EdgeInsets.only(top:10),
           child: TextFormField(
                 decoration: InputDecoration(labelText: "nome_utente",
-                  icon: Icon(Icons.account_box, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.account_box, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.nome_utente=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -117,7 +119,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           child: TextFormField(
                 key: _pswKey,
                 decoration: InputDecoration(labelText: "password",
-                  icon: Icon(Icons.password, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.password, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
                   fillColor: Colors.white,),
@@ -135,10 +137,10 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           padding:EdgeInsets.only(top:10),
               child: TextFormField(
                 decoration: InputDecoration(labelText: "numero di telefono",
-                  icon: Icon(Icons.phone_iphone, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.phone_iphone, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.numero_di_telefono=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -152,10 +154,10 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           padding:EdgeInsets.only(top:10),
               child: TextFormField(
                 decoration: InputDecoration(labelText: "data di nascita",
-                  icon: Icon(Icons.calendar_today, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.calendar_today, color: LightColors.kDarkYellow, size: 30.0,
                   ),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kBlue,),
                 onChanged: (value) => gio.data_di_nascita=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -173,11 +175,16 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                   child:SizedBox(
                     width: MediaQuery.of(context).size.width-78,
                     child:Container(
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                         child:Padding(
                              padding: EdgeInsets.only(left:12),
                     child: DropdownButtonFormField<Sesso>(
-                      hint: Text("Scegli Sesso"),
+                      hint: Text("Scegli Sesso",
+                        style: TextStyle(
+
+                          color: LightColors.kDarkBlue,
+                          fontWeight: FontWeight.w800,
+                        ),),
                       onChanged: (value){
                         setState(() {
                           gio.sesso=value!;
@@ -193,13 +200,13 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
 
                       items: [
                         DropdownMenuItem<Sesso>(
-                          child: Text("Maschio",style: TextStyle(color:Colors.black54),),
+                          child: Text("Maschio",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.maschio,
                         ),DropdownMenuItem<Sesso>(
-                          child: Text("Femmina",style: TextStyle(color:Colors.black54),),
+                          child: Text("Femmina",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.femmina,
                         ),DropdownMenuItem<Sesso>(
-                          child: Text("Altro",style: TextStyle(color:Colors.black54),),
+                          child: Text("Altro",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.altro,
                         ),
                       ],
@@ -216,7 +223,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
           padding:EdgeInsets.only(top:10),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,),
+                primary: LightColors.kDarkYellow,),
                   onPressed: (){
                     if(_formKey.currentState!.validate()){
                       print("Nessun errore");
@@ -226,8 +233,8 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: const Text('Registrazione Effettuata'),
-                          backgroundColor: Colors.green,
-                          action: SnackBarAction(textColor:Colors.white,
+                          backgroundColor: LightColors.kGreen,
+                          action: SnackBarAction(textColor:LightColors.kLightYellow,
                             label: 'OK', onPressed: () {},),
                         ),
                       );
@@ -246,7 +253,7 @@ class _MyCustomFormAmministratoreCSState extends State<MyCustomFormAmministrator
 
                   }
                   , child: Text("Registra",style: TextStyle(
-            color:Colors.black54,
+            color:LightColors.kDarkBlue,
           ),
           )
               )

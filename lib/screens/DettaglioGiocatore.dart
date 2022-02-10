@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/profile/InformazioniPersonaliGiocatore.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioGio extends StatelessWidget {
 
@@ -53,9 +54,9 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
 
 
   final List<Widget> star = <Widget>[Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star_half, size:50, color: Colors.blueGrey,),
+    Icon(Icons.star, size:50,color: LightColors.kBlue,),
+    Icon(Icons.star, size:50, color: LightColors.kBlue,),
+    Icon(Icons.star_half, size:50, color: LightColors.kBlue,),
   ];
 
   var title;
@@ -67,10 +68,12 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
       giocatore.bio="Nessuna Biografia";
     return MaterialApp(
         home:Scaffold(
+          backgroundColor: LightColors.kDarkBlue,
           appBar: AppBar(
             title: Text("Dettagli"),
           ),
           body: Container(
+            color: LightColors.kLightYellow,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -91,15 +94,15 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                             Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child:ListTile(
                               title: Text("Informazioni Personali",style: TextStyle(
                                 fontSize: 22.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
-                                trailing:  Icon(Icons.chevron_right,size: 50,color:Colors.blueGrey),
+                                trailing:  Icon(Icons.chevron_right,size: 50,color:LightColors.kBlue),
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context){
                                   return InfoPersonaliGiocatore(giocatore: giocatore,);
@@ -114,15 +117,15 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           Card(
                               margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child:ListTile(
                                 title: Text("Biografia",style: TextStyle(
                                   fontSize: 22.0,
-                                  color: Colors.blue,
+                                  color: LightColors.kBlue,
                                   fontWeight: FontWeight.bold,
                                 )),
-                                trailing:  Icon(Icons.chevron_right,size: 50,color:Colors.blueGrey),
+                                trailing:  Icon(Icons.chevron_right,size: 50,color:LightColors.kBlue),
                                 onTap: (){
 
                                 },
@@ -134,15 +137,15 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           Card(
                               margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child:ListTile(
                                 title: Text("Account",style: TextStyle(
                                   fontSize: 22.0,
-                                  color: Colors.blue,
+                                  color: LightColors.kBlue,
                                   fontWeight: FontWeight.bold,
                                 )),
-                                trailing:  Icon(Icons.chevron_right,size: 50,color:Colors.blueGrey),
+                                trailing:  Icon(Icons.chevron_right,size: 50,color:LightColors.kBlue),
                                 onTap: (){
 
                                 },
@@ -154,15 +157,15 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           Card(
                               margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child:ListTile(
                                 title: Text("Informazioni di Contatto",style: TextStyle(
                                   fontSize: 22.0,
-                                  color: Colors.blue,
+                                  color: LightColors.kBlue,
                                   fontWeight: FontWeight.bold,
                                 )),
-                                trailing:  Icon(Icons.chevron_right,size: 50,color:Colors.blueGrey),
+                                trailing:  Icon(Icons.chevron_right,size: 50,color:LightColors.kBlue,),
                                 onTap: (){
 
                                 },
@@ -180,15 +183,16 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                backgroundColor: LightColors.kDarkBlue,
+                icon: Icon(Icons.home, color: LightColors.kLightYellow,),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.search,color: LightColors.kLightYellow,),
                 label: 'Ricerca Partita',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,color: LightColors.kLightYellow,),
                 label: 'Profilo',
               ),
             ],

@@ -6,6 +6,7 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -51,7 +52,9 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
     if(giocatore.partiteconfermate== null)
         giocatore.partiteconfermate=[];
     return Scaffold(
+
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Partite confermate"),
         ),
 
@@ -60,8 +63,9 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
             itemCount: giocatore.partiteconfermate!.length,
             itemBuilder: (context,index){
               return Card(
+                color: LightColors.kLightYellow,
                 child: ListTile(
-                  leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                  leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
                   /*onTap:()  =>
 
                       Navigator.push(context, MaterialPageRoute(
@@ -70,11 +74,20 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
                       ))*/
 
-                  title: Text(giocatore.partiteconfermate![index].data),
+                  title: Text(giocatore.partiteconfermate![index].data,style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   subtitle: Column(
                     children: [
-                      Text('Numero di partecipanti:'+giocatore.partiteconfermate![index].numero_di_partecipanti.toString()),
-                      Text('Sport:'+giocatore.partiteconfermate![index].sport.toString().split(".").last),
+                      Text('Numero di partecipanti:'+giocatore.partiteconfermate![index].numero_di_partecipanti.toString(),style: TextStyle(
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
+                      Text('Sport:'+giocatore.partiteconfermate![index].sport.toString().split(".").last,style: TextStyle(
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                     ],
                   ),
                 ),

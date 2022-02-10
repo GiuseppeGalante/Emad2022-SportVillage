@@ -10,6 +10,7 @@ import 'package:flutter_app_emad/entity/TorneiRifiutati.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioTorneo extends StatelessWidget {
 
@@ -24,6 +25,7 @@ class DettaglioTorneo extends StatelessWidget {
     print(torneo);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Dettaglio "+torneo.nome),
       ),
       body: DettaglioTorneoState(torneo:torneo, amministratore: amministratore,),
@@ -53,6 +55,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
           body: Column(
             children: [
               Container(
+                color: LightColors.kLightYellow,
                 width: double.infinity,
                 height:MediaQuery.of(context).size.height-106,
                 child: Column(
@@ -65,20 +68,20 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                       child: Card(
                         margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                         clipBehavior: Clip.antiAlias,
-                        color: Colors.white,
+                        color: LightColors.kLightYellow,
                         elevation: 5.0,
                         child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             child:ListTile(
-                              leading: Icon(Icons.emoji_events,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.emoji_events,size: 50,color:LightColors.kBlue),
                               title: Text("Nome:",style: TextStyle(
                                 fontSize: 18.0,
-                                color: Colors.blue,
+                                color: LightColors.kDarkBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle: Text(torneo.nome,style: TextStyle(
                                 fontSize: 22.0,
-                                color: Colors.lightBlueAccent,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               ),
                               ),
@@ -93,20 +96,20 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color:LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           child:ListTile(
-                            leading: Icon(Icons.sports,size: 50,color:Colors.blueGrey),
+                            leading: Icon(Icons.sports,size: 50,color:LightColors.kBlue),
                             title: Text("Sport:",style: TextStyle(
                               fontSize: 18.0,
-                              color: Colors.blue,
+                              color:LightColors.kDarkBlue,
                               fontWeight: FontWeight.bold,
                             )),
                             subtitle: Text(torneo.sport.sport.toString().split(".").last,style: TextStyle(
                               fontSize: 22.0,
-                              color: Colors.lightBlueAccent,
+                              color:LightColors.kBlue,
                               fontWeight: FontWeight.bold,
                             ),
                             ),
@@ -121,20 +124,20 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color:LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           child:ListTile(
-                            leading: Icon(Icons.phone,size: 50,color:Colors.blueGrey),
+                            leading: Icon(Icons.phone,size: 50,color:LightColors.kBlue),
                             title: Text("Modalità:",style: TextStyle(
                               fontSize: 18.0,
-                              color: Colors.blue,
+                              color: LightColors.kDarkBlue,
                               fontWeight: FontWeight.bold,
                             )),
                             subtitle: Text(torneo.modalita.toString().split(".").last.replaceAll("_", " "),style: TextStyle(
                               fontSize: 22.0,
-                              color: Colors.lightBlueAccent,
+                              color: LightColors.kBlue,
                               fontWeight: FontWeight.bold,
                             ),
                             ),
@@ -149,20 +152,20 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           child:ListTile(
-                            leading: Icon(Icons.group,size: 50,color:Colors.blueGrey),
+                            leading: Icon(Icons.group,size: 50,color:LightColors.kBlue),
                             title: Text("Numero di Squadre:",style: TextStyle(
                               fontSize: 18.0,
-                              color: Colors.blue,
+                              color: LightColors.kDarkBlue,
                               fontWeight: FontWeight.bold,
                             )),
                             subtitle: Text(torneo.numero_di_partecipanti.toString(),style: TextStyle(
                               fontSize: 22.0,
-                              color: Colors.lightBlueAccent,
+                              color: LightColors.kBlue,
                               fontWeight: FontWeight.bold,
                             ),
                             ),
@@ -187,8 +190,17 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                             context: context,
                                             barrierDismissible: false,
                                             builder: (BuildContext context_alert) => AlertDialog(
-                                          title: const Text('Conferma Torneo'),
-                                          content: const Text('Sei sicuro di voler accettare il torneo?'),
+                                          title: const Text('Conferma Torneo',style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: LightColors.kBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),),
+                                          content: const Text('Sei sicuro di voler accettare il torneo?',
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: LightColors.kBlue,
+                                              fontWeight: FontWeight.w800,
+                                            ),),
                                           actions: <Widget>[
                                             ElevatedButton(
                                               onPressed: (){
@@ -218,8 +230,8 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   SnackBar(
                                                     content: const Text('Torneo Accettato'),
-                                                    backgroundColor: Colors.green,
-                                                    action: SnackBarAction(textColor:Colors.white,
+                                                    backgroundColor: LightColors.kGreen,
+                                                    action: SnackBarAction(textColor:LightColors.kLightYellow,
                                                       label: 'OK', onPressed: () {},),
                                                   ),
                                                 );
@@ -248,7 +260,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                       },
                                       child: Text("Accetta Torneo"),
                                       style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Colors.green),
+                                        backgroundColor: MaterialStateProperty.all(LightColors.kGreen),
                                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                                       ),
                                     ),
@@ -262,8 +274,17 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                                 context: context,
                                                 barrierDismissible: false,
                                                 builder: (BuildContext context_alert) => AlertDialog(
-                                                  title: const Text('Rifiuta Torneo'),
-                                                  content: const Text('Sei sicuro di voler rifiutare il torneo?'),
+                                                  title: const Text('Rifiuta Torneo',style: TextStyle(
+                                                    fontSize: 15.0,
+                                                    color: LightColors.kBlue,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),),
+                                                  content: const Text('Sei sicuro di voler rifiutare il torneo?',
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: LightColors.kBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
                                                   actions: <Widget>[
                                                     ElevatedButton(
                                                       onPressed: () => Navigator.pop(context_alert, 'Cancel'),
@@ -289,8 +310,8 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                                         ScaffoldMessenger.of(context).showSnackBar(
                                                           SnackBar(
                                                             content: const Text('Torneo Rifiutato'),
-                                                            backgroundColor: Colors.green,
-                                                            action: SnackBarAction(textColor:Colors.white,
+                                                            backgroundColor: LightColors.kGreen,
+                                                            action: SnackBarAction(textColor:LightColors.kLightYellow,
                                                               label: 'OK', onPressed: () {},),
                                                           ),
                                                         );
@@ -317,7 +338,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                       },
                                           child: Text("Rifiuta Torneo"),
                                         style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all(Colors.red),
+                                          backgroundColor: MaterialStateProperty.all(LightColors.kRed),
                                           padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                                         ),
                                       ),

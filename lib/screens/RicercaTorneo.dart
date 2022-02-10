@@ -10,6 +10,7 @@ import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/DettaglioTorneiAccettati.dart';
 import 'package:flutter_app_emad/screens/DettaglioTorneo.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -58,6 +59,7 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
     print(tornei);
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Torneo Attivi"),
         ),
 
@@ -65,10 +67,17 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
             itemCount: tornei.length,
             itemBuilder: (context,index){
               return Card(
+                color: LightColors.kLightYellow,
                 child: ListTile(
-                  leading:Icon(Icons.request_page, color: Colors.black, size: 50.0,),
-                  title: Text("Nome Torneo: "+tornei[index].nome),
-                  subtitle:  Text("Sport: "+tornei[index].sport.sport.toString().split(".").last),
+                  leading:Icon(Icons.request_page, color: LightColors.kDarkBlue, size: 50.0,),
+                  title: Text("Nome Torneo: "+tornei[index].nome,style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
+                  subtitle:  Text("Sport: "+tornei[index].sport.sport.toString().split(".").last,style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   onTap: (){
                     getSquadre(tornei[index].id_torneo).then((value) async =>
                     {

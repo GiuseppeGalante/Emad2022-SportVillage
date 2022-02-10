@@ -7,6 +7,7 @@ import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/DettaglioTorneo.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -55,6 +56,7 @@ class _VisualizzaRichiesteTorneoState extends State<VisualizzaRichiesteTorneo> {
     print(richiestetornei);
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Richieste Torneo"),
         ),
 
@@ -62,10 +64,17 @@ class _VisualizzaRichiesteTorneoState extends State<VisualizzaRichiesteTorneo> {
             itemCount: richiestetornei.length,
             itemBuilder: (context,index){
               return Card(
+                color: LightColors.kLightYellow,
                 child: ListTile(
-                  leading:Icon(Icons.request_page, color: Colors.black, size: 50.0,),
-                  title: Text("Nome Torneo: "+richiestetornei[index].nome),
-                  subtitle:  Text("Sport: "+richiestetornei[index].sport.sport.toString().split(".").last),
+                  leading:Icon(Icons.request_page, color: LightColors.kDarkBlue, size: 50.0,),
+                  title: Text("Nome Torneo: "+richiestetornei[index].nome,style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
+                  subtitle:  Text("Sport: "+richiestetornei[index].sport.sport.toString().split(".").last,style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   onTap: () async {
                     await Navigator.push(context, MaterialPageRoute(
                         builder: (context){

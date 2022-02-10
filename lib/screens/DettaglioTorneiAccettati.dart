@@ -14,6 +14,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioTorneoAccettato extends StatelessWidget {
 
@@ -30,6 +31,7 @@ class DettaglioTorneoAccettato extends StatelessWidget {
     print(torneo);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Squadre Torneo "+torneo.nome),
       ),
 
@@ -59,8 +61,9 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
   _DettaglioTorneoState({Key? key,required this.torneo,required this.giocatore,required this.squadre});
   @override
   Widget build(BuildContext context) {
-    print("TORNEO:  "+torneo.id_torneo);
+    print("TORNEO:  "+torneo.id_torneo,);
     return Scaffold(
+      backgroundColor: LightColors.kLightYellow,
       body: SafeArea(
           child: Column(
               children: [
@@ -77,14 +80,14 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 5.0),
                                 child: ListTile(
 
-                                  leading:Icon(Icons.group_add, size: 50,color: Colors.blueGrey),
+                                  leading:Icon(Icons.group_add, size: 50,color: LightColors.kDarkBlue),
                                   title:Text(squadre[index].nome, style: TextStyle(
                                     fontSize: 22.0,
                                     color: Colors.blue,
@@ -95,14 +98,14 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                     {
                                       return Text("Prenotazioni Aperte",style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.green,
+                                        color: LightColors.kGreen,
                                         fontWeight: FontWeight.bold,
                                       ),);
                                     }else
                                       {
                                         return Text("Prenotazioni Chiuse",style: TextStyle(
                                           fontSize: 18.0,
-                                          color: Colors.red,
+                                          color: LightColors.kRed,
                                           fontWeight: FontWeight.bold,
                                         ),);
                                       }
@@ -113,7 +116,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                                   horizontal: 10,
                                                   vertical: 20
                                               ),
-                                              child:Icon(Icons.more_vert, size: 30,color: Colors.blueGrey),
+                                              child:Icon(Icons.more_vert, size: 30,color: LightColors.kDarkBlue),
                                             ),
                                         onSelected: (value) {
                                           setState(() {
@@ -128,15 +131,26 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                                           BuildContext context_alert) =>
                                                           AlertDialog(
                                                             title: const Text(
-                                                                'Aggiunta alla squadra'),
+                                                                'Aggiunta alla squadra',style: TextStyle(
+                                                              fontSize: 15.0,
+                                                              color: LightColors.kGreen,
+                                                              fontWeight: FontWeight.w800,
+                                                            ),
+                                                            ),
                                                             content: const Text(
-                                                                'Vuoi entrare in questa squadra?'),
+                                                                'Vuoi entrare in questa squadra?',
+                                                              style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                color: LightColors.kGreen,
+                                                                fontWeight: FontWeight.w800,
+                                                              ),),
                                                             actions: <Widget>[
                                                               ElevatedButton(
                                                                 onPressed: () {
                                                                   Navigator.pop(
                                                                       context_alert,
-                                                                      'Cancel');
+                                                                      'Cancel',
+                                                                  );
                                                                 },
                                                                 child: const Text('NO'),
                                                               ),
@@ -193,7 +207,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
                                                 content: const Text(
-                                                'Aggiunta Effettuata'),
+                                                'Aggiunta Effettuata',),
                                                 backgroundColor: Colors
                                                     .green,
                                                 action: SnackBarAction(
@@ -272,14 +286,25 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                       PopupMenuItem(
                                         child: ListTile(
                                           leading: Icon(Icons.add),
-                                          title: Text('Aggiungiti'),
+                                          title: Text('Aggiungiti',
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.w800,
+                                            ),),
                                         ),
                                         value: "1",
                                       ),
                                         const PopupMenuItem(
+
                                           child: ListTile(
-                                            leading: Icon(Icons.info),
-                                            title: Text('Visualizza'),
+                                            leading: Icon(Icons.info,color: LightColors.kDarkBlue,),
+                                            title: Text('Visualizza',
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                           ),
                                           value:"2",
                                         ),

@@ -11,6 +11,7 @@ import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/infoGiocatore.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -67,17 +68,34 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
         context: context,
         builder:  (BuildContext ctx) {
           return AlertDialog(
-            title: Text("Aggiungiti al match"),
-            content: Text("Vuoi aggiungerti al match?"),
+            title: Text("Aggiungiti al match",
+              style: TextStyle(
+                fontSize: 15.0,
+                color: LightColors.kDarkBlue,
+                fontWeight: FontWeight.w800,
+              ),),
+            content: Text("Vuoi aggiungerti al match?",style: TextStyle(
+              fontSize: 15.0,
+              color: LightColors.kDarkBlue,
+              fontWeight: FontWeight.w800,
+            ),),
             actions: [
                     TextButton(
-                      child: Text("No"),
+                      child: Text("No",style: TextStyle(
+                        fontSize: 15.0,
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                       onPressed:  () {
                         Navigator.of(ctx).pop();
                       },
                     ),
                     TextButton(
-                      child: Text("Si"),
+                      child: Text("Si",style: TextStyle(
+                        fontSize: 15.0,
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                       onPressed:  () {
                         setState(() {
                           widget.partitaconfermata.partecipanti.add(giocatore.id.key!);
@@ -99,17 +117,33 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
           context: context,
           builder:  (BuildContext ctx) {
             return AlertDialog(
-              title: Text("Aggiungiti al match"),
-              content: Text("Vuoi aggiungerti al match?"),
+              title: Text("Aggiungiti al match",style: TextStyle(
+                fontSize: 15.0,
+                color: LightColors.kDarkBlue,
+                fontWeight: FontWeight.w800,
+              ),),
+              content: Text("Vuoi aggiungerti al match?",style: TextStyle(
+                fontSize: 15.0,
+                color: LightColors.kDarkBlue,
+                fontWeight: FontWeight.w800,
+              ),),
               actions: [
                 TextButton(
-                  child: Text("No"),
+                  child: Text("No",style: TextStyle(
+                    fontSize: 15.0,
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   onPressed:  () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 TextButton(
-                  child: Text("Si"),
+                  child: Text("Si",style: TextStyle(
+                    fontSize: 15.0,
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                   onPressed:  () {
                     setState(() {
                       widget.partitaconfermata.partecipanti_trasf.add(giocatore.id.key!);
@@ -180,10 +214,12 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Info Partita Confermata"),
         ),
 
         body: Column(
+
           children: <Widget>[
 
               Text(partitaconfermata.data),
@@ -192,7 +228,9 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
             Row(
               children: [
                 Expanded(
+
                     child:SizedBox(
+
                       height: 200.0,
                       child:  ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -217,6 +255,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                                       }
                               },
                               child: Card(
+                                color: LightColors.kLightYellow,
 
                                     child: Text(casa[index]!.nome) ,
                                   )
@@ -231,6 +270,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
                 ),
                 Expanded(
+
                     child:SizedBox(
                       height: 200.0,
                       child:  ListView.builder(
@@ -258,6 +298,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                               child: Card(
 
                                 child: Text(trasf[index]!.nome) ,
+                                color: LightColors.kLightYellow,
                               )
                               ,
                             );
@@ -277,6 +318,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget> [
                   Column(
+
                     children:<Widget> [
                       //Text("Team 1"),
 

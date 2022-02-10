@@ -13,6 +13,7 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 
 import 'InfoCentroSportivo.dart';
 import 'home.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 
 
@@ -100,8 +101,8 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: const Text('Orario non disponibile'),
-              backgroundColor: Colors.red,
-              action: SnackBarAction(textColor:Colors.white,
+              backgroundColor: LightColors.kRed,
+              action: SnackBarAction(textColor:LightColors.kLightYellow,
                 label: 'OK', onPressed: () {},),
             ),
           );
@@ -127,6 +128,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Richiedi nuova partita"),
       ),
       body: Form(
@@ -137,15 +139,16 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
             child: ListView(
               children: <Widget>[
                 Container(
+                  color: LightColors.kLightYellow,
 
                   child:Text("RICHIESTA NUOVA PARTITA",
 
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
+                    style: TextStyle(
+
+                      color: LightColors.kDarkBlue,
+                      fontWeight: FontWeight.w800,
+                    ),),
 
                 ),
                 SizedBox(height: 30.0,),
@@ -169,31 +172,39 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       SizedBox(width: 40.0,),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          primary: LightColors.kLightYellow,
                         ),
                         onPressed: () => _selectDate(context),
                         child: Icon(
                           Icons.date_range ,
-                          color: Colors.blue,
+                          color: LightColors.kDarkBlue,
                           size: 24.0,
                         ),
                       ),
                       SizedBox(width: 20.0,),
-                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString()),
+                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString(),style: TextStyle(
+
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                       SizedBox(width: 40.0,),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          primary: LightColors.kLightYellow,
                         ),
                         onPressed: () => _selectTime(context),
                         child: Icon(
                           Icons.access_time_rounded ,
-                          color: Colors.blue,
+                          color: LightColors.kDarkBlue,
                           size: 24.0,
                         ),
                       ),
                       SizedBox(width: 20.0,),
-                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0"),
+                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0",style: TextStyle(
+
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                     ],
                   ),
                 ),
@@ -224,17 +235,20 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                   padding:EdgeInsets.only(top:10),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.emoji_events, color: Colors.white, size: 30.0,),
+                      Icon(Icons.emoji_events, color: LightColors.kDarkBlue, size: 30.0,),
                       SizedBox(width: 10),
                       Padding(padding:EdgeInsets.only(bottom:20),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width-78,
                             child:Container(
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               child:Padding(
                                 padding: EdgeInsets.only(left:12),
                                 child:DropdownButtonFormField<Sport>(
-                                  hint: Text("Scegli Sport"),
+                                  hint: Text("Scegli Sport",style: TextStyle(
+                                    color: LightColors.kDarkBlue,
+                                    fontWeight: FontWeight.w800,
+                                  ),),
                                   onChanged: (value){
                                     setState(() {
                                       richiestaNuovaPartita.sport=new SportClass(value!);
@@ -263,19 +277,19 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                   onSaved: (value) => richiestaNuovaPartita.sport=new SportClass(value!),
                                   items: [
                                     DropdownMenuItem<Sport>(
-                                      child: Text("Calcio",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Calcio",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.calcio,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Pallavolo",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Pallavolo",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.pallavolo,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Tennis",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Tennis",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.tennis,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Padel",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Padel",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.padel,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Ping Pong",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Ping Pong",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.pingpong,
                                     ),
                                   ],
@@ -290,12 +304,12 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                 Row(
 
                   children: [
-                    Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                    Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
                     SizedBox(width: 20),
                     Container(
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                             ),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.elliptical(5,5))
@@ -306,11 +320,18 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             SizedBox(width: 10),
-                            Text("Centro Sportivo"),
+                            Text("Centro Sportivo",
+                              style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
                             SizedBox(width: 30),
                             SizedBox(
                               child: DropdownButton<String>(
-                                hint: Text('Seleziona centro'),
+                                hint: Text('Seleziona centro',style: TextStyle(
+                                  color: LightColors.kDarkBlue,
+                                  fontWeight: FontWeight.w800,
+                                ),),
                                 value: _idCentro,
                                 onChanged: (value) {
                                   setState(() {
@@ -367,7 +388,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                     Container(
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                             ),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.elliptical(5,5))
@@ -378,12 +399,18 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             SizedBox(width: 10),
-                            Text("Campo"),
+                            Text("Campo",style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ),),
                             SizedBox(width: 30),
                             SizedBox(
                               width: 190,
                               child: DropdownButtonFormField<String>(
-                                hint: Text('Scegli un campo'),
+                                hint: Text('Scegli un campo',style: TextStyle(
+                                  color: LightColors.kDarkBlue,
+                                  fontWeight: FontWeight.w800,
+                                ),),
                                 onChanged: (value) {
                                   setState(() {
                                     nomeCampo = value!;
@@ -439,7 +466,10 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                 ),*/
 
                 DropdownButton<int>(
-                  hint: Text('Seleziona numero di partecipanti'),
+                  hint: Text('Seleziona numero di partecipanti',style: TextStyle(
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                     value: n_partecipanti,
                     onChanged: (value){
                       setState(() {
@@ -450,7 +480,10 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                   items: partecipanti.map((e)
                       {
                         return DropdownMenuItem<int>(
-                          child: new Text(e.toString()),
+                          child: new Text(e.toString(),style: TextStyle(
+                            color: LightColors.kDarkBlue,
+                            fontWeight: FontWeight.w800,
+                          ),),
                           value: e,
                         );
                       }
@@ -460,7 +493,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                 SizedBox(height: 20),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                      primary: LightColors.kLightYellow,
                     ),
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
@@ -482,7 +515,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: const Text('Orario già occupato'),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: LightColors.kRed,
                                   action: SnackBarAction(textColor:Colors.white,
                                     label: 'OK', onPressed: () {},),
                                 ),
@@ -498,7 +531,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: const Text('Partita Creata'),
-                                  backgroundColor: Colors.green,
+                                  backgroundColor: LightColors.kGreen,
                                   action: SnackBarAction(textColor:Colors.white,
                                     label: 'OK', onPressed: () {},),
                                 ),
@@ -519,9 +552,11 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
                     }
                     , child: Text("Richiedi nuova partita",
-                    style: TextStyle(
-                    color: Colors.blue,
-                    )),
+                  style: TextStyle(
+                    fontSize: 35.0,
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),),
                 )
               ],
             ),

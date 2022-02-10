@@ -17,6 +17,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class PartiteTorneo extends StatelessWidget {
 
@@ -34,6 +35,7 @@ class PartiteTorneo extends StatelessWidget {
     print(torneo);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Squadre Torneo "+torneo.nome),
       ),
 
@@ -69,6 +71,7 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
         child: Column(
             children: [
               Container(
+                color: LightColors.kLightYellow,
                 width: double.infinity,
                 height:MediaQuery.of(context).size.height-155,
                 child: ListView.builder(
@@ -81,14 +84,14 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 5.0),
                                   child:Row(
                                     children: [
-                                      Icon(Icons.shield, size: 50,color: Colors.red),
+                                      Icon(Icons.shield, size: 50,color: LightColors.kRed),
                                       Expanded(
                                       flex: 6,
                                       child:
@@ -98,23 +101,23 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
                                         children: [
                                           Text(partite[index].data+" - "+partite[index].ora, style: TextStyle(
                                             fontSize: 16.0,
-                                            color: Colors.black54,
+                                            color: LightColors.kDarkBlue,
                                             fontWeight: FontWeight.bold,
                                           )),
                                           Text(partite[index].squadra1+" vs "+partite[index].squadra2, style: TextStyle(
                                             fontSize: 18.0,
-                                            color: Colors.black,
+                                            color: LightColors.kDarkBlue,
                                             fontWeight: FontWeight.bold,
                                           )),
                                           Text(partite[index].campo, style: TextStyle(
                                             fontSize: 15.0,
-                                            color: Colors.black45,
+                                            color: LightColors.kDarkBlue,
                                             fontWeight: FontWeight.bold,
                                           )),
                                         ],
                                       ),
                                           ),
-                                      Icon(Icons.shield, size: 50,color: Colors.blue),
+                                      Icon(Icons.shield, size: 50,color: LightColors.kBlue),
                                     ],
                                   ),
 
@@ -166,7 +169,7 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
 
         },
         label: const Text('Aggiungi Partita'),
-        backgroundColor: Colors.green,
+        backgroundColor: LightColors.kGreen,
         icon: const Icon(Icons.add),
       ),
     );

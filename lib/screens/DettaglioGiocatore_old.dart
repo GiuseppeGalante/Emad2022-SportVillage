@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioGio extends StatelessWidget {
 
@@ -52,9 +53,9 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
 
 
   final List<Widget> star = <Widget>[Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star_half, size:50, color: Colors.blueGrey,),
+    Icon(Icons.star, size:50, color: LightColors.kBlue,),
+    Icon(Icons.star, size:50, color: LightColors.kBlue,),
+    Icon(Icons.star_half, size:50, color: LightColors.kBlue,),
   ];
 
   var title;
@@ -67,11 +68,13 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
     return MaterialApp(
         home:Scaffold(
           appBar: AppBar(
+            backgroundColor: LightColors.kDarkBlue,
             title: Text("Dettagli"),
           ),
           body: Column(
             children: <Widget>[
               Container(
+                color: LightColors.kLightYellow,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -88,6 +91,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Padding(
+
                             padding:EdgeInsets.only(top:10),
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
@@ -103,7 +107,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                             giocatore.nome+" "+giocatore.cognome,
                             style: TextStyle(
                               fontSize: 25.0,
-                              color: Colors.white,
+                              color: LightColors.kDarkBlue,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -113,7 +117,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kBlue,
                             elevation: 5.0,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 22.0),
@@ -126,7 +130,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                         Text(
                                           "Vittorie",
                                           style: TextStyle(
-                                            color: Colors.blue,
+                                            color: LightColors.kBlue,
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -138,7 +142,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                           giocatore.vittorie.toString(),
                                           style: TextStyle(
                                             fontSize: 20.0,
-                                            color: Colors.lightBlueAccent,
+                                            color: LightColors.kDarkBlue,
                                           ),
                                         )
                                       ],
@@ -151,7 +155,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                         Text(
                                           "Pareggi",
                                           style: TextStyle(
-                                            color: Colors.blue,
+                                            color:LightColors.kBlue,
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -163,7 +167,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                           giocatore.pareggi.toString(),
                                           style: TextStyle(
                                             fontSize: 20.0,
-                                            color: Colors.lightBlueAccent,
+                                            color: LightColors.kDarkBlue,
                                           ),
                                         )
                                       ],
@@ -176,7 +180,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                         Text(
                                           "Sconfitte",
                                           style: TextStyle(
-                                            color: Colors.blue,
+                                            color: LightColors.kBlue,
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -188,7 +192,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                           giocatore.sconfitte.toString(),
                                           style: TextStyle(
                                             fontSize: 20.0,
-                                            color: Colors.lightBlueAccent,
+                                            color: LightColors.kDarkBlue,
                                           ),
                                         )
                                       ],
@@ -202,7 +206,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 22.0),
@@ -215,7 +219,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                                           Text(
                                             "Valutazione",
                                             style: TextStyle(
-                                              color: Colors.blue,
+                                              color: LightColors.kBlue,
                                               fontSize: 22.0,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -246,6 +250,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                   )
               ),
               Container(
+                color: LightColors.kLightYellow,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 16.0),
                   child: Column(
@@ -255,7 +260,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                       Text(
                         "Bio:",
                         style: TextStyle(
-                            color: Colors.blue,
+                            color: LightColors.kBlue,
                             fontStyle: FontStyle.normal,
                             fontSize: 28.0
                         ),
@@ -269,7 +274,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                           fontSize: 22.0,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w300,
-                          color: Colors.black,
+                          color: LightColors.kDarkBlue,
                           letterSpacing: 2.0,
                         ),
                       ),
@@ -281,6 +286,7 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                 height: 20.0,
               ),
               Container(
+                color: LightColors.kLightYellow,
                 width: 300.00,
 
                 child: ElevatedButton(
@@ -305,15 +311,16 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
                         gradient: LinearGradient(
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
-                            colors: [Colors.blue,Colors.lightBlueAccent]
+                            colors: [LightColors.kBlue,LightColors.kDarkBlue]
                         ),
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: Container(
+                        color: LightColors.kLightYellow,
                         constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                         alignment: Alignment.center,
                         child: Text("Altro",
-                          style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight:FontWeight.w300),
+                          style: TextStyle(color: LightColors.kDarkBlue, fontSize: 26.0, fontWeight:FontWeight.w300),
                         ),
                       ),
                     )
@@ -324,15 +331,16 @@ class _DettaglioGiocatore extends State<DettaglioGioState> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                backgroundColor: LightColors.kDarkBlue,
+                icon: Icon(Icons.home, color: LightColors.kLightYellow,),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.search,color: LightColors.kLightYellow,),
                 label: 'Ricerca Partita',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,color: LightColors.kLightYellow,),
                 label: 'Profilo',
               ),
             ],

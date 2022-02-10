@@ -116,10 +116,9 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                              Icon(Icons.menu,
+                              Icon(Icons.home,
                                   color: LightColors.kDarkBlue, size: 30.0),
-                              Icon(Icons.search,
-                                  color: LightColors.kDarkBlue, size: 25.0),
+
                           ],
                       ),
                 Padding(
@@ -152,8 +151,9 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                             child: Text(
                               giocatore.nome+ ' '+giocatore.cognome ,
                               textAlign: TextAlign.start,
+
                               style: TextStyle(
-                                fontSize: 40.0,
+                                fontSize: 35.0,
                                 color: LightColors.kDarkBlue,
                                 fontWeight: FontWeight.w800,
                               ),

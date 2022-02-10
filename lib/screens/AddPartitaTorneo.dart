@@ -20,6 +20,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
 import 'package:time_picker_widget/time_picker_widget.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class AddPartitaTorneo extends StatelessWidget {
 
@@ -35,7 +36,14 @@ class AddPartitaTorneo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Crea Partita"),
+        backgroundColor: LightColors.kBlue,
+        title: Text("Crea Partita",
+          style: TextStyle(
+            fontSize: 20.0,
+            color: LightColors.kLightYellow,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ),
 
       body: AddPartitaTorneoState(squadre:squadre,torneo:torneo,giocatore:giocatore),
@@ -86,7 +94,9 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   Widget build(BuildContext first_context) {
     Future<List> dati=getCampiBySport(torneo.id_centro_sportivo.toString(),torneo.sport).then((value) => campi = value).whenComplete(() => _idCampo = campi[0].nome!);
     return Scaffold(
+      backgroundColor: LightColors.kLightYellow,
       body: SafeArea(
+
         child:Column(
               children: [
         FutureBuilder<List>(
@@ -134,7 +144,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Text('Orario non disponibile'),
-                        backgroundColor: Colors.red,
+                        backgroundColor: LightColors.kRed,
                         action: SnackBarAction(textColor:Colors.white,
                           label: 'OK', onPressed: () {},),
                       ),
@@ -158,10 +168,11 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                           children: <Widget>
                           [
                             Card(
+                              color: LightColors.kDarkYellow,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -169,12 +180,18 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.group_add, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kBlue),
                                       title: Container(
-                                        color: Colors.white,
+                                        color: LightColors.kLightYellow,
 
                                           child: DropdownButtonFormField<String>(
-                                            hint: Text('Scegli una squadra'),
+                                            hint: Text('Scegli una squadra',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
                                             onChanged: (value) {
                                               setState(() {
                                                 squadra1= value!;
@@ -207,7 +224,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -215,9 +232,15 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.group_add, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kDarkBlue),
                                       title: DropdownButtonFormField<String>(
-                                        hint: Text('Scegli una squadra'),
+                                        hint: Text('Scegli una squadra',
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                            ),
                                         onChanged: (value) {
 
                                           setState(() {
@@ -250,7 +273,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -258,9 +281,14 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.location_on, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kDarkBlue),
                                       title:DropdownButtonFormField<String>(
-                                        hint: Text('Scegli un campo'),
+                                        hint: Text('Scegli un campo',
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),),
                                         onChanged: (value) {
                                           setState(() {
                                             nomeCampo = value!;
@@ -295,10 +323,15 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
 
                                         leading: Icon(
                                             Icons.calendar_today, size: 50,
-                                            color: Colors.blueGrey),
+                                            color: LightColors.kDarkBlue),
                                         title:ElevatedButton(
                                           onPressed: () => _selectDate(context),
-                                          child: Text('Data'),
+                                          child: Text('Data',
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.w800,
+                                            ),),
                                         ),
                                     )
                                 ),
@@ -306,10 +339,15 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                     child: ListTile(
 
                                         leading: Icon(Icons.schedule, size: 50,
-                                            color: Colors.blueGrey),
+                                            color: LightColors.kDarkBlue),
                                         title: ElevatedButton(
                                           onPressed: () => _selectTime(context),
-                                          child: Text('Ora'),
+                                          child: Text('Ora',
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.w800,
+                                            ),),
                                         ),
                                     )
                                 )
@@ -342,7 +380,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
                                               content: const Text('Orario già occupato'),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: LightColors.kRed,
                                               action: SnackBarAction(textColor:Colors.white,
                                                 label: 'OK', onPressed: () {},),
                                             ),
@@ -360,7 +398,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
                                               content: const Text('Partita Creata'),
-                                              backgroundColor: Colors.green,
+                                              backgroundColor: LightColors.kGreen,
                                               action: SnackBarAction(textColor:Colors.white,
                                                 label: 'OK', onPressed: () {},),
                                             ),

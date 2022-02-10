@@ -6,7 +6,7 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
-
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 
 //TODO: passare il riferimento amministratore anzichè centro sportivo.
@@ -44,17 +44,23 @@ class _FormCampoState extends State<FormCampo> {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Registrazione"),
       ),
 
       body: Form(
+
+
           key: _formKey,
           child: Padding(
+
             padding: EdgeInsets.all(16),
             child: ListView(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: "Nome campo"),
+
+                  decoration: InputDecoration(labelText: "Nome campo",
+                  focusColor: LightColors.kDarkBlue),
                   onChanged: (value) => campo.nome=value,
                   validator: (value){
                     if(value?.isEmpty ?? true)
@@ -63,6 +69,7 @@ class _FormCampoState extends State<FormCampo> {
                     }
                   },
                 ),Padding(
+
                   padding:EdgeInsets.only(top:10),
                   child: Row(
                     children: <Widget>[
@@ -70,11 +77,16 @@ class _FormCampoState extends State<FormCampo> {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width-78,
                             child:Container(
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               child:Padding(
                                 padding: EdgeInsets.only(left:12),
                                 child:DropdownButtonFormField<Sport>(
-                                  hint: Text("Scegli Sport"),
+                                  hint: Text("Scegli Sport",
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),),
                                   onChanged: (value){
                                     setState(() {
                                       campo.tipo=SportClass(value!);
@@ -89,19 +101,19 @@ class _FormCampoState extends State<FormCampo> {
                                   onSaved: (value) => campo.tipo=new SportClass(value!),
                                   items: [
                                     DropdownMenuItem<Sport>(
-                                      child: Text("Calcio",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Calcio",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.calcio,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Pallavolo",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Pallavolo",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.pallavolo,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Tennis",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Tennis",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.tennis,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Padel",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Padel",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.padel,
                                     ),DropdownMenuItem<Sport>(
-                                      child: Text("Ping Pong",style: TextStyle(color:Colors.black54),),
+                                      child: Text("Ping Pong",style: TextStyle(color:LightColors.kDarkBlue),),
                                       value: Sport.pingpong,
                                     ),
                                   ],
@@ -114,12 +126,22 @@ class _FormCampoState extends State<FormCampo> {
                   ),
                 ),Row(
                   children: <Widget>[
-                    Text("Centro Sprotivo"),
+                    Text("Centro Sprotivo",
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: LightColors.kDarkBlue,
+                        fontWeight: FontWeight.w800,
+                      ),),
                     Spacer(),
                     SizedBox(
                       width: MediaQuery.of(context).size.width/2,
                       child: DropdownButton<String>(
-                        hint: Text('Scegli un centro sportivo'),
+                        hint: Text('Scegli un centro sportivo',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: LightColors.kDarkBlue,
+                            fontWeight: FontWeight.w800,
+                          ),),
                         value: _idCentro ,
                         onChanged: (value){
                           setState(() {
@@ -164,7 +186,12 @@ class _FormCampoState extends State<FormCampo> {
                       }
 
                     }
-                    , child: Text("Registra centro sportivo")
+                    , child: Text("Registra centro sportivo",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),)
                 )
               ],
             ),

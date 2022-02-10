@@ -7,6 +7,7 @@ import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -57,6 +58,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
     print(centrosportivo);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Registrazione"),
       ),
 
@@ -71,23 +73,24 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                   runSpacing: 20, // to apply margin in the cross axis of the wrap
                   children: <Widget>[
                     Card(
+
                           margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           clipBehavior: Clip.antiAlias,
-                          color: Colors.white,
+                          color: LightColors.kLightYellow,
                           elevation: 5.0,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             child:ListTile(
-                              leading: Icon(Icons.calendar_today_rounded,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.calendar_today_rounded,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Data:",style: TextStyle(
                                 fontSize: 18.0,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              )),
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
                               subtitle: Text(richiestanuovapartita.data,style: TextStyle(
                                 fontSize: 22.0,
-                                color: Colors.lightBlueAccent,
-                                fontWeight: FontWeight.bold,
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
                               ),
                               ),
                             )
@@ -96,21 +99,21 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           child:ListTile(
-                            leading: Icon(Icons.access_time_rounded,size: 50,color:Colors.blueGrey),
-                            title: Text("Orario:",style: TextStyle(
+                            leading: Icon(Icons.access_time_rounded,size: 50,color:LightColors.kDarkBlue),
+                            title: Text("Orario:", style: TextStyle(
                               fontSize: 18.0,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                            )),
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ),),
                             subtitle: Text(richiestanuovapartita.orario,style: TextStyle(
                               fontSize: 22.0,
-                              color: Colors.lightBlueAccent,
-                              fontWeight: FontWeight.bold,
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
                             ),
                             ),
                           )
@@ -119,21 +122,21 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                           child:ListTile(
-                            leading: Icon(Icons.people_alt_rounded,size: 50,color:Colors.blueGrey),
+                            leading: Icon(Icons.people_alt_rounded,size: 50,color:LightColors.kDarkBlue),
                             title: Text("Numero di partecipanti:",style: TextStyle(
                               fontSize: 18.0,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                            )),
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ),),
                             subtitle: Text(richiestanuovapartita.numero_di_partecipanti.toString(),style: TextStyle(
                               fontSize: 22.0,
-                              color: Colors.lightBlueAccent,
-                              fontWeight: FontWeight.bold,
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
                             ),
                             ),
                           )
@@ -142,7 +145,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                       elevation: 5.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
@@ -153,13 +156,17 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                 leading: Icon(Icons.sports ,size: 50,color:Colors.blueGrey),
                                 title: Text("Seleziona Campo:",style: TextStyle(
                                   fontSize: 18.0,
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                )),
+                                  color: LightColors.kDarkBlue,
+                                  fontWeight: FontWeight.w800,
+                                ),),
                                 subtitle: SizedBox(
                                   width: MediaQuery.of(context).size.width/1.5,
                                   child: DropdownButton<String>(
-                                    hint: Text('Seleziona un campo'),
+                                    hint: Text('Seleziona un campo',style: TextStyle(
+
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),),
                                     value: _idCentro ,
                                     onChanged: (value){
                                       setState(() {
@@ -204,8 +211,15 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                 context: context,
                                 barrierDismissible: false,
                                 builder: (BuildContext context_alert) => AlertDialog(
-                                  title: const Text('Richiesta partita'),
-                                  content: const Text('Vuoi confermare la richiesta partita?'),
+                                  title: const Text('Richiesta partita',
+                                    style: TextStyle(
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),),
+                                  content: const Text('Vuoi confermare la richiesta partita?',style: TextStyle(
+                                    color: LightColors.kDarkBlue,
+                                    fontWeight: FontWeight.w800,
+                                  ),),
                                   actions: <Widget>[
                                     ElevatedButton(
                                       onPressed: (){
@@ -255,9 +269,12 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                             );
 
                           },
-                          child: Text("Accetta richiesta partita"),
+                          child: Text("Accetta richiesta partita",style: TextStyle(
+                            color: LightColors.kDarkBlue,
+                            fontWeight: FontWeight.w800,
+                          ),),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.green),
+                            backgroundColor: MaterialStateProperty.all(LightColors.kGreen),
                             padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                           ),
                         ),
@@ -271,8 +288,14 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (BuildContext context_alert) => AlertDialog(
-                                    title: const Text('Rifiuta richiesta partita'),
-                                    content: const Text('Sei sicuro di voler rifiutare la richiesta partita?'),
+                                    title: const Text('Rifiuta richiesta partita',style: TextStyle(
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),),
+                                    content: const Text('Sei sicuro di voler rifiutare la richiesta partita?',style: TextStyle(
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),),
                                     actions: <Widget>[
                                       ElevatedButton(
                                         onPressed: () => Navigator.pop(context_alert, 'Cancel'),
@@ -329,9 +352,12 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                               );
 
                             },
-                            child: Text("Rifiuta richiesta partita"),
+                            child: Text("Rifiuta richiesta partita",style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ),),
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.red),
+                              backgroundColor: MaterialStateProperty.all(LightColors.kRed),
                               padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                             ),
                           ),

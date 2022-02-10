@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/DettagliGio.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettagliGio extends StatelessWidget {
 
@@ -68,11 +69,13 @@ class _DettaglioGioState extends State<DettaglioGioState> {
       giocatore.bio="Nessuna Biografia";
     return Scaffold(
           appBar: AppBar(
+            backgroundColor: LightColors.kDarkBlue,
             title: Text("Profilo"),
           ),
           body: Column(
             children: <Widget>[
               SafeArea(child:  Container(
+                color: LightColors.kLightYellow,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -84,6 +87,7 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                     width: double.infinity,
                       height:MediaQuery.of(context).size.height,
                       child: Column(
+
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -91,22 +95,23 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                           Padding(
                             padding:EdgeInsets.only(top:10),
                             child: Card(
+
                                 margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                 clipBehavior: Clip.antiAlias,
-                                color: Colors.white,
+                                color: LightColors.kLightYellow,
                                 elevation: 5.0,
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                     child:ListTile(
-                                      leading: Icon(Icons.person,size: 50,color:Colors.blueGrey),
+                                      leading: Icon(Icons.person,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Nome:",style: TextStyle(
                                 fontSize: 18.0,
-                                color: Colors.blue,
+                                color: LightColors.kDarkBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle: Text(giocatore.nome+" "+giocatore.cognome,style: TextStyle(
                                 fontSize: 22.0,
-                                color: Colors.lightBlueAccent,
+                                color: LightColors.kDarkBlue,
                                 fontWeight: FontWeight.bold,
                               ),
                               ),
@@ -121,20 +126,20 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                 child:ListTile(
-                                  leading: Icon(Icons.person,size: 50,color:Colors.blueGrey),
+                                  leading: Icon(Icons.person,size: 50,color:LightColors.kDarkBlue),
                                   title: Text("Nome Utente:",style: TextStyle(
                                     fontSize: 18.0,
-                                    color: Colors.blue,
+                                    color: LightColors.kDarkBlue,
                                     fontWeight: FontWeight.bold,
                                   )),
                                   subtitle: Text(giocatore.nome_utente,style: TextStyle(
                                     fontSize: 22.0,
-                                    color: Colors.lightBlueAccent,
+                                    color: LightColors.kBlue,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   ),
@@ -149,20 +154,20 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kDarkYellow,
                             elevation: 5.0,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                 child:ListTile(
-                                  leading: Icon(Icons.phone,size: 50,color:Colors.blueGrey),
+                                  leading: Icon(Icons.phone,size: 50,color:LightColors.kDarkBlue),
                                   title: Text("Numero di Telefono:",style: TextStyle(
                                     fontSize: 18.0,
-                                    color: Colors.blue,
+                                    color: LightColors.kDarkBlue,
                                     fontWeight: FontWeight.bold,
                                   )),
                                   subtitle: Text(giocatore.numero_di_telefono,style: TextStyle(
                                     fontSize: 22.0,
-                                    color: Colors.lightBlueAccent,
+                                    color: LightColors.kDarkBlue,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   ),
@@ -177,20 +182,20 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                 child:ListTile(
-                                  leading: Icon(Icons.email,size: 50,color:Colors.blueGrey),
+                                  leading: Icon(Icons.email,size: 50,color:LightColors.kDarkBlue),
                                   title: Text("Email:",style: TextStyle(
                                     fontSize: 18.0,
-                                    color: Colors.blue,
+                                    color: LightColors.kDarkBlue,
                                     fontWeight: FontWeight.bold,
                                   )),
                                   subtitle: Text(giocatore.email,style: TextStyle(
                                     fontSize: 22.0,
-                                    color: Colors.lightBlueAccent,
+                                    color: LightColors.kBlue,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   ),
@@ -205,20 +210,20 @@ class _DettaglioGioState extends State<DettaglioGioState> {
                           Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kDarkYellow,
                             elevation: 5.0,
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                                 child:ListTile(
-                                  leading: Icon(Icons.phone,size: 50,color:Colors.blueGrey),
+                                  leading: Icon(Icons.phone,size: 50,color:LightColors.kDarkBlue),
                                   title: Text("Data di Nascita:",style: TextStyle(
                                     fontSize: 18.0,
-                                    color: Colors.blue,
+                                    color: LightColors.kDarkBlue,
                                     fontWeight: FontWeight.bold,
                                   )),
                                   subtitle: Text(giocatore.data_di_nascita,style: TextStyle(
                                     fontSize: 22.0,
-                                    color: Colors.lightBlueAccent,
+                                    color: LightColors.kBlue,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   ),
@@ -236,20 +241,22 @@ class _DettaglioGioState extends State<DettaglioGioState> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                backgroundColor: LightColors.kLightYellow,
+                icon: Icon(Icons.home,color: LightColors.kDarkBlue,),
                 label: 'Home',
+
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.search,color: LightColors.kDarkBlue,),
                 label: 'Ricerca Partita',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,color: LightColors.kDarkBlue,),
                 label: 'Profilo',
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.blue,
+            selectedItemColor: LightColors.kBlue,
             onTap: _onItemTapped,
           ),
         );

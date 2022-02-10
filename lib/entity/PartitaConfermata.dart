@@ -11,7 +11,7 @@ final databaseReference= FirebaseDatabase.instance.reference();
 
 
 
-class PartitaConfermata{
+class TorneiAccettati{
 
   String data="";
   String? id_centro_sportivo="";
@@ -56,7 +56,7 @@ class PartitaConfermata{
 
 }
 
-DatabaseReference saveNuovaPartitaConfermata(PartitaConfermata richiesta)
+DatabaseReference saveNuovaPartitaConfermata(TorneiAccettati richiesta)
 {
   var id = databaseReference.child("partiteconfermate/").push();
   richiesta.id=id;
@@ -64,18 +64,18 @@ DatabaseReference saveNuovaPartitaConfermata(PartitaConfermata richiesta)
   return id;
 }
 
-void updatePartitaConfermata(PartitaConfermata partita)
+void updatePartitaConfermata(TorneiAccettati partita)
 {
 
   partita.id.update(partita.toJson());
 }
 
 
-Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async{
+Future<List<TorneiAccettati>?> getPartiteConfermate({String idgioca=""}) async{
   DatabaseEvent dataSnapshot = (await databaseReference.child('partiteconfermate/').once()) as DatabaseEvent;
-  List<PartitaConfermata> partiteConfermate = [];
-  List<PartitaConfermata> allpartiteconfermate=[];
-  PartitaConfermata pc;
+  List<TorneiAccettati> partiteConfermate = [];
+  List<TorneiAccettati> allpartiteconfermate=[];
+  TorneiAccettati pc;
   bool found=false;
   if(dataSnapshot.snapshot.value != null)
   {
@@ -84,7 +84,7 @@ Future<List<PartitaConfermata>?> getPartiteConfermate({String idgioca=""}) async
         List<dynamic> tomap;
         Map<dynamic, dynamic> values=dataSnapshot.snapshot.value as Map;
         values.forEach((key,value) =>{
-          pc= new PartitaConfermata(),
+          pc= new TorneiAccettati(),
           pc.id_campo=value["id_campo"],
           pc.data=value["data"],
           pc.id=databaseReference.child('partiteconfermate/'+key),

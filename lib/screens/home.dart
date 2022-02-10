@@ -272,7 +272,7 @@ class _MyHomeGioState extends State<HomeGioState>{
 
                                         onPressed: () {
 
-                                          getTorneiAccettati().then((value) =>
+                                          /*getTorneiAccettati().then((value) =>
                                           {
                                             Navigator.push(context, MaterialPageRoute(
                                                 builder: (context){
@@ -280,7 +280,12 @@ class _MyHomeGioState extends State<HomeGioState>{
                                                 }
                                             ))
                                           }
-                                          );
+                                          );*/
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context){
+                                                return VisualizzaTorneo (giocatore:giocatore);
+                                              }
+                                          ));
 
                                         },
                                         child: const Text('Ricerca torneo',style: TextStyle(

@@ -18,9 +18,9 @@ import 'home.dart';
 
 // Create a Form widget.
 class VisPartitaConfermata extends StatefulWidget {
-  PartitaConfermata partitaconfermata;
+  TorneiAccettati partitaconfermata;
   bool find=true;
-  List<PartitaConfermata> partite=[];
+  List<TorneiAccettati> partite=[];
   Giocatore giocatore;
   late List<Giocatore?> giocatori;
   //CentroSportivo centroSportivo;
@@ -50,13 +50,14 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
   late Map<String,String> mapping=new Map();
   bool complete=true;
+  bool disable=false;
 
   @override
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
     Giocatore giocatore=widget.giocatore;
-    PartitaConfermata partitaconfermata=widget.partitaconfermata;
+    TorneiAccettati partitaconfermata=widget.partitaconfermata;
     if(partitaconfermata.partecipanti_trasf == null)
       partitaconfermata.partecipanti_trasf=[];
     List<Giocatore?> casa=[];
@@ -152,8 +153,11 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
             {
               print(k);
               print("Giocatore:"+giocatori[k]!.id.key.toString());
-              if(partitaconfermata.partecipanti[i] == giocatori[k]?.id.key)
+              if(partitaconfermata.partecipanti[i] == giocatori[k]?.id.key) {
                 casa.add(giocatori[k]);
+                if(giocatori[k]?.nome == giocatore.nome)
+                  disable=true;
+              }
 
             }
           }
@@ -170,7 +174,12 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
             for(int k =0;k<giocatori.length;k++)
             {
               if(partitaconfermata.partecipanti_trasf[i] == giocatori[k]?.id.key)
-                trasf.add(giocatori[k]);
+                {
+                  trasf.add(giocatori[k]);
+                  if(giocatori[k]?.nome == giocatore.nome)
+                    disable=true;
+                }
+
 
             }
           }
@@ -201,7 +210,8 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                    if(casa[index]!.bio == null)
+                                    if(disable);
+                                   else if(casa[index]!.bio == null)
                                       {
 
                                           return showAlertDialogHome(context);
@@ -240,7 +250,9 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                if(trasf[index]!.bio == null)
+                                if(disable) {
+                                  print("Non contiene");
+                                } else if(trasf[index]!.bio == null)
                                 {
 
                                   return showAlertDialogTrasf(context);

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
+import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Squadre.dart';
@@ -197,7 +198,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                               child: const Text('NO'),
                                             ),
                                             ElevatedButton(
-                                              onPressed: (){
+                                              onPressed: () async {
                                                 Navigator.pop(context_alert, 'OK');
                                                 TorneoAccettato torneoaccettato=new TorneoAccettato();
                                                 Squadra s=new Squadra();
@@ -208,6 +209,8 @@ class _DettaglioTorneoState extends State<DettaglioTorneoState> {
                                                 torneoaccettato.nome=torneo.nome;
                                                 torneoaccettato.sport=torneo.sport;
                                                 torneoaccettato.modalita=torneo.modalita.toString();
+                                                CentroSportivo cs= await getCentroSportivo(torneoaccettato.id_centro_sportivo);
+                                                torneoaccettato.indirizzo=cs.indirizzo!;
                                                 torneoaccettato.id_giocatore=torneo.id_giocatore;
 
 

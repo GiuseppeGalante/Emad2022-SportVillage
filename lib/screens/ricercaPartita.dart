@@ -25,7 +25,7 @@ import 'home.dart';
 class VisRicercaPartita extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
-  List<PartitaConfermata> partite=[];
+  List<TorneiAccettati> partite=[];
   //CentroSportivo centroSportivo;
   VisRicercaPartita({required this.giocatore, Key? key}) : super(key: key);
   @override
@@ -52,9 +52,9 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
   late Map<String,String> mapping=new Map();
 
-  Future<List<PartitaConfermata>> getDistancePartite() async
+  Future<List<TorneiAccettati>> getDistancePartite() async
   {
-    List<PartitaConfermata>? partiteconfermate= await getPartiteConfermate();
+    List<TorneiAccettati>? partiteconfermate= await getPartiteConfermate();
     Giocatore giocatore=widget.giocatore;
     if(partiteconfermate != null)
     {
@@ -154,7 +154,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
             }
             else
               {
-                List<PartitaConfermata> partite=snapshot.data![0];
+                List<TorneiAccettati> partite=snapshot.data![0];
                 return ListView.builder(
                     itemCount: partite.length,
                     itemBuilder: (context,index){

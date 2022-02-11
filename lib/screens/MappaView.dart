@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
@@ -26,6 +27,7 @@ class MapSample extends StatefulWidget {
 
 
 class MapSampleState extends State<MapSample> {
+
 
   List<Marker> markers=[];
   Future<List<LatLng>> getPositionsPartite(Giocatore giocatore) async

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
@@ -27,6 +28,7 @@ class VisualizzaRichiestePartita extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita> {
+
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
@@ -42,6 +43,9 @@ class DettaglioTorneoState extends StatefulWidget
 }
 
 class _DettaglioTorneoState extends State<DettaglioTorneoState> {
+
+
+
   int _selectedIndex = 2;
   var title;
   final RichiestaTorneo torneo;

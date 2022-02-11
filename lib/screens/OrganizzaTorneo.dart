@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AggiungiPartitaTorneo.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
@@ -54,8 +55,6 @@ class _OrganizzaTorneoState extends State<OrganizzaTorneo> {
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
-
-
 
     List<TorneoPronto>tornei=widget.tornei;
     Giocatore giocatore=widget.giocatore;

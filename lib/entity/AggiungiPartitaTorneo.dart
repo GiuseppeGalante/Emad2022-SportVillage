@@ -72,10 +72,10 @@ Future<List<PartitaTorneo>> getPartiteTorneo(String torneo) async
     }
     );
   }
-  print(partite[0].squadra1);
+  /*print(partite[0].squadra1);
   print(partite[0].squadra2);
   print(partite[0].campo);
   print(partite[0].data);
-  print(partite[0].ora);
+  print(partite[0].ora);*/
   return partite;
 }

@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:day_night_time_picker/lib/constants.dart';
+import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AggiungiPartitaTorneo.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
@@ -19,7 +22,6 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
-import 'package:time_picker_widget/time_picker_widget.dart';
 
 class AddPartitaTorneo extends StatelessWidget {
 
@@ -59,7 +61,6 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay(hour: TimeOfDay.now().hour,minute: 0);
 
   var title;
   final List<Squadra> squadre;
@@ -69,6 +70,10 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   String squadra1="";
   String squadra2="";
   List<Campo> campi=[];
+
+  TimeOfDay _time = TimeOfDay.now().replacing(minute: 0);
+  bool iosStyle = true;
+
   PartitaTorneo partita=new PartitaTorneo();
   late Map<String, Campo> mapping = new Map();
   late Map<String, Squadra> mapping1 = new Map();
@@ -108,7 +113,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
             }
           }
 
-          Future<void> _selectTime(BuildContext context) async {
+          /*Future<void> _selectTime(BuildContext context) async {
             final TimeOfDay? picked_s = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -141,7 +146,31 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                     );
                   }
               }
+          }*/
+          void onTimeChanged(TimeOfDay newTime) {
+            if (newTime != null && newTime != _time) {
+              setState(() {
+
+                _time= newTime;
+                partita.ora= _time.hour.toString()+":"+newTime.minute.toString()+"0";
+              });
+            }
+            else
+            {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Orario non disponibile'),
+                    backgroundColor: Colors.red,
+                    action: SnackBarAction(textColor:Colors.white,
+                      label: 'OK', onPressed: () {},),
+                  ),
+                );
+            }
           }
+
+
+
+
 
           if (snapshot.hasData) {
             return
@@ -308,7 +337,21 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                         leading: Icon(Icons.schedule, size: 50,
                                             color: Colors.blueGrey),
                                         title: ElevatedButton(
-                                          onPressed: () => _selectTime(context),
+                                          onPressed: () => {
+                                          Navigator.of(context).push(
+                                          showPicker(
+                                          context: context,
+                                          value: _time,
+                                          onChange: onTimeChanged,
+                                          is24HrFormat:true,
+                                          disableMinute:true,
+                                          // Optional onChange to receive value as DateTime
+                                          onChangeDateTime: (DateTime dateTime) {
+                                          print(dateTime);
+                                          },
+                                          ),
+                                          )
+                                          },//_selectTime(context),
                                           child: Text('Ora'),
                                         ),
                                     )
@@ -355,7 +398,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           partita.squadra2=mapping2[squadra2]!.nome,
                                           partita.id_squadra1=mapping1[squadra1]!.id_squadra,
                                           partita.id_squadra2=mapping2[squadra2]!.id_squadra,
-                                          partita.campo=mapping[nomeCampo]!.id.key!,
+                                          partita.campo=mapping[nomeCampo]!.nome,
                                           savePartita(partita),
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(

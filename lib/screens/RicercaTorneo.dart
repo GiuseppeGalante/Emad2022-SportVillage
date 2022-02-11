@@ -1,4 +1,6 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_emad/entity/AggiungiPartitaTorneo.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
@@ -6,9 +8,11 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Squadre.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
+import 'package:flutter_app_emad/entity/TorneiPronti.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/DettaglioTorneiAccettati.dart';
 import 'package:flutter_app_emad/screens/DettaglioTorneo.dart';
+import 'package:flutter_app_emad/screens/PartiteTorneo.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 
 import 'home.dart';
@@ -30,6 +34,8 @@ class VisualizzaTorneo extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
+
+
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -70,15 +76,49 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
                   title: Text("Nome Torneo: "+tornei[index].nome),
                   subtitle:  Text("Sport: "+tornei[index].sport.sport.toString().split(".").last),
                   onTap: (){
-                    getSquadre(tornei[index].id_torneo).then((value) async =>
-                    {
-                      await Navigator.push(context, MaterialPageRoute(
-                          builder: (context){
+                    if(tornei[index].numero_di_partecipanti==tornei[index].squadre_confermate)
+                      {
+                        getPartiteTorneo(tornei[index].id_torneo).then((value) =>
+                        {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context){
+                                TorneoPronto torneop=new TorneoPronto();
+                                torneop.id_centro_sportivo=tornei[index].id_centro_sportivo;
+                                torneop.numero_di_partecipanti=tornei[index].numero_di_partecipanti;
+                                torneop.squadre_confermate=tornei[index].squadre_confermate;
+                                torneop.nome=tornei[index].nome;
+                                torneop.id_torneo=tornei[index].id_torneo;
+                                torneop.id_giocatore=tornei[index].id_giocatore;
+                                torneop.id_amministratore=tornei[index].id_amministratore;
+                                torneop.sport=tornei[index].sport.sport.toString().split('.').last;
+                                torneop.modalita=tornei[index].modalita;
+                                return PartiteTorneo(torneo: torneop,giocatore:giocatore,partite:value);
+                              }
+                          )),
+                        }
+
+                        );
+                        /*getSquadre(tornei[index].id_torneo).then((value) async =>
+                        {
+                          await Navigator.push(context, MaterialPageRoute(
+                              builder: (context){
+                                return DettaglioTorneoAccettato(torneo: tornei[index],giocatore:giocatore,squadre:value);
+                              }
+                          ))
+                        });*/
+                        print("Complete");
+                      }else
+                            {
+                            getSquadre(tornei[index].id_torneo).then((value) async =>
+                            {
+                            await Navigator.push(context, MaterialPageRoute(
+                            builder: (context){
                             return DettaglioTorneoAccettato(torneo: tornei[index],giocatore:giocatore,squadre:value);
-                          }
-                      ))
-                    }
-                    );
+                            }
+                            ))
+                            }
+                            );
+                            }
 
                   },
                 ),

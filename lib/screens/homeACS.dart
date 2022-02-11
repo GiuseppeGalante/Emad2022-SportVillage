@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
@@ -27,14 +28,24 @@ class MyHomeACS extends StatelessWidget {
   }
 }
 
+class MyHomeACSState extends StatefulWidget
+{
+  var title;
+  final AmministstratoreCentroSportivo amministratore;
+
+
+  MyHomeACSState({Key? key, required this.title, required this.amministratore}) : super(key: key);
+  @override
+  State<MyHomeACSState> createState() => _MyHomeACSState(title: title,amministratore: amministratore);
+}
 
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class MyHomeACSState extends StatelessWidget {
+class _MyHomeACSState extends State<MyHomeACSState> {
 
 
-  const MyHomeACSState({Key? key, required this.title, required this.amministratore}) : super(key: key);
+  _MyHomeACSState({Key? key, required this.title, required this.amministratore});
 
   final AmministstratoreCentroSportivo amministratore;
 

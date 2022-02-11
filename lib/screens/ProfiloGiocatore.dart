@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/home.dart';
@@ -63,6 +64,8 @@ class ProfiloGioState extends StatefulWidget
 
 
 class _ProfiloGiocatore extends State<ProfiloGioState> {
+
+
   int _selectedIndex = 2;
 
   void _onItemTapped(int index) {
@@ -88,6 +91,11 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
     Icon(Icons.star, size:50, color: Colors.blueGrey,),
     Icon(Icons.star_half, size:50, color: Colors.blueGrey,),
   ];
+
+
+
+
+
 
   var title;
   final Giocatore giocatore;

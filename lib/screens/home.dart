@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
@@ -49,6 +50,7 @@ class HomeGioState extends StatefulWidget
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _MyHomeGioState extends State<HomeGioState>{
+
   int _selectedIndex = 0;
 
 
@@ -335,43 +337,6 @@ class _MyHomeGioState extends State<HomeGioState>{
                                     )
                                   ]),
 
-
-
-
-
-                              Row(
-                                  children: [
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 20.0, left: 70.0,bottom: 40),
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          fixedSize: Size.fromWidth(270),
-                                        ),
-
-                                        onPressed: () {
-                                          DateTime d=new DateTime(2022,2,3);
-                                          TimeOfDay t=new TimeOfDay(hour: 17, minute: 0);
-                                          print(d);
-                                          print(t);
-                                          getPrenotazioni("-MspcM_w5-1xVWCghBWD",d,t).then((value) =>
-                                          {
-                                            print(value),
-                                          },
-                                          );
-
-                                        },
-                                        child: const Text('Prova',style: TextStyle(
-                                          color:Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
 
 
                             ],

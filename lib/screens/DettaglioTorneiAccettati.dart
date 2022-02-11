@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/ComponenteSquadra.dart';
@@ -50,6 +51,7 @@ class DettaglioTorneoAccettatoState extends StatefulWidget
 }
 
 class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
+
 
   var title;
   final TorneoAccettato torneo;
@@ -107,7 +109,28 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                         ),);
                                       }
                                   }(),
-                                    trailing: PopupMenuButton(
+                                    onTap: ()
+                                    {
+                                      getComponenti(squadre[index].id_squadra).then((value) =>
+                                      {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    context) {
+                                                  return DettaglioSquadraTorneo(
+                                                      squadra: squadre[index],
+                                                      giocatore: giocatore,
+                                                      squadre:squadre,
+                                                      torneo:torneo,
+                                                      componenti: value);
+                                                }
+                                            ))
+                                      }
+                                      );
+
+                                    }
+                                    /*trailing: PopupMenuButton(
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 10,
@@ -284,7 +307,7 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                           value:"2",
                                         ),
                                         ]
-                                        ),
+                                        ),*/
 
 
                                     /*Text((){
@@ -297,9 +320,6 @@ class _DettaglioTorneoState extends State<DettaglioTorneoAccettatoState> {
                                           return "Esauriti";
                                         }
                                     }())*/
-                                    onTap: ()
-                                    {
-                                    }
                                     )
                             ),
                           ),

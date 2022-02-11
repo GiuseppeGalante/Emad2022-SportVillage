@@ -251,7 +251,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                     );
                                                   }
                                                 }
-                                                else if(_value=="2")
+                                                /*else if(_value=="2")
                                                 {
                                                   getComponenti(squadre[index].id_squadra).then((value) =>
                                                   {
@@ -268,7 +268,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                         ))
                                                   }
                                                   );
-                                                }
+                                                }*/
                                               });
                                             },
                                             itemBuilder: (context) =>[

@@ -212,7 +212,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                             {
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (context){
-                                    return VisualizzaTorneo (tornei: value,giocatore:giocatore);
+                                    return VisualizzaTorneo (giocatore:giocatore);
                                   }
                               ))
                             }

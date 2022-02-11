@@ -112,7 +112,9 @@ class _MyHomeGioState extends State<HomeGioState>{
                         padding: EdgeInsets.only(top: 30,left: 30,right: 30)
                     ),
                     Row(
+
                       children: <Widget>[
+                        SizedBox(width:5.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.push(context, MaterialPageRoute(
@@ -141,6 +143,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                     ),
                     Row(
                       children: <Widget>[
+                        SizedBox(width:5.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             getCentriSportivi().then((value) =>
@@ -159,7 +162,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                           },
                           child :Cards(cardColor:LightColors.kBlue, title: "Richiedi nuova partita"),
                         ),
-                        SizedBox(width: 30.0),
+                        SizedBox(width:20.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.push(context, MaterialPageRoute(
@@ -177,6 +180,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                     ),
                     Row(
                       children: <Widget>[
+                        SizedBox(width:5.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.push(context, MaterialPageRoute(
@@ -188,7 +192,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                           child:Cards(cardColor:LightColors.kDarkYellow, title: "Ricerca Partita"),
                         ),
 
-                        SizedBox(width: 30.0),
+                        SizedBox(width:20.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.push(context, MaterialPageRoute(
@@ -206,6 +210,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                     ),
                     Row(
                       children: <Widget>[
+                        SizedBox(width:5.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {
                             getTorneiAccettati().then((value) =>
@@ -220,7 +225,7 @@ class _MyHomeGioState extends State<HomeGioState>{
                           },
                           child:Cards(cardColor:LightColors.kPalePink, title: "Ricerca torneo"),
                         ),
-                        SizedBox(width: 30.0),
+                        SizedBox(width:20.0,height: 30.0),
                         GestureDetector(
                           onTap: ()  {getTorneiPronti(giocatore.id.key.toString()).then((value) =>
                           {

@@ -24,11 +24,10 @@ class Cards  extends StatelessWidget {
           color: cardColor,
           borderRadius: BorderRadius.circular(30.0),
         ),
-           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
+           child: Center(
 
+              child:
+                Text(
                   title,
                   style: TextStyle(
                     leadingDistribution: TextLeadingDistribution.even,
@@ -38,8 +37,6 @@ class Cards  extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
-              ],
             ),
 
         ),

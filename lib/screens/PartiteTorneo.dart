@@ -12,6 +12,7 @@ import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiPronti.dart';
 import 'package:flutter_app_emad/entity/TorneiRifiutati.dart';
+import 'package:flutter_app_emad/screens/DettaglioMatchTorneo.dart';
 import 'package:flutter_app_emad/screens/DettaglioSquadreTorneo.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
@@ -80,50 +81,68 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
                       return Column(
                           children: <Widget>
                           [
-                            Card(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 5.0),
-                              clipBehavior: Clip.antiAlias,
-                              color: LightColors.kLightYellow,
-                              elevation: 5.0,
-                              child: Padding(
+                            GestureDetector(
+                              onTap:(){
+                                getComponenti(partite[index].id_squadra1).then((value) =>
+                                {
+
+                                  getComponenti(partite[index].id_squadra2).then((value1)=>
+                                  {
+                                    Navigator.push(context,MaterialPageRoute(
+                                        builder: (context){
+                                          return DettaglioMatchTorneo(torneo: torneo, giocatore: giocatore, partita:partite[index],componenti_sq1: value, componenti_sq2: value1);
+                                        })),
+
+                                  }
+                                  )
+                                }
+
+                                );
+                      },
+                              child: Card(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 5.0),
+                                clipBehavior: Clip.antiAlias,
+                                color: LightColors.kLightYellow,
+                                elevation: 5.0,
+                                child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 5.0),
                                   child:Row(
                                     children: [
                                       Icon(Icons.shield, size: 50,color: LightColors.kRed),
                                       Expanded(
-                                      flex: 6,
-                                      child:
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(partite[index].data+" - "+partite[index].ora, style: TextStyle(
-                                            fontSize: 16.0,
-                                            color: LightColors.kDarkBlue,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                          Text(partite[index].squadra1+" vs "+partite[index].squadra2, style: TextStyle(
-                                            fontSize: 18.0,
-                                            color: LightColors.kDarkBlue,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                          Text(partite[index].campo, style: TextStyle(
-                                            fontSize: 15.0,
-                                            color: LightColors.kDarkBlue,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                        ],
+                                        flex: 6,
+                                        child:
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(partite[index].data+" - "+partite[index].ora, style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                            Text(partite[index].squadra1+" vs "+partite[index].squadra2, style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                            Text(partite[index].campo, style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: LightColors.kDarkBlue,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                          ],
+                                        ),
                                       ),
-                                          ),
                                       Icon(Icons.shield, size: 50,color: LightColors.kBlue),
                                     ],
                                   ),
 
 
 
-                                /*ListTile(
+                                  /*ListTile(
 
                                     leading:Icon(Icons.group_add, size: 40,color: Colors.blueGrey),
                                     title:Text(partite[index].squadra1+" vs "+partite[index].squadra2, style: TextStyle(
@@ -135,8 +154,10 @@ class _DettaglioPartiteTorneoState extends State<DettaglioPartiteTorneoState> {
                                     subtitle:Text(partite[index].campo),
                                     trailing: Icon(Icons.group_add, size: 40,color: Colors.blueGrey),
                       ),*/
-                      ),
+                                ),
+                              ),
                             ),
+
 
 
 

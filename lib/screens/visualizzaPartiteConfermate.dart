@@ -55,14 +55,17 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
   Future<List<PartitaConfermata>> getDistancePartite() async
   {
-
     Giocatore giocatore=widget.giocatore;
     List<PartitaConfermata>? partiteconfermate= giocatore.partiteconfermate;
+    try{
+
+
 
     Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     for(int i=0;i<partiteconfermate!.length;i++)
     {
+
 
       if(partiteconfermate[i].indirizzo != "")
       {
@@ -84,7 +87,8 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
         double long=jsonDecode(response.body)["results"][0]["position"]["lon"];
         //List<Address> locations = await Geocoder.local.findAddressesFromQuery(partiteconfermate[i].indirizzo);
         //print(locations.first);
-
+        print(lat);
+        print(long);
         if(!lat.isNaN && !long.isNaN)
         {
           http.Response response = await http.get(Uri.parse("https://atlas.microsoft.com/route/directions/json?subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&query="+posizione.latitude.toString()+","+posizione.longitude.toString()+":"+lat.toString()+","+long.toString()));
@@ -98,7 +102,13 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
     }
     partiteconfermate.sort((a, b) => a.distanza.compareTo(b.distanza));
-    return partiteconfermate;
+  }
+  catch (error)
+  {
+  //print(partiteconfermate[i].indirizzo);
+  print(error);
+  }
+    return partiteconfermate!;
   }
 
   @override

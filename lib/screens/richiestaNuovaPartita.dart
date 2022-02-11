@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Campo.dart';
@@ -42,7 +43,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay(hour: TimeOfDay.now().hour, minute: 0);
+  TimeOfDay _time = TimeOfDay.now().replacing(minute: 0);
 
 
   bool late=false;
@@ -76,7 +77,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
     }
   }
 
-  Future<void> _selectTime(BuildContext context) async {
+  /*Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked_s = await showTimePicker(
         context: context,
         initialTime: selectedTime,
@@ -108,7 +109,29 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
           );
         }
       }
+  }*/
+
+  void onTimeChanged(TimeOfDay newTime) {
+    if (newTime != null && newTime != _time) {
+      setState(() {
+
+        _time= newTime;
+        richiestaNuovaPartita.orario= _time.hour.toString()+":"+newTime.minute.toString()+"0";
+      });
+    }
+    else
+    {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Orario non disponibile'),
+          backgroundColor: Colors.red,
+          action: SnackBarAction(textColor:Colors.white,
+            label: 'OK', onPressed: () {},),
+        ),
+      );
+    }
   }
+
 
   late Map<String,CentroSportivo> mapping=new Map();
 
@@ -184,7 +207,23 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,
                         ),
-                        onPressed: () => _selectTime(context),
+                        onPressed: () =>
+                        {Navigator.of(context).push(
+                          showPicker(
+                            context: context,
+                            value: _time,
+                            onChange: onTimeChanged,
+                            is24HrFormat: true,
+                            disableMinute: true,
+                            minHour:9,
+                            maxHour:22,
+                            // Optional onChange to receive value as DateTime
+                            onChangeDateTime: (DateTime dateTime) {
+                              print(dateTime);
+                            },
+                          ),
+                        )
+                        },
                         child: Icon(
                           Icons.access_time_rounded ,
                           color: LightColors.kDarkBlue,
@@ -192,7 +231,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         ),
                       ),
                       SizedBox(width: 20.0,),
-                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0",style: TextStyle(
+                  Text(_time.hour.toString()+":"+_time.minute.toString()+"0",style: TextStyle(
 
                         color: LightColors.kDarkBlue,
                         fontWeight: FontWeight.w800,

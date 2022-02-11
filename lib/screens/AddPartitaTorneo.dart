@@ -22,7 +22,6 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
-import 'package:time_picker_widget/time_picker_widget.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class AddPartitaTorneo extends StatelessWidget {
@@ -118,7 +117,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
             }
           }
 
-          Future<void> _selectTime(BuildContext context) async {
+          /*Future<void> _selectTime(BuildContext context) async {
             final TimeOfDay? picked_s = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -196,7 +195,6 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -368,6 +366,8 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           onChange: onTimeChanged,
                                           is24HrFormat:true,
                                           disableMinute:true,
+                                            minHour:9,
+                                            maxHour:22,
                                           // Optional onChange to receive value as DateTime
                                           onChangeDateTime: (DateTime dateTime) {
                                           print(dateTime);

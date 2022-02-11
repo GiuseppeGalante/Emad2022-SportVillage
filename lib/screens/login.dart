@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/SceltaRegistrazione.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
@@ -229,32 +230,17 @@ class _TemplateLogin extends State<TemplateLogin> {
 
                                       Column(
                                           children: <Widget>[
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  primary: Colors.white),
-                                          onPressed: (){
-                                           Navigator.push(context, MaterialPageRoute(builder: (context){
-                                            return MyCustomFormGiocatore();
-                                           }
-                                           ));
-
-                                          }
-                                          , child: Text("Registrati come giocatore",style: TextStyle(
-                                            color:Colors.black54,
-                                          ),
-                                          )
-                                      ),
                                             ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                     primary: Colors.white),
                                                 onPressed: (){
                                                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                                                    return MyCustomFormAmministratoreCS();
+                                                    return SceltaRegistrazioneForm();
                                                   }
                                                   ));
 
                                                 }
-                                                , child: Text("Registrati come Amministratore centro sportivo",
+                                                , child: Text("Registrati",
                                                          style: TextStyle(
                                                                          color:Colors.black54,),
                                                        )

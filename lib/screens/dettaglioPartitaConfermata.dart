@@ -51,6 +51,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
   late Map<String,String> mapping=new Map();
   bool complete=true;
+  bool disable=false;
 
   @override
   Widget build(BuildContext context) {
@@ -186,8 +187,11 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
             {
               print(k);
               print("Giocatore:"+giocatori[k]!.id.key.toString());
-              if(partitaconfermata.partecipanti[i] == giocatori[k]?.id.key)
+              if(partitaconfermata.partecipanti[i] == giocatori[k]?.id.key) {
                 casa.add(giocatori[k]);
+                if(giocatori[k]?.nome == giocatore.nome)
+                  disable=true;
+              }
 
             }
           }
@@ -204,7 +208,12 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
             for(int k =0;k<giocatori.length;k++)
             {
               if(partitaconfermata.partecipanti_trasf[i] == giocatori[k]?.id.key)
-                trasf.add(giocatori[k]);
+                {
+                  trasf.add(giocatori[k]);
+                  if(giocatori[k]?.nome == giocatore.nome)
+                    disable=true;
+                }
+
 
             }
           }
@@ -239,13 +248,14 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                    if(casa[index]!.bio == null)
+
+                                   if(casa[index]!.bio == null && !disable)
                                       {
 
                                           return showAlertDialogHome(context);
 
                                       }
-                                    else
+                                   else if(casa[index]!.bio != null)
                                       {
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context) =>
@@ -280,13 +290,13 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                if(trasf[index]!.bio == null)
+                                if(trasf[index]!.bio == null && !disable)
                                 {
 
                                   return showAlertDialogTrasf(context);
 
                                 }
-                                else
+                                else if(trasf[index]!.bio != null)
                                 {
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) =>

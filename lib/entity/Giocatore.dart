@@ -12,7 +12,7 @@ class Giocatore extends Utente
   late int vittorie;
   late int pareggi;
   late int sconfitte;
-  late List<TorneiAccettati> ?partiteconfermate=[];
+  late List<PartitaConfermata> ?partiteconfermate=[];
 
 
   @override

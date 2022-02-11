@@ -30,7 +30,7 @@ class MapSampleState extends State<MapSample> {
   List<Marker> markers=[];
   Future<List<LatLng>> getPositionsPartite(Giocatore giocatore) async
   {
-    List<TorneiAccettati>? partite= await getPartiteConfermate();
+    List<PartitaConfermata>? partite= await getPartiteConfermate();
     List<LatLng>latlng=[];
     for(int i=0;i<partite!.length;i++)
       {

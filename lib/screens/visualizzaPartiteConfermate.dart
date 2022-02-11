@@ -16,6 +16,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
+import '../theme/colors/light_colors.dart';
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
 
@@ -25,7 +26,7 @@ import 'home.dart';
 class VisualizzaPartiteConfermate extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
-  List<TorneiAccettati> partite=[];
+  List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
   VisualizzaPartiteConfermate({required this.giocatore, Key? key}) : super(key: key);
   @override
@@ -52,11 +53,11 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
   late Map<String,String> mapping=new Map();
 
-  Future<List<TorneiAccettati>> getDistancePartite() async
+  Future<List<PartitaConfermata>> getDistancePartite() async
   {
 
     Giocatore giocatore=widget.giocatore;
-    List<TorneiAccettati>? partiteconfermate= giocatore.partiteconfermate;
+    List<PartitaConfermata>? partiteconfermate= giocatore.partiteconfermate;
 
     Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
@@ -134,7 +135,8 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Ricerca partita"),
+          backgroundColor: LightColors.kDarkBlue,
+          title: Text("Partite confermate"),
         ),
 
         body: FutureBuilder(
@@ -148,13 +150,14 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
             }
             else
             {
-              List<TorneiAccettati> partite=snapshot.data![0];
+              List<PartitaConfermata> partite=snapshot.data![0];
               return ListView.builder(
                   itemCount: partite.length,
                   itemBuilder: (context,index){
                     return Card(
+                      color: LightColors.kLightYellow,
                       child: ListTile(
-                        leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                        leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
                         onTap:()  =>
 
                             Navigator.push(context, MaterialPageRoute(
@@ -166,9 +169,18 @@ class _VisualizzaPartiteConfermateState extends State<VisualizzaPartiteConfermat
                         title: Text(partite[index].data),
                         subtitle: Column(
                           children: [
-                            Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                            Text('Sport:'+partite[index].sport.toString().split(".").last),
-                            Text("Distanza:"+partite[index].distanza.toString()+" km")
+                            Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString(),style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            )),
+                            Text('Sport:'+partite[index].sport.toString().split(".").last,style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            )),
+                            Text("Distanza:"+partite[index].distanza.toString()+" km",style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ))
                           ],
                         ),
                       ),

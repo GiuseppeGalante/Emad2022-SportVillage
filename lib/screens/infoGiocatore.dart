@@ -22,7 +22,7 @@ import 'home.dart';
 class VisInfoGiocatore extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
-  List<TorneiAccettati> partite=[];
+  List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
   VisInfoGiocatore({required this.giocatore, Key? key}) : super(key: key);
   @override

@@ -233,7 +233,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                         if(_formKey.currentState!.validate()){
                                           print("Nessun errore");
                                           _formKey.currentState?.save();
-                                          TorneiAccettati pc= new TorneiAccettati();
+                                          PartitaConfermata pc= new PartitaConfermata();
                                           pc.id_campo = mapping[_idCentro]!.id.key!;
                                           pc.numero_di_partecipanti= richiestanuovapartita.numero_di_partecipanti;
                                           pc.orario=richiestanuovapartita.orario;

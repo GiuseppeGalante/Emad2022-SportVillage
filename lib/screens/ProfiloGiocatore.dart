@@ -116,8 +116,18 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                              Icon(Icons.home,
+                            GestureDetector(
+                           onTap: ()  {
+                                Navigator.push(context, MaterialPageRoute(
+                                builder: (context){
+                                return MyHomeGio (giocatore:giocatore);
+                                }
+                                ));
+                                },
+                              child:Icon(Icons.home,
                                   color: LightColors.kDarkBlue, size: 30.0),
+                            )
+
 
                           ],
                       ),

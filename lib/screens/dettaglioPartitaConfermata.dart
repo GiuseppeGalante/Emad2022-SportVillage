@@ -19,9 +19,9 @@ import 'home.dart';
 
 // Create a Form widget.
 class VisPartitaConfermata extends StatefulWidget {
-  TorneiAccettati partitaconfermata;
+  PartitaConfermata partitaconfermata;
   bool find=true;
-  List<TorneiAccettati> partite=[];
+  List<PartitaConfermata> partite=[];
   Giocatore giocatore;
   late List<Giocatore?> giocatori;
   //CentroSportivo centroSportivo;
@@ -58,7 +58,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
     //this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
     Giocatore giocatore=widget.giocatore;
-    TorneiAccettati partitaconfermata=widget.partitaconfermata;
+    PartitaConfermata partitaconfermata=widget.partitaconfermata;
     if(partitaconfermata.partecipanti_trasf == null)
       partitaconfermata.partecipanti_trasf=[];
     List<Giocatore?> casa=[];
@@ -248,14 +248,14 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                    if(disable);
-                                   else if(casa[index]!.bio == null)
+
+                                   if(casa[index]!.bio == null && !disable)
                                       {
 
                                           return showAlertDialogHome(context);
 
                                       }
-                                    else
+                                   else if(casa[index]!.bio != null)
                                       {
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context) =>
@@ -290,15 +290,13 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           itemBuilder: (context,index){
                             return GestureDetector(
                               onTap: (){
-                                if(disable) {
-                                  print("Non contiene");
-                                } else if(trasf[index]!.bio == null)
+                                if(trasf[index]!.bio == null && !disable)
                                 {
 
                                   return showAlertDialogTrasf(context);
 
                                 }
-                                else
+                                else if(trasf[index]!.bio != null)
                                 {
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) =>

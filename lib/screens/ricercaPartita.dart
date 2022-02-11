@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
-import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
@@ -17,6 +16,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../entity/PartitaConfermata.dart';
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
 
@@ -26,7 +26,7 @@ import 'home.dart';
 class VisRicercaPartita extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
-  List<TorneiAccettati> partite=[];
+  List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
   VisRicercaPartita({required this.giocatore, Key? key}) : super(key: key);
   @override
@@ -53,17 +53,29 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
   late Map<String,String> mapping=new Map();
 
-  Future<List<TorneiAccettati>> getDistancePartite() async
+  Future<List<PartitaConfermata>> getDistancePartite() async
   {
-    List<TorneiAccettati>? partiteconfermate= await getPartiteConfermate();
+    List<PartitaConfermata>? partiteconfermate= await getPartiteConfermate();
     Giocatore giocatore=widget.giocatore;
+    List<PartitaConfermata> partiteconfermatedarim=[];
+    int lenght=partiteconfermate!.length;
+    for(int i=0;i<lenght;i++)
+      partiteconfermatedarim.add(partiteconfermate[i]);
     if(partiteconfermate != null)
     {
+      try{
+        for(var i=0;i<partiteconfermate.length;i++)
+          for(var k=0;k<giocatore.partiteconfermate!.length;k++)
+            if(partiteconfermate[i].id.key==giocatore.partiteconfermate![k].id.key)
+              partiteconfermatedarim.remove(partiteconfermate[i]);
+        partiteconfermate=partiteconfermatedarim;
 
-      for(var i=0;i<partiteconfermate.length;i++)
-      for(var k=0;k<giocatore.partiteconfermate!.length;k++)
-      if(partiteconfermate[i].id.key==giocatore.partiteconfermate![k].id.key)
-        partiteconfermate.remove(partiteconfermate[i]);
+      }catch (error)
+      {
+        //print(partiteconfermate[i].indirizzo);
+        print(error);
+      }
+
     }
     Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
@@ -156,7 +168,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
             }
             else
               {
-                List<TorneiAccettati> partite=snapshot.data![0];
+                List<PartitaConfermata> partite=snapshot.data![0];
                 return ListView.builder(
                     itemCount: partite.length,
                     itemBuilder: (context,index){

@@ -18,6 +18,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
+import '../theme/colors/light_colors.dart';
 import 'DettaglioTorneiAccettati.dart';
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
@@ -28,7 +29,7 @@ import 'home.dart';
 class VisualizzaTorneo extends StatefulWidget {
   Giocatore giocatore;
   bool find=true;
-  List<TorneiAccettati> partite=[];
+  List<PartitaConfermata> partite=[];
   //CentroSportivo centroSportivo;
   VisualizzaTorneo({required this.giocatore, Key? key}) : super(key: key);
   @override
@@ -161,7 +162,8 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Ricerca partita"),
+          backgroundColor: LightColors.kDarkBlue,
+          title: Text("Torneo Attivi"),
         ),
 
         body: FutureBuilder(
@@ -180,8 +182,9 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
                   itemCount: partite.length,
                   itemBuilder: (context,index){
                     return Card(
+                      color: LightColors.kLightYellow,
                       child: ListTile(
-                        leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                        leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
                         onTap:() async  =>
                         {
                           squadre=await getSquadre(partite[index].id_torneo),
@@ -197,9 +200,18 @@ class _VisualizzaTorneoState extends State<VisualizzaTorneo> {
                         title: Text(partite[index].nome),
                         subtitle: Column(
                           children: [
-                            Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                            Text('Sport:'+partite[index].sport.toString().split(".").last),
-                            Text("Distanza:"+partite[index].distanza.toString()+" km")
+                            Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString(),style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            )),
+                            Text('Sport:'+partite[index].sport.toString().split(".").last,style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            )),
+                            Text("Distanza:"+partite[index].distanza.toString()+" km",style: TextStyle(
+                              color: LightColors.kDarkBlue,
+                              fontWeight: FontWeight.w800,
+                            ))
                           ],
                         ),
                       ),

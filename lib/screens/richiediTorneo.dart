@@ -55,8 +55,9 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
 
     Giocatore giocatore = widget.giocatore;
     return Scaffold(
-      backgroundColor: LightColors.kDarkBlue,
+
         appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
           title: Text("Richiesta Torneo"),
         ),
 
@@ -83,17 +84,17 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding:EdgeInsets.only(top:10),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            icon: Icon(Icons.emoji_events, color: LightColors.kBlue, size: 30.0,
+                            icon: Icon(Icons.emoji_events, color: LightColors.kDarkBlue, size: 30.0,
                             ),
                             enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: LightColors.kDarkBlue,style: BorderStyle.solid,width: 1.0),
+                              borderSide: BorderSide(color: LightColors.kLightYellow,style: BorderStyle.solid,width: 1.0),
                             ),
                             /*focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black,style: BorderStyle.solid,width: 1.0),
                             ),*/
-                            labelText: "Nome Torneo",
+                            labelText: "Inserisci Nome Torneo",
                             filled: true,
-                            fillColor: LightColors.kBlue,
+                            fillColor: LightColors.kLightYellow,
                           ),
                           onChanged: (value) =>
                           richiestaTorneo.nome = value,
@@ -109,7 +110,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding: EdgeInsets.only(top: 10),
                           child: Row(
                             children: <Widget>[
-                              Icon(Icons.sports,  color: LightColors.kBlue, size: 30.0,),
+                              Icon(Icons.sports,  color: LightColors.kDarkBlue, size: 30.0,),
                               Padding(padding: EdgeInsets.only(left: 16),
                                   child: SizedBox(
                                     width: MediaQuery
@@ -117,7 +118,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                         .size
                                         .width - 78,
                                     child: Container(
-                                      color: Colors.white,
+                                      color: LightColors.kLightYellow,
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 12),
                                         child: DropdownButtonFormField<Sport>(
@@ -199,7 +200,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                          padding:EdgeInsets.only(top:10),
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.fitness_center, color: LightColors.kBlue, size: 30.0,),
+                            Icon(Icons.fitness_center, color: LightColors.kDarkBlue, size: 30.0,),
                             Padding(padding:EdgeInsets.only(left: 16),
                             child: SizedBox(
                               width: MediaQuery
@@ -244,7 +245,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding: EdgeInsets.only(top: 10),
                           child: Row(
                             children: <Widget>[
-                              Icon(Icons.sports, color: LightColors.kBlue, size: 30.0,),
+                              Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
                               Padding(padding: EdgeInsets.only(left: 16),
                                   child: SizedBox(
                                     width: MediaQuery
@@ -313,11 +314,11 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                       TextFormField(
                         keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            icon: Icon(Icons.groups, color: LightColors.kBlue, size: 30.0,
+                            icon: Icon(Icons.groups, color: LightColors.kDarkBlue, size: 30.0,
                             ),
                               labelText: "Inserisci numero di squadre",
                             filled: true,
-                            fillColor:LightColors.kDarkBlue,
+                            fillColor:LightColors.kLightYellow,
                           ),
                           onChanged: (value) =>
                           richiestaTorneo.numero_di_partecipanti =

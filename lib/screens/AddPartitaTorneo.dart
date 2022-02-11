@@ -36,7 +36,7 @@ class AddPartitaTorneo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: LightColors.kBlue,
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Crea Partita",
           style: TextStyle(
             fontSize: 20.0,
@@ -168,7 +168,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                           children: <Widget>
                           [
                             Card(
-                              color: LightColors.kDarkYellow,
+                              color: LightColors.kLightYellow,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
@@ -180,7 +180,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.group_add, size: 50,
-                                          color: LightColors.kBlue),
+                                          color: LightColors.kDarkBlue),
                                       title: Container(
                                         color: LightColors.kLightYellow,
 
@@ -325,6 +325,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                             Icons.calendar_today, size: 50,
                                             color: LightColors.kDarkBlue),
                                         title:ElevatedButton(
+
                                           onPressed: () => _selectDate(context),
                                           child: Text('Data',
                                             style: TextStyle(
@@ -332,6 +333,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                               color: LightColors.kDarkBlue,
                                               fontWeight: FontWeight.w800,
                                             ),),
+
                                         ),
                                     )
                                 ),
@@ -346,6 +348,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                             style: TextStyle(
                                               fontSize: 20.0,
                                               color: LightColors.kDarkBlue,
+
                                               fontWeight: FontWeight.w800,
                                             ),),
                                         ),
@@ -425,7 +428,14 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
 
                               }
                             }, child:
-                            Text("Aggiungi"))
+                            Text("Aggiungi",
+                            style: TextStyle(fontSize: 20.0,
+                              color: LightColors.kDarkBlue,
+
+                              fontWeight: FontWeight.w800,
+
+                            ),),
+                            ),
 
 
                           ])

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Card extends StatelessWidget {
+class Cards  extends StatelessWidget {
   final Color cardColor;
   final String title;
 
 
-  Card({
+  Cards({
     required this.cardColor,
     required this.title,
   });
@@ -18,7 +18,8 @@ class Card extends StatelessWidget {
 
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(10.0),
-        height: 100,
+        height: 140,
+        width: 190,
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(30.0),
@@ -27,8 +28,11 @@ class Card extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
+
                   title,
                   style: TextStyle(
+                    leadingDistribution: TextLeadingDistribution.even,
+
                     fontSize: 30.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w400,

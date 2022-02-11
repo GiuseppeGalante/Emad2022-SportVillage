@@ -126,31 +126,21 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
     //print("id giocatore bl:"+giocatore.toString());
     print("i filtered:"+filtered.toString());
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: LightColors.kLightYellow,
       appBar: AppBar(
         backgroundColor: LightColors.kDarkBlue,
         title: Text("Richiedi nuova partita"),
       ),
       body: Form(
 
+
           key: _formKey,
           child: Padding(
+
             padding: EdgeInsets.all(16),
             child: ListView(
               children: <Widget>[
-                Container(
-                  color: LightColors.kLightYellow,
 
-                  child:Text("RICHIESTA NUOVA PARTITA",
-
-                      textAlign: TextAlign.center,
-                    style: TextStyle(
-
-                      color: LightColors.kDarkBlue,
-                      fontWeight: FontWeight.w800,
-                    ),),
-
-                ),
                 SizedBox(height: 30.0,),
                 //Image.asset("assets/images/logo.png"),
                 /*TextFormField(
@@ -164,7 +154,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                   },
                 ),*/
                 Center(
+
                   child: Row(
+
                     //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
 
@@ -172,7 +164,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       SizedBox(width: 40.0,),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: LightColors.kLightYellow,
+                          primary: Colors.white ,
                         ),
                         onPressed: () => _selectDate(context),
                         child: Icon(
@@ -190,7 +182,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                       SizedBox(width: 40.0,),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: LightColors.kLightYellow,
+                          primary: Colors.white,
                         ),
                         onPressed: () => _selectTime(context),
                         child: Icon(
@@ -241,7 +233,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width-78,
                             child:Container(
-                              color: LightColors.kLightYellow,
+                              color: Colors.white,
                               child:Padding(
                                 padding: EdgeInsets.only(left:12),
                                 child:DropdownButtonFormField<Sport>(
@@ -319,13 +311,13 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                         child:Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            SizedBox(width: 10),
+                            SizedBox(width:10),
                             Text("Centro Sportivo",
                               style: TextStyle(
                                 color: LightColors.kDarkBlue,
                                 fontWeight: FontWeight.w800,
                               ),),
-                            SizedBox(width: 30),
+                            SizedBox(width: 11),
                             SizedBox(
                               child: DropdownButton<String>(
                                 hint: Text('Seleziona centro',style: TextStyle(
@@ -383,12 +375,12 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                 Row(
 
                   children: [
-                    Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                    Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
                     SizedBox(width: 20),
                     Container(
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: LightColors.kLightYellow,
+                              color: Colors.white,
                             ),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.elliptical(5,5))
@@ -466,6 +458,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                 ),*/
 
                 DropdownButton<int>(
+
                   hint: Text('Seleziona numero di partecipanti',style: TextStyle(
                     color: LightColors.kDarkBlue,
                     fontWeight: FontWeight.w800,
@@ -553,7 +546,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                     }
                     , child: Text("Richiedi nuova partita",
                   style: TextStyle(
-                    fontSize: 35.0,
+                    fontSize: 22.0,
                     color: LightColors.kDarkBlue,
                     fontWeight: FontWeight.w800,
                   ),),

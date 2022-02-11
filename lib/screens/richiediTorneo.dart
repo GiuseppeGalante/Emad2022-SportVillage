@@ -10,6 +10,7 @@ import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/login.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -57,14 +58,16 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
 
     Giocatore giocatore = widget.giocatore;
     return Scaffold(
+
         appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
           title: Text("Richiesta Torneo"),
         ),
 
         body: Stack(
           children:[
           Container(
-          color: Colors.blue,
+          color: LightColors.kLightYellow,
         ),
         FutureBuilder<List>(
             future: dati,
@@ -84,17 +87,17 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding:EdgeInsets.only(top:10),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            icon: Icon(Icons.emoji_events, color: Colors.white, size: 30.0,
+                            icon: Icon(Icons.emoji_events, color: LightColors.kDarkBlue, size: 30.0,
                             ),
                             enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey,style: BorderStyle.solid,width: 1.0),
+                              borderSide: BorderSide(color: LightColors.kLightYellow,style: BorderStyle.solid,width: 1.0),
                             ),
                             /*focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black,style: BorderStyle.solid,width: 1.0),
                             ),*/
-                            labelText: "Nome Torneo",
+                            labelText: "Inserisci Nome Torneo",
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: LightColors.kLightYellow,
                           ),
                           onChanged: (value) =>
                           richiestaTorneo.nome = value,
@@ -110,7 +113,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding: EdgeInsets.only(top: 10),
                           child: Row(
                             children: <Widget>[
-                              Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                              Icon(Icons.sports,  color: LightColors.kDarkBlue, size: 30.0,),
                               Padding(padding: EdgeInsets.only(left: 16),
                                   child: SizedBox(
                                     width: MediaQuery
@@ -118,11 +121,14 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                         .size
                                         .width - 78,
                                     child: Container(
-                                      color: Colors.white,
+                                      color: LightColors.kLightYellow,
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 12),
                                         child: DropdownButtonFormField<Sport>(
-                                          hint: Text("Scegli Sport"),
+                                          hint: Text("Scegli Sport",style: TextStyle(
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),),
                                           onChanged: (value) {
                                             setState(() {
                                               richiestaTorneo.sport = new SportClass(value!);
@@ -151,27 +157,37 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                             DropdownMenuItem<Sport>(
                                               child: Text(
                                                 "Calcio", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Sport.calcio,
                                             ), DropdownMenuItem<Sport>(
                                               child: Text("Pallavolo",
                                                 style: TextStyle(
-                                                    color: Colors.black54),),
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
                                               value: Sport.pallavolo,
                                             ), DropdownMenuItem<Sport>(
                                               child: Text(
                                                 "Tennis", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Sport.tennis,
                                             ), DropdownMenuItem<Sport>(
                                               child: Text(
                                                 "Padel", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Sport.padel,
                                             ), DropdownMenuItem<Sport>(
                                               child: Text("Ping Pong",
-                                                style: TextStyle(
-                                                    color: Colors.black54),),
+                                                style:TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
                                               value: Sport.pingpong,
                                             ),
                                           ],
@@ -187,7 +203,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                          padding:EdgeInsets.only(top:10),
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.fitness_center, color: Colors.white, size: 30.0,),
+                            Icon(Icons.fitness_center, color: LightColors.kDarkBlue, size: 30.0,),
                             Padding(padding:EdgeInsets.only(left: 16),
                             child: SizedBox(
                               width: MediaQuery
@@ -195,11 +211,15 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                   .size
                                   .width-78,
                               child:Container(
-                                color: Colors.white,
+                                color: LightColors.kLightYellow,
                                 child:Padding(
                                   padding: EdgeInsets.only(left:12),
                                   child: DropdownButtonFormField<String>(
-                                   hint: Text('Scegli un centro sportivo'),
+                                   hint: Text('Scegli un centro sportivo',
+                                     style:TextStyle(
+                                       color: LightColors.kDarkBlue,
+                                       fontWeight: FontWeight.w800,
+                                     ),),
                                    onChanged: (value) {
                                      setState(() {
                                     nomeCentro = value!;
@@ -228,7 +248,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                           padding: EdgeInsets.only(top: 10),
                           child: Row(
                             children: <Widget>[
-                              Icon(Icons.sports, color: Colors.white, size: 30.0,),
+                              Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
                               Padding(padding: EdgeInsets.only(left: 16),
                                   child: SizedBox(
                                     width: MediaQuery
@@ -236,11 +256,14 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                         .size
                                         .width - 78,
                                     child: Container(
-                                      color: Colors.white,
+                                      color: LightColors.kLightYellow,
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 12),
                                         child: DropdownButtonFormField<Modalita>(
-                                          hint: Text("Scegli Modalità"),
+                                          hint: Text("Scegli Modalità",style:TextStyle(
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),),
                                           onChanged: (value) {
                                             setState(() {
                                               richiestaTorneo.modalita = value!;
@@ -257,17 +280,23 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                             DropdownMenuItem<Modalita>(
                                               child: Text(
                                                 "Solo Andata", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Modalita.Andata,
                                             ),DropdownMenuItem<Modalita>(
                                               child: Text(
                                                 "Andata e Ritorno", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Modalita.Andata_e_Ritorno,
                                             ),DropdownMenuItem<Modalita>(
                                               child: Text(
                                                 "All' Italiana", style: TextStyle(
-                                                  color: Colors.black54),),
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),),
                                               value: Modalita.All_Italiana,
                                             ),
 
@@ -288,11 +317,11 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                       TextFormField(
                         keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            icon: Icon(Icons.groups, color: Colors.white, size: 30.0,
+                            icon: Icon(Icons.groups, color: LightColors.kDarkBlue, size: 30.0,
                             ),
                               labelText: "Inserisci numero di squadre",
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor:LightColors.kLightYellow,
                           ),
                           onChanged: (value) =>
                           richiestaTorneo.numero_di_partecipanti =
@@ -310,7 +339,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                         padding:EdgeInsets.only(top:10),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.white,),
+                              primary: LightColors.kLightYellow,),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 print("Nessun errore");
@@ -322,7 +351,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: const Text('Richiesta Inoltrata'),
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: LightColors.kGreen,
                                     action: SnackBarAction(textColor:Colors.white,
                                       label: 'OK', onPressed: () {},),
                                   ),
@@ -342,7 +371,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                               }
                             }
                             , child: Text("Richiedi Torneo",style: TextStyle(
-                          color:Colors.black54))
+                          color:LightColors.kDarkBlue))
                         )
                       ),
                     ),

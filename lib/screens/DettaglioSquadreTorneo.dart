@@ -17,6 +17,7 @@ import 'package:flutter_app_emad/screens/profile/InformazioniPersonaliGiocatore.
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioSquadraTorneo extends StatelessWidget {
 
@@ -34,6 +35,7 @@ class DettaglioSquadraTorneo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Componenti "+squadra.nome),
       ),
 
@@ -69,6 +71,7 @@ class _DettaglioSquadraTorneoState extends State<DettaglioSquadraTorneoState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: LightColors.kLightYellow,
       body: SafeArea(
           child: Column(
               children: [
@@ -85,17 +88,17 @@ class _DettaglioSquadraTorneoState extends State<DettaglioSquadraTorneoState> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 5.0),
                                 clipBehavior: Clip.antiAlias,
-                                color: Colors.white,
+                                color: LightColors.kLightYellow,
                                 elevation: 5.0,
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 5.0),
                                     child: ListTile(
 
-                                        leading:Icon(Icons.group_add, size: 50,color: Colors.blueGrey),
+                                        leading:Icon(Icons.group_add, size: 50,color: LightColors.kDarkBlue),
                                         title:Text(componenti[index].nome_utente, style: TextStyle(
                                           fontSize: 22.0,
-                                          color: Colors.blue,
+                                          color: LightColors.kBlue,
                                           fontWeight: FontWeight.bold,
                                         )),
                                         /*subtitle: (){

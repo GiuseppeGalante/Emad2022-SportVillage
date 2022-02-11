@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/home.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class InfoPersonaliGiocatore extends StatelessWidget {
 
@@ -59,9 +60,9 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
   final TextEditingController _indirizzo = TextEditingController();
 
   final List<Widget> star = <Widget>[Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star, size:50, color: Colors.blueGrey,),
-    Icon(Icons.star_half, size:50, color: Colors.blueGrey,),
+    Icon(Icons.star, size:50, color: LightColors.kDarkBlue,),
+    Icon(Icons.star, size:50, color: LightColors.kDarkBlue,),
+    Icon(Icons.star_half, size:50, color:LightColors.kDarkBlue,),
   ];
 
   var title;
@@ -73,9 +74,11 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
       giocatore.bio="Nessuna Biografia";
     return Scaffold(
           appBar: AppBar(
+            backgroundColor: LightColors.kDarkBlue,
             title: Text("Informazioni Personali"),
           ),
           body: SafeArea(child:Container(
+            color: LightColors.kLightYellow,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -86,6 +89,7 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
             child: Column(
                 children: <Widget>[
                   Container(
+                    color: LightColors.kLightYellow,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -96,13 +100,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kDarkYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.person,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.person,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Nome",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -134,13 +138,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kDarkYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.person,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.person,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Nome",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -175,13 +179,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.info,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.info,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Sesso",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -213,13 +217,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.calendar_today,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.calendar_today,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Data di Nascita",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -258,13 +262,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.home,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.home,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Indirizzo",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -296,13 +300,13 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                         Card(
                             margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
                             clipBehavior: Clip.antiAlias,
-                            color: Colors.white,
+                            color: LightColors.kLightYellow,
                             elevation: 5.0,
                             child:ListTile(
-                              leading: Icon(Icons.flag,size: 50,color:Colors.blueGrey),
+                              leading: Icon(Icons.flag,size: 50,color:LightColors.kDarkBlue),
                               title: Text("Nazionalità",style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.blue,
+                                color: LightColors.kBlue,
                                 fontWeight: FontWeight.bold,
                               )),
                               subtitle:TextFormField(
@@ -356,7 +360,7 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
                           gradient: LinearGradient(
                               begin: Alignment.centerRight,
                               end: Alignment.centerLeft,
-                              colors: [Colors.blue,Colors.lightBlueAccent]
+                              colors: [LightColors.kBlue,LightColors.kDarkBlue]
                           ),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -380,15 +384,16 @@ class _InfoPersonaliGiocatore extends State<InfoPersonaliGiocatoreState> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                backgroundColor: LightColors.kDarkBlue,
+                icon: Icon(Icons.home,color: LightColors.kLightYellow,),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.search,color: LightColors.kLightYellow,),
                 label: 'Ricerca Partita',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,color: LightColors.kLightYellow,),
                 label: 'Profilo',
               ),
             ],

@@ -16,6 +16,7 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class DettaglioTorneoPronto extends StatelessWidget {
 
@@ -33,6 +34,7 @@ class DettaglioTorneoPronto extends StatelessWidget {
     print(torneo);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Squadre Torneo "+torneo.nome),
       ),
 
@@ -68,6 +70,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
           child: Column(
               children: [
                 Container(
+                  color: LightColors.kLightYellow,
                   width: double.infinity,
                   height:MediaQuery.of(context).size.height-155,
                   child: ListView.builder(
@@ -80,17 +83,17 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 5.0),
                                 clipBehavior: Clip.antiAlias,
-                                color: Colors.white,
+                                color: LightColors.kLightYellow,
                                 elevation: 5.0,
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 5.0),
                                     child: ListTile(
 
-                                        leading:Icon(Icons.group_add, size: 50,color: Colors.blueGrey),
+                                        leading:Icon(Icons.group_add, size: 50,color: LightColors.kBlue),
                                         title:Text(squadre[index].nome, style: TextStyle(
                                           fontSize: 22.0,
-                                          color: Colors.blue,
+                                          color: LightColors.kDarkBlue,
                                           fontWeight: FontWeight.bold,
                                         )),
                                         subtitle: (){
@@ -98,14 +101,14 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                           {
                                             return Text("Prenotazioni Aperte",style: TextStyle(
                                               fontSize: 18.0,
-                                              color: Colors.green,
+                                              color: LightColors.kGreen,
                                               fontWeight: FontWeight.bold,
                                             ),);
                                           }else
                                           {
                                             return Text("Prenotazioni Chiuse",style: TextStyle(
                                               fontSize: 18.0,
-                                              color: Colors.red,
+                                              color: LightColors.kRed,
                                               fontWeight: FontWeight.bold,
                                             ),);
                                           }
@@ -116,7 +119,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                   horizontal: 10,
                                                   vertical: 20
                                               ),
-                                              child:Icon(Icons.more_vert, size: 30,color: Colors.blueGrey),
+                                              child:Icon(Icons.more_vert, size: 30,color: LightColors.kBlue),
                                             ),
                                             onSelected: (value) {
                                               setState(() {
@@ -131,9 +134,18 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                             BuildContext context_alert) =>
                                                             AlertDialog(
                                                               title: const Text(
-                                                                  'Aggiunta alla squadra'),
+                                                                  'Aggiunta alla squadra',
+                                                                style: TextStyle(
+                                                                  fontSize: 15.0,
+                                                                  color: LightColors.kDarkBlue,
+                                                                  fontWeight: FontWeight.w800,
+                                                                ),),
                                                               content: const Text(
-                                                                  'Vuoi entrare in questa squadra?'),
+                                                                  'Vuoi entrare in questa squadra?',style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                color: LightColors.kDarkBlue,
+                                                                fontWeight: FontWeight.w800,
+                                                              ),),
                                                               actions: <Widget>[
                                                                 ElevatedButton(
                                                                   onPressed: () {
@@ -197,8 +209,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                                           SnackBar(
                                                                             content: const Text(
                                                                                 'Aggiunta Effettuata'),
-                                                                            backgroundColor: Colors
-                                                                                .green,
+                                                                            backgroundColor: LightColors.kGreen,
                                                                             action: SnackBarAction(
                                                                               textColor: Colors
                                                                                   .white,
@@ -226,8 +237,7 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                                                           SnackBar(
                                                                             content: const Text(
                                                                                 'Sei già iscritto ad una squadra'),
-                                                                            backgroundColor: Colors
-                                                                                .red,
+                                                                            backgroundColor: LightColors.kRed,
                                                                             action: SnackBarAction(
                                                                               textColor: Colors
                                                                                   .white,
@@ -274,14 +284,15 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                                             itemBuilder: (context) =>[
                                               PopupMenuItem(
                                                 child: ListTile(
-                                                  leading: Icon(Icons.add),
+
+                                                  leading: Icon(Icons.add,color: LightColors.kBlue,),
                                                   title: Text('Aggiungiti'),
                                                 ),
                                                 value: "1",
                                               ),
                                               const PopupMenuItem(
                                                 child: ListTile(
-                                                  leading: Icon(Icons.info),
+                                                  leading: Icon(Icons.info,color: LightColors.kBlue,),
                                                   title: Text('Visualizza'),
                                                 ),
                                                 value:"2",
@@ -326,9 +337,13 @@ class _DettaglioTorneoProntoState extends State<DettaglioTorneoProntoState> {
                   }
               ));
         },
-        label: const Text('Aggiungi Partita'),
-        backgroundColor: Colors.green,
-        icon: const Icon(Icons.add),
+        label: const Text('Aggiungi Partita',style: TextStyle(
+          fontSize: 15.0,
+          color: LightColors.kDarkBlue,
+          fontWeight: FontWeight.w800,
+        ),),
+        backgroundColor: LightColors.kGreen,
+        icon: const Icon(Icons.add, color: LightColors.kDarkBlue,),
       ),
     );
   }

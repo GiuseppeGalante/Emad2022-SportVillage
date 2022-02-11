@@ -11,6 +11,7 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 
 import 'home.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 
 
@@ -58,6 +59,7 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
     print(richiestepartite);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Richieste nuova partita"),
       ),
 
@@ -65,8 +67,9 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
           itemCount: richiestepartite.length,
           itemBuilder: (context,index){
         return Card(
+          color: LightColors.kLightYellow,
           child: ListTile(
-            leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+            leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
               onTap:() async =>
 
                   getCentroSportivo(richiestepartite[index].id_centro_sportivo).then((value) async =>
@@ -83,11 +86,20 @@ class _VisualizzaRichiestePartitaState extends State<VisualizzaRichiestePartita>
                   }
                   ),
 
-            title: Text(richiestepartite[index].data),
+            title: Text(richiestepartite[index].data,style: TextStyle(
+              color: LightColors.kDarkBlue,
+              fontWeight: FontWeight.w800,
+            ),),
             subtitle: Column(
               children: [
-                Text('Numero di partecipanti:'+richiestepartite[index].numero_di_partecipanti.toString()),
-                Text('Sport:'+richiestepartite[index].sport.toString().split(".").last),
+                Text('Numero di partecipanti:'+richiestepartite[index].numero_di_partecipanti.toString(),style: TextStyle(
+                  color: LightColors.kDarkBlue,
+                  fontWeight: FontWeight.w800,
+                ),),
+                Text('Sport:'+richiestepartite[index].sport.toString().split(".").last,style: TextStyle(
+                  color: LightColors.kDarkBlue,
+                  fontWeight: FontWeight.w800,
+                ),),
               ],
             ),
           ),

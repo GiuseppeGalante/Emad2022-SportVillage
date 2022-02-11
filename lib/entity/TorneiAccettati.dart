@@ -15,8 +15,10 @@ class TorneoAccettato
   String id_torneo="";
   String id_giocatore="";
   String id_amministratore="";
+  String indirizzo="";
   late SportClass sport;
   String modalita="";
+  late double distanza;
 
 
   Map<String, dynamic> toJson({bool hide=false})
@@ -32,6 +34,7 @@ class TorneoAccettato
       "id_giocatore": id_giocatore,
       "id_torneo":id_torneo,
       "id_amministratore": id_amministratore,
+      "indirizzo": indirizzo
     };
   }
 
@@ -89,6 +92,7 @@ Future<List<TorneoAccettato>> getTorneiAccettati() async
         richiestatorneo.numero_di_partecipanti = value["numero_di_partecipanti"],
         richiestatorneo.squadre_confermate=value["squadre_confermate"],
         richiestatorneo.modalita = value["modalita"],
+        richiestatorneo.indirizzo = value["indirizzo"],
         richiestatorneo.sport =new SportClass(Sport.values.firstWhere((e) => e.toString() == 'Sport.' + value["sport"])),
         richiestatorneo.id = databaseReference.child('torneiaccettati/'+key),
         tornei.add(richiestatorneo),

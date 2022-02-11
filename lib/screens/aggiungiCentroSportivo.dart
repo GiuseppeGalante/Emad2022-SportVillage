@@ -4,6 +4,7 @@ import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 
 
@@ -36,6 +37,7 @@ class _FormCentroSportivoState extends State<FormCentroSportivo> {
     this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
     return Scaffold(
+      backgroundColor: LightColors.kDarkBlue,
       appBar: AppBar(
         title: Text("Registrazione"),
       ),
@@ -47,7 +49,7 @@ class _FormCentroSportivoState extends State<FormCentroSportivo> {
             child: ListView(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: "Nome centro sportivo"),
+                  decoration: InputDecoration(labelText: "Nome centro sportivo",),
                   onChanged: (value) => centrosportivo.nome=value,
                   validator: (value){
                     if(value?.isEmpty ?? true)
@@ -93,7 +95,12 @@ class _FormCentroSportivoState extends State<FormCentroSportivo> {
                       }
 
                     }
-                    , child: Text("Registra centro sportivo")
+                    , child: Text("Registra centro sportivo",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: LightColors.kDarkBlue,
+                    fontWeight: FontWeight.w800,
+                  ),)
                 )
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import 'home.dart';
 
@@ -35,13 +36,14 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: LightColors.kDarkBlue,
         title: Text("Registrazione"),
       ),
       resizeToAvoidBottomInset: false,
       body: Stack(
       children:[
         Container(
-        color: Colors.blue,
+        color: LightColors.kLightYellow,
       ),
         Form(
         key: _formKey,
@@ -54,7 +56,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: "Nome",
-                  icon: Icon(Icons.person, color: Colors.white, size: 30.0,
+                  icon: Icon(Icons.person, color: LightColors.kDarkBlue, size: 30.0,
                   ),
                   filled: true,
                   fillColor: Colors.white,
@@ -73,7 +75,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "Cognome",
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kBlue,
                 ),
                 onChanged: (value) => gio.cognome=value,
                 validator: (value){
@@ -89,10 +91,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "e-mail",
                   icon: Icon(Icons.alternate_email,
-                    color: Colors.white,
+                    color:LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.email=value,
                 validator: (value){
@@ -108,10 +110,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "nome_utente",
                   icon: Icon(Icons.account_box,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.nome_utente=value,
                 validator: (value){
@@ -128,10 +130,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
                 key: _pswKey,
                 decoration: InputDecoration(labelText: "password",
                   icon: Icon(Icons.password,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.password=value,
                 obscureText: true,
@@ -148,10 +150,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "indirizzo",
                   icon: Icon(Icons.home,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,),
+                  fillColor: LightColors.kDarkBlue,),
                 onChanged: (value) => gio.indirizzo=value,
                 validator: (value){
                   if(value?.isEmpty ?? true)
@@ -166,10 +168,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "numero di telefono",
                   icon: Icon(Icons.phone_iphone,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.numero_di_telefono=value,
                 validator: (value){
@@ -185,10 +187,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "data di nascita",
                   icon: Icon(Icons.calendar_today,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.data_di_nascita=value,
                 validator: (value){
@@ -207,7 +209,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width-78,
                     child:Container(
-                      color: Colors.white,
+                      color: LightColors.kLightYellow,
                       child:Padding(
                         padding: EdgeInsets.only(left:12),
                         child:DropdownButtonFormField<Sesso>(
@@ -226,13 +228,13 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
                       onSaved: (value) => gio.sesso=value!,
                       items: [
                          DropdownMenuItem<Sesso>(
-                          child: Text("Maschio",style: TextStyle(color:Colors.black54),),
+                          child: Text("Maschio",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.maschio,
                         ),DropdownMenuItem<Sesso>(
-                          child: Text("Femmina",style: TextStyle(color:Colors.black54),),
+                          child: Text("Femmina",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.femmina,
                         ),DropdownMenuItem<Sesso>(
-                          child: Text("Altro",style: TextStyle(color:Colors.black54),),
+                          child: Text("Altro",style: TextStyle(color:LightColors.kDarkBlue),),
                           value: Sesso.altro,
                         ),
                       ],
@@ -249,10 +251,10 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             child: TextFormField(
                 decoration: InputDecoration(labelText: "Nazionalità",
                   icon: Icon(Icons.flag,
-                    color: Colors.white,
+                    color: LightColors.kBlue,
                     size: 30.0,),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: LightColors.kDarkBlue,
                 ),
                 onChanged: (value) => gio.nazionalita=value,
                 validator: (value){
@@ -268,7 +270,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
             padding:EdgeInsets.only(top:10),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.white,),
+                    primary: LightColors.kLightYellow,),
                   onPressed: (){
                     if(_formKey.currentState!.validate()){
                       print("Nessun errore");
@@ -278,8 +280,8 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: const Text('Registrazione Effettuata'),
-                          backgroundColor: Colors.green,
-                          action: SnackBarAction(textColor:Colors.white,
+                          backgroundColor: LightColors.kGreen,
+                          action: SnackBarAction(textColor:LightColors.kLightYellow,
                             label: 'OK', onPressed: () {},),
                         ),
                       );
@@ -295,7 +297,7 @@ class _MyCustomFormGiocatoreState extends State<MyCustomFormGiocatore> {
 
                   }
                   , child: Text("Registra",style: TextStyle(
-                color:Colors.black54,
+                color:LightColors.kDarkBlue,
             ),
             )
               )

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
-import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
@@ -15,8 +14,10 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:http/http.dart' as http;
 
+import '../entity/PartitaConfermata.dart';
 import 'dettaglioPartitaConfermata.dart';
 import 'home.dart';
 
@@ -59,13 +60,25 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
   {
     List<PartitaConfermata>? partiteconfermate= await getPartiteConfermate();
     Giocatore giocatore=widget.giocatore;
+    List<PartitaConfermata> partiteconfermatedarim=[];
+    int lenght=partiteconfermate!.length;
+    for(int i=0;i<lenght;i++)
+      partiteconfermatedarim.add(partiteconfermate[i]);
     if(partiteconfermate != null)
     {
+      try{
+        for(var i=0;i<partiteconfermate.length;i++)
+          for(var k=0;k<giocatore.partiteconfermate!.length;k++)
+            if(partiteconfermate[i].id.key==giocatore.partiteconfermate![k].id.key)
+              partiteconfermatedarim.remove(partiteconfermate[i]);
+        partiteconfermate=partiteconfermatedarim;
 
-      for(var i=0;i<partiteconfermate.length;i++)
-      for(var k=0;k<giocatore.partiteconfermate!.length;k++)
-      if(partiteconfermate[i].id.key==giocatore.partiteconfermate![k].id.key)
-        partiteconfermate.remove(partiteconfermate[i]);
+      }catch (error)
+      {
+        //print(partiteconfermate[i].indirizzo);
+        print(error);
+      }
+
     }
     Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
@@ -143,6 +156,7 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
           title: Text("Ricerca partita"),
         ),
 
@@ -162,8 +176,9 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
                     itemCount: partite.length,
                     itemBuilder: (context,index){
                       return Card(
+                        color: LightColors.kLightYellow,
                         child: ListTile(
-                          leading:Icon(Icons.assignment_outlined, color: Colors.black, size: 50.0,),
+                          leading:Icon(Icons.assignment_outlined, color: LightColors.kDarkBlue, size: 50.0,),
                           onTap:()  =>
 
                               Navigator.push(context, MaterialPageRoute(
@@ -175,9 +190,18 @@ class _VisRicercaPartitaState extends State<VisRicercaPartita> {
                           title: Text(partite[index].data),
                           subtitle: Column(
                             children: [
-                              Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString()),
-                              Text('Sport:'+partite[index].sport.toString().split(".").last),
-                              Text("Distanza:"+partite[index].distanza.toString()+" km")
+                              Text('Numero di partecipanti:'+partite[index].numero_di_partecipanti.toString(),style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
+                              Text('Sport:'+partite[index].sport.toString().split(".").last,style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),),
+                              Text("Distanza:"+partite[index].distanza.toString()+" km",style: TextStyle(
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),)
                             ],
                           ),
                         ),

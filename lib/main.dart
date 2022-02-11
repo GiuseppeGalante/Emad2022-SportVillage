@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class Splash2 extends StatelessWidget {
       navigateAfterSeconds: MainLogin(),
       loadingText: Text("Loading"),
       photoSize: 200.0,
-      backgroundColor: Colors.blue,
+      backgroundColor: LightColors.kDarkYellow,
       image: Image(image:AssetImage("assets/images/logo.png")),
       loaderColor: Colors.white,
     );

@@ -22,6 +22,8 @@ import 'package:flutter_app_emad/screens/home.dart';
 //import 'package:flutter_app_emad/screens/GestioneSquadre.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:time_picker_widget/time_picker_widget.dart';
+import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 class AddPartitaTorneo extends StatelessWidget {
 
@@ -61,6 +63,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay(hour: TimeOfDay.now().hour,minute: 0);
 
   var title;
   final List<Squadra> squadre;
@@ -91,7 +94,9 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
   Widget build(BuildContext first_context) {
     Future<List> dati=getCampiBySport(torneo.id_centro_sportivo.toString(),torneo.sport).then((value) => campi = value).whenComplete(() => _idCampo = campi[0].nome!);
     return Scaffold(
+      backgroundColor: LightColors.kLightYellow,
       body: SafeArea(
+
         child:Column(
               children: [
         FutureBuilder<List>(
@@ -113,7 +118,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
             }
           }
 
-          /*Future<void> _selectTime(BuildContext context) async {
+          Future<void> _selectTime(BuildContext context) async {
             final TimeOfDay? picked_s = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -187,6 +192,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                           children: <Widget>
                           [
                             Card(
+                              color: LightColors.kLightYellow,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
@@ -198,12 +204,18 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.group_add, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kDarkBlue),
                                       title: Container(
-                                        color: Colors.white,
+                                        color: LightColors.kLightYellow,
 
                                           child: DropdownButtonFormField<String>(
-                                            hint: Text('Scegli una squadra'),
+                                            hint: Text('Scegli una squadra',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: LightColors.kDarkBlue,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
                                             onChanged: (value) {
                                               setState(() {
                                                 squadra1= value!;
@@ -236,7 +248,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -244,9 +256,15 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.group_add, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kDarkBlue),
                                       title: DropdownButtonFormField<String>(
-                                        hint: Text('Scegli una squadra'),
+                                        hint: Text('Scegli una squadra',
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                            ),
                                         onChanged: (value) {
 
                                           setState(() {
@@ -279,7 +297,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 5.0),
                               clipBehavior: Clip.antiAlias,
-                              color: Colors.white,
+                              color: LightColors.kLightYellow,
                               elevation: 5.0,
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -287,9 +305,14 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                   child: ListTile(
 
                                       leading: Icon(Icons.location_on, size: 50,
-                                          color: Colors.blueGrey),
+                                          color: LightColors.kDarkBlue),
                                       title:DropdownButtonFormField<String>(
-                                        hint: Text('Scegli un campo'),
+                                        hint: Text('Scegli un campo',
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: LightColors.kDarkBlue,
+                                            fontWeight: FontWeight.w800,
+                                          ),),
                                         onChanged: (value) {
                                           setState(() {
                                             nomeCampo = value!;
@@ -352,7 +375,12 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           ),
                                           )
                                           },//_selectTime(context),
-                                          child: Text('Ora'),
+                                          child: Text('Ora',style: TextStyle(
+          fontSize: 20.0,
+          color: LightColors.kDarkBlue,
+
+          fontWeight: FontWeight.w800,
+          ),),
                                         ),
                                     )
                                 )
@@ -398,7 +426,7 @@ class _AddPartitaTorneoState extends State<AddPartitaTorneoState> {
                                           partita.squadra2=mapping2[squadra2]!.nome,
                                           partita.id_squadra1=mapping1[squadra1]!.id_squadra,
                                           partita.id_squadra2=mapping2[squadra2]!.id_squadra,
-                                          partita.campo=mapping[nomeCampo]!.nome,
+                                          partita.campo=mapping[nomeCampo]!.id.key!,
                                           savePartita(partita),
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(

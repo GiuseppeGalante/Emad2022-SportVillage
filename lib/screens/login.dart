@@ -164,6 +164,9 @@ class _TemplateLogin extends State<TemplateLogin> {
                                               }
                                           ),
                                         ),
+                                        Divider(
+                                          height: 30,
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 15.0),
                                           child: ElevatedButton(
@@ -222,13 +225,16 @@ class _TemplateLogin extends State<TemplateLogin> {
 
                                               }
                                             },
+
                                             child: const Text('Login',style: TextStyle(
                                               color:Colors.black54,
                                               //fontWeight: FontWeight.bold
                                             ),),
                                           ),
                                         ),
-
+                                        Divider(
+                                          height: 200,
+                                        ),
                                       Column(
                                           children: <Widget>[
                                             ElevatedButton(

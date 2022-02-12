@@ -10,7 +10,9 @@ import 'package:flutter_app_emad/screens/PartiteConfermate_New.dart';
 import 'package:flutter_app_emad/screens/MappaView.dart';
 import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
+import 'package:flutter_app_emad/screens/RicercaPartite_new.dart';
 import 'package:flutter_app_emad/screens/RicercaTorneo.dart';
+import 'package:flutter_app_emad/screens/RicercaTorneo_new.dart';
 import 'package:flutter_app_emad/screens/ricercaPartita.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
@@ -95,7 +97,7 @@ class _SelectServiceState extends State<HomeGiocatore> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VisRicercaPartita (giocatore:giocatore),
+                    builder: (context) => RicercaPartite_New (giocatore:giocatore),
                   ),
                 );
                 break;
@@ -105,7 +107,7 @@ class _SelectServiceState extends State<HomeGiocatore> {
                 {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context){
-                        return VisualizzaTorneo (giocatore:giocatore);
+                        return RicercaTorneo_New (giocatore:giocatore);
                       }
                   ))
                 }

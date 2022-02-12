@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/Home_Nuova.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/DettaglioGiocatore.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
@@ -128,7 +129,7 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                            onTap: ()  {
                                 Navigator.push(context, MaterialPageRoute(
                                 builder: (context){
-                                return MyHomeGio (giocatore:giocatore);
+                                return HomeGiocatore(giocatore:giocatore);
                                 }
                                 ));
                                 },

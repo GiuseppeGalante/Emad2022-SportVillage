@@ -69,7 +69,10 @@ class _TemplateLogin extends State<TemplateLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+        appBar: AppBar(
+          backgroundColor: LightColors.kDarkBlue,
+          title: Text("Mappa"),
+        ),
         body:Theme(
             data: ThemeData(
                 backgroundColor: LightColors.kDarkBlue

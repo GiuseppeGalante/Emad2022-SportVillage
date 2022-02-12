@@ -52,13 +52,13 @@ class MapSampleState extends State<MapSample> {
               {
                 latlng.add(LatLng(lat,long));
                 markers.add(new Marker(
-                  width: 300.0,
-                  height: 300.0,
+                  width: 50.0,
+                  height: 50.0,
                   point: LatLng(lat,long),
                   builder: (ctx) =>
                   new Container(
                     child: GestureDetector(
-                      child: new Icon(Icons.place_sharp),
+                      child: new Image.network("https://img.icons8.com/color/50/000000/google-maps-new.png"),
                       onTap:  (){
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>

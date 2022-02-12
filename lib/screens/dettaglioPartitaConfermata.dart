@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_app_emad/screens/infoGiocatore.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
+import '../widgets/signupContainer.dart';
 import 'home.dart';
 
 
@@ -55,6 +57,17 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
   late Map<String,String> mapping=new Map();
   bool complete=true;
   bool disable=false;
+
+  int selectedTool = -1;
+  int selectedTool_trasf=-1;
+
+  List<dynamic> tools = [
+      {
+  'image': 'https://cdn-icons-png.flaticon.com/128/732/732244.png',
+  'selected_image': 'https://img.icons8.com/color/344/circled-user-male-skin-type-5--v2.gif',
+  'name': 'Sketch',
+  'description': 'The digital design platform.',
+},];
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +201,8 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
           {
             for(int k =0;k<giocatori.length;k++)
             {
-              print(k);
-              print("Giocatore:"+giocatori[k]!.id.key.toString());
+              //print(k);
+              //print("Giocatore:"+giocatori[k]!.id.key.toString());
               if(partitaconfermata.partecipanti[i] == giocatori[k]?.id.key) {
                 casa.add(giocatori[k]);
                 if(giocatori[k]?.nome == giocatore.nome)
@@ -225,40 +238,88 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: LightColors.kDarkBlue,
-          title: Text("Info Partita Confermata"),
-        ),
-
-        body: Column(
-
-          children: <Widget>[
-
-              Text(partitaconfermata.data),
-              Text(partitaconfermata.orario),
-            Text(partitaconfermata.sport.sport.toString()),
-            Row(
-              children: [
-                Expanded(
-
-                    child:SizedBox(
-
-                      height: 200.0,
-                      child:  ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount:casa.length,
-                          itemBuilder: (context,index){
-                            return GestureDetector(
-                              onTap: (){
-
-                                   if(casa[index]!.bio == null && !disable)
+        body:SizedBox(
+          child: Stack(
+            children: [
+              Positioned(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 1,
+                  child: SignUpContainer()),
+              Container(
+                height: 900,
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 50,),
+                    FadeInDown(
+                      from: 30,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Dettaglio Partita", style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade800,
+                              fontWeight: FontWeight.bold
+                          ),),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.close)
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    FadeInDown(
+                        from: 50,
+                        child:
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(partitaconfermata.data.toString(), style: TextStyle(
+                                color: Colors.blueGrey.shade400,
+                                fontSize: 12
+                            ),textAlign: TextAlign.center,),
+                            Text(partitaconfermata.orario.toString(), style: TextStyle(
+                                color: Colors.blueGrey.shade400,
+                                fontSize: 12
+                            ),textAlign:TextAlign.center),
+                            Text(partitaconfermata.sport.toString(), style: TextStyle(
+                                color: Colors.blueGrey.shade400,
+                                fontSize: 12
+                            ),textAlign:TextAlign.center)
+                          ],
+                        )
+                    ),
+                    SizedBox(height: 20,),
+                    Container(
+                        height: 550,
+                        child:
+                        Row(
+                          children: [
+                            Container(
+                              //margin: const EdgeInsets.only(left: 30.0),
+                              height: 800,
+                              width: 150,
+                              child: ListView.builder(
+                                itemCount: casa.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedTool = index;
+                                        selectedTool_trasf=-1;
+                                      });
+                                      if(casa[index]!.bio == null && !disable)
                                       {
 
-                                          return showAlertDialogHome(context);
+                                        return showAlertDialogHome(context);
 
                                       }
-                                   else if(casa[index]!.bio != null)
+                                      else if(casa[index]!.bio != null)
                                       {
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context) =>
@@ -266,84 +327,164 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
                                         ));
                                       }
-                              },
-                              child: Card(
-                                color: LightColors.kLightYellow,
 
-                                    child: Text(casa[index]!.nome) ,
-                                  )
-                              ,
-                            );
+                                    },
+                                    child: FadeInUp(
+                                      delay: Duration(milliseconds: index * 100),
+                                      child: AnimatedContainer(
+                                        height: 80,
+                                        width: 15,
+                                        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                        margin: EdgeInsets.only(bottom: 20),
+                                        duration: Duration(milliseconds: 1500),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(
+                                                color: selectedTool == index ? Colors.blue : Colors.white.withOpacity(0),
+                                                width: 2
+                                            ),
+                                            boxShadow: [
+                                              selectedTool == index ?
+                                              BoxShadow(
+                                                  color: Colors.blue.shade100,
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 10
+                                              ) : BoxShadow(
+                                                  color: Colors.grey.shade200,
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 10
+                                              )
+                                            ]
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Image.network(tools[0]['selected_image'], width: 30,),
+                                            SizedBox(width: 20,),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(casa[index]!.nome, style: TextStyle(
+                                                      color: Colors.grey.shade800,
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(casa[index]!.cognome, style: TextStyle(
+                                                    color: Colors.grey.shade600,
+                                                    fontSize: 14,
+                                                  ),)
+                                                ],
+                                              ),
+                                            ),
+                                            Icon(Icons.check_circle, color: selectedTool == index ? Colors.blue : Colors.white,)
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 30.0),
+                              height: 800,
+                              width: 150,
+                              child: ListView.builder(
+                                itemCount: trasf.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedTool_trasf = index;
+                                        selectedTool=-1;
+                                        if(trasf[index]!.bio == null && !disable)
+                                        {
 
-                          }
+                                          return showAlertDialogTrasf(context);
 
-                      ),
+                                        }
+                                        else if(trasf[index]!.bio != null)
+                                        {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VisInfoGiocatore(giocatore: trasf[index]!,)
+
+                                          ));
+                                        }
+                                      });
+                                    },
+                                    child: FadeInUp(
+                                      delay: Duration(milliseconds: index * 100),
+                                      child: AnimatedContainer(
+                                        height: 80,
+                                        width: 15,
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                        margin: EdgeInsets.only(bottom: 20),
+                                        duration: Duration(milliseconds: 1500),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(
+                                                color: selectedTool_trasf == index ? Colors.blue : Colors.white.withOpacity(0),
+                                                width: 2
+                                            ),
+                                            boxShadow: [
+                                              selectedTool_trasf == index ?
+                                              BoxShadow(
+                                                  color: Colors.blue.shade100,
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 10
+                                              ) : BoxShadow(
+                                                  color: Colors.grey.shade200,
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 10
+                                              )
+                                            ]
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Image.network(tools[0]['selected_image'], width: 30,),
+                                            SizedBox(width: 20,),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(trasf[index]!.nome, style: TextStyle(
+                                                      color: Colors.grey.shade800,
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(trasf[index]!.cognome, style: TextStyle(
+                                                    color: Colors.grey.shade600,
+                                                    fontSize: 14,
+                                                  ),)
+                                                ],
+                                              ),
+                                            ),
+                                            Icon(Icons.check_circle, color: selectedTool_trasf == index ? Colors.blue : Colors.white,)
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+
                     )
-
-
+                  ],
                 ),
-                Expanded(
-
-                    child:SizedBox(
-                      height: 200.0,
-                      child:  ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount:trasf.length,
-                          itemBuilder: (context,index){
-                            return GestureDetector(
-                              onTap: (){
-                                if(trasf[index]!.bio == null && !disable)
-                                {
-
-                                  return showAlertDialogTrasf(context);
-
-                                }
-                                else if(trasf[index]!.bio != null)
-                                {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                          VisInfoGiocatore(giocatore: trasf[index]!,)
-
-                                  ));
-                                }
-                              },
-                              child: Card(
-
-                                child: Text(trasf[index]!.nome) ,
-                                color: LightColors.kLightYellow,
-                              )
-                              ,
-                            );
-
-                          }
-
-                      ),
-                    )
+              ),
+            ],
+          )
 
 
-                ),
-              ],
-            ),
-
-
-            Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget> [
-                  Column(
-
-                    children:<Widget> [
-                      //Text("Team 1"),
-
-
-                    ],
-                  ),
-
-                //Text("Team 2"),
-              ],
-            )
-          ],
         )
+
+
     );
   }
 }

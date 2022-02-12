@@ -1,38 +1,35 @@
 import 'dart:async';
 
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
-import 'package:flutter_app_emad/entity/Campo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
-import 'package:flutter_app_emad/entity/Prenotazioni.dart';
-import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
-
-import 'InfoCentroSportivo.dart';
-import 'home.dart';
+import 'package:flutter_app_emad/screens/login.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+
+import 'home.dart';
 
 
 
 // Create a Form widget.
-class FormRichiestaNuovaPartita extends StatefulWidget {
+class FormRichiestaTorneo extends StatefulWidget {
   Giocatore giocatore;
-  //CentroSportivo centroSportivo;
-  List<CentroSportivo>centrisportivi=[];
-  FormRichiestaNuovaPartita({required this.giocatore, required this.centrisportivi, Key? key}) : super(key: key);
-
+  FormRichiestaTorneo({required this.giocatore,Key? key}) : super(key: key);
   @override
-  _FormRichiestaNuovaPartitaState createState() => _FormRichiestaNuovaPartitaState();
+  _FormRichiestaTorneoState createState() => _FormRichiestaTorneoState();
 
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
+class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
+
+
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -40,562 +37,366 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   final _pswKey = GlobalKey<FormFieldState>();
+  List<CentroSportivo>centrisportivi = [];
 
-
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay _time = TimeOfDay.now().replacing(minute: 0);
-
-
-  bool late=false;
-  late String _idCentro="";
-  late CentroSportivo centroSportivo = getCentroSportivo(_idCentro) as CentroSportivo;
+  bool late = false;
+  String _idCentro="";
+  String nomeCentro="";
+  String idAdmin="";
+  RichiestaTorneo richiestaTorneo = RichiestaTorneo();
   List<CentroSportivo> filtered=[];
 
-  String idAdmin="";
-  RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
-  List<int> partecipanti=[];
-  int? n_partecipanti=null;
-
-  String nomeCampo="";
-  late Map<String, Campo> mapping_campo = new Map();
-  List<Campo> campi=[];
-
-  String _idCampo="";
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-
-        selectedDate = picked;
-        richiestaNuovaPartita.data=selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString();
-      });
-    }
-  }
-
-  /*Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
-        context: context,
-        initialTime: selectedTime,
-      builder: (context, child) =>
-          MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!,),
-
-    );
-
-    if (picked_s != null && picked_s != selectedTime && picked_s.minute==0) {
-      setState(() {
-
-        selectedTime = picked_s;
-        richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0";
-      });
-    }
-    else
-      {
-        if(picked_s?.minute==0) {
-          richiestaNuovaPartita.orario= selectedTime.hour.toString()+":"+selectedTime.minute.toString()+"0";
-        }else
-        {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Orario non disponibile'),
-              backgroundColor: LightColors.kRed,
-              action: SnackBarAction(textColor:LightColors.kLightYellow,
-                label: 'OK', onPressed: () {},),
-            ),
-          );
-        }
-      }
-  }*/
-
-  void onTimeChanged(TimeOfDay newTime) {
-    if (newTime != null && newTime != _time) {
-      setState(() {
-
-        _time= newTime;
-        richiestaNuovaPartita.orario= _time.hour.toString()+":"+newTime.minute.toString()+"0";
-      });
-    }
-    else
-    {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Orario non disponibile'),
-          backgroundColor: Colors.red,
-          action: SnackBarAction(textColor:Colors.white,
-            label: 'OK', onPressed: () {},),
-        ),
-      );
-    }
-  }
-
-
-  late Map<String,CentroSportivo> mapping=new Map();
-
+  late Map<String, CentroSportivo> mapping = new Map();
   @override
   Widget build(BuildContext context) {
     //this.amministratore=widget.amministratore;
     // Build a Form widget using the _formKey created above.
 
+    //print(centrisportivi);
+    Future<List> dati=getCentriSportivi().then((value) => centrisportivi = value).whenComplete(() => _idCentro = centrisportivi[0].nome!);
 
 
-    Giocatore giocatore=widget.giocatore;
-    List<CentroSportivo>centrisportivi=widget.centrisportivi;
-
-    print(filtered);
-    //print("id giocatore bl:"+giocatore.toString());
-    print("i filtered:"+filtered.toString());
+    Giocatore giocatore = widget.giocatore;
     return Scaffold(
-      backgroundColor: LightColors.kLightYellow,
+
       appBar: AppBar(
         backgroundColor: LightColors.kDarkBlue,
-        title: Text("Richiedi nuova partita"),
+        title: Text("Richiesta Torneo"),
       ),
-      body: Form(
+
+      body: Stack(
+          children:[
+            Container(
+              color: LightColors.kLightYellow,
+            ),
+            FutureBuilder<List>(
+                future: dati,
+                builder:(BuildContext context, AsyncSnapshot<List> snapshot) {
+                  if(snapshot.hasData) {
+                    return
 
 
-          key: _formKey,
-          child: Padding(
 
-            padding: EdgeInsets.all(16),
-            child: ListView(
-              children: <Widget>[
-
-                SizedBox(height: 30.0,),
-                //Image.asset("assets/images/logo.png"),
-                /*TextFormField(
-                  decoration: InputDecoration(labelText: "Seleziona data"),
-                  onChanged: (value) => richiestaNuovaPartita.data=value,
-                  validator: (value){
-                    if(value?.isEmpty ?? true)
-                    {
-                      return "Campo Obbligatorio";
-                    }
-                  },
-                ),*/
-                Center(
-
-                  child: Row(
-
-                    //mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-
-
-                      SizedBox(width: 40.0,),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white ,
-                        ),
-                        onPressed: () => _selectDate(context),
-                        child: Icon(
-                          Icons.date_range ,
-                          color: LightColors.kDarkBlue,
-                          size: 24.0,
-                        ),
-                      ),
-                      SizedBox(width: 20.0,),
-                      Text(selectedDate.day.toString()+"/"+selectedDate.month.toString()+"/"+selectedDate.year.toString(),style: TextStyle(
-
-                        color: LightColors.kDarkBlue,
-                        fontWeight: FontWeight.w800,
-                      ),),
-                      SizedBox(width: 40.0,),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                        ),
-                        onPressed: () =>
-                        {Navigator.of(context).push(
-                          showPicker(
-                            context: context,
-                            value: _time,
-                            onChange: onTimeChanged,
-                            is24HrFormat: true,
-                            disableMinute: true,
-                            minHour:9,
-                            maxHour:22,
-                            // Optional onChange to receive value as DateTime
-                            onChangeDateTime: (DateTime dateTime) {
-                              print(dateTime);
-                            },
-                          ),
-                        )
-                        },
-                        child: Icon(
-                          Icons.access_time_rounded ,
-                          color: LightColors.kDarkBlue,
-                          size: 24.0,
-                        ),
-                      ),
-                      SizedBox(width: 20.0,),
-                      Text(_time.hour.toString()+":"+_time.minute.toString()+"0",style: TextStyle(
-
-                        color: LightColors.kDarkBlue,
-                        fontWeight: FontWeight.w800,
-                      ),),
-                    ],
-                  ),
-                ),
-                /* Center(
-                  child: Row(
-                    //mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-
-                      SizedBox(width: 40.0,),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                        ),
-                        onPressed: () => _selectTime(context),
-                        child: Icon(
-                          Icons.access_time_rounded ,
-                          color: Colors.blue,
-                          size: 24.0,
-                        ),
-                      ),
-                      SizedBox(width: 50.0,),
-                      Text(selectedTime.hour.toString()+":"+selectedTime.minute.toString()),
-
-                    ],
-                  ),
-                ),*/
-                Padding(
-                  padding:EdgeInsets.only(top:10),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.emoji_events, color: LightColors.kDarkBlue, size: 30.0,),
-                      SizedBox(width: 10),
-                      Padding(padding:EdgeInsets.only(bottom:20),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width-78,
-                            child:Container(
-                              color: Colors.white,
-                              child:Padding(
-                                padding: EdgeInsets.only(left:12),
-                                child:DropdownButtonFormField<Sport>(
-                                  hint: Text("Scegli Sport",style: TextStyle(
-                                    color: LightColors.kDarkBlue,
-                                    fontWeight: FontWeight.w800,
-                                  ),),
-                                  onChanged: (value){
-                                    setState(() {
-                                      richiestaNuovaPartita.sport=new SportClass(value!);
-                                      filtered=[];
-                                      n_partecipanti=richiestaNuovaPartita.sport.partecipanti.first;
-                                      partecipanti=richiestaNuovaPartita.sport.partecipanti;
-                                      for(int i=0;i<centrisportivi.length;i++)
-                                      {
-
-                                        for(int k=0; k<centrisportivi[i].campi.length;k++) {
-                                          print(centrisportivi[i].campi[k].tipo.sport.toString()+":"+value.toString());
-                                          if(centrisportivi[i].campi[k].tipo.sport.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
-                                            filtered.add(centrisportivi[i]);
-                                            _idCentro=filtered[0].nome!;
-                                          }
-                                        }
-                                      }
-                                    });
-                                  },
-                                  validator: (value){
-                                    if(value==null)
-                                    {
-                                      return "Campo obbligatorio";
+                      Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: ListView(
+                            children: <Widget>[
+                              Padding(
+                                padding:EdgeInsets.only(top:10),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.emoji_events, color: LightColors.kDarkBlue, size: 30.0,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: LightColors.kLightYellow,style: BorderStyle.solid,width: 1.0),
+                                    ),
+                                    /*focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black,style: BorderStyle.solid,width: 1.0),
+                            ),*/
+                                    labelText: "Inserisci Nome Torneo",
+                                    filled: true,
+                                    fillColor: LightColors.kLightYellow,
+                                  ),
+                                  onChanged: (value) =>
+                                  richiestaTorneo.nome = value,
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return "Campo Obbligatorio";
                                     }
                                   },
-                                  onSaved: (value) => richiestaNuovaPartita.sport=new SportClass(value!),
-                                  items: [
-                                    DropdownMenuItem<Sport>(
-                                      child: Text("Calcio",style: TextStyle(color:LightColors.kDarkBlue),),
-                                      value: Sport.calcio,
-                                    ),DropdownMenuItem<Sport>(
-                                      child: Text("Pallavolo",style: TextStyle(color:LightColors.kDarkBlue),),
-                                      value: Sport.pallavolo,
-                                    ),DropdownMenuItem<Sport>(
-                                      child: Text("Tennis",style: TextStyle(color:LightColors.kDarkBlue),),
-                                      value: Sport.tennis,
-                                    ),DropdownMenuItem<Sport>(
-                                      child: Text("Padel",style: TextStyle(color:LightColors.kDarkBlue),),
-                                      value: Sport.padel,
-                                    ),DropdownMenuItem<Sport>(
-                                      child: Text("Ping Pong",style: TextStyle(color:LightColors.kDarkBlue),),
-                                      value: Sport.pingpong,
+                                ),
+                              ),
+
+                              Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.sports,  color: LightColors.kDarkBlue, size: 30.0,),
+                                    Padding(padding: EdgeInsets.only(left: 16),
+                                        child: SizedBox(
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width - 78,
+                                          child: Container(
+                                            color: LightColors.kLightYellow,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 12),
+                                              child: DropdownButtonFormField<Sport>(
+                                                hint: Text("Scegli Sport",style: TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    richiestaTorneo.sport = new SportClass(value!);
+                                                    filtered=[];
+                                                    for(int i=0;i<centrisportivi.length;i++)
+                                                    {
+
+                                                      for(int k=0; k<centrisportivi[i].campi.length;k++) {
+                                                        print(centrisportivi[i].campi[k].tipo.sport.toString()+":"+value.toString());
+                                                        if(centrisportivi[i].campi[k].tipo.sport.toString() == value.toString() && !filtered.contains(centrisportivi[i])) {
+                                                          filtered.add(centrisportivi[i]);
+                                                          _idCentro=filtered[0].nome!;
+                                                        }
+                                                      }
+                                                    }
+                                                  });
+                                                },
+                                                validator: (value) {
+                                                  if (value?.index == null) {
+                                                    return "Campo obbligatorio";
+                                                  }
+                                                },
+                                                onSaved: (value) =>
+                                                richiestaTorneo.sport = new SportClass(value!),
+                                                items: [
+                                                  DropdownMenuItem<Sport>(
+                                                    child: Text(
+                                                      "Calcio", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Sport.calcio,
+                                                  ), DropdownMenuItem<Sport>(
+                                                    child: Text("Pallavolo",
+                                                      style: TextStyle(
+                                                        color: LightColors.kDarkBlue,
+                                                        fontWeight: FontWeight.w800,
+                                                      ),),
+                                                    value: Sport.pallavolo,
+                                                  ), DropdownMenuItem<Sport>(
+                                                    child: Text(
+                                                      "Tennis", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Sport.tennis,
+                                                  ), DropdownMenuItem<Sport>(
+                                                    child: Text(
+                                                      "Padel", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Sport.padel,
+                                                  ), DropdownMenuItem<Sport>(
+                                                    child: Text("Ping Pong",
+                                                      style:TextStyle(
+                                                        color: LightColors.kDarkBlue,
+                                                        fontWeight: FontWeight.w800,
+                                                      ),),
+                                                    value: Sport.pingpong,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          )
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
+                              Padding(
+                                padding:EdgeInsets.only(top:10),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.fitness_center, color: LightColors.kDarkBlue, size: 30.0,),
+                                    Padding(padding:EdgeInsets.only(left: 16),
+                                      child: SizedBox(
+                                        width: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .width-78,
+                                        child:Container(
+                                          color: LightColors.kLightYellow,
+                                          child:Padding(
+                                            padding: EdgeInsets.only(left:12),
+                                            child: DropdownButtonFormField<String>(
+                                              hint: Text('Scegli un centro sportivo',
+                                                style:TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  nomeCentro = value!;
+                                                  idAdmin=mapping[value]!.id_amministratore!;
+                                                });
+                                              },
+                                              items: filtered.map((e) {
+                                                mapping[e.nome!] = e;
+                                                return DropdownMenuItem<String>(
+                                                  child: new Text(e.nome!),
+                                                  value: e.nome,
 
-                  children: [
-                    Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
-                    SizedBox(width: 20),
-                    Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: LightColors.kLightYellow,
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.elliptical(5,5))
+                                                );
+                                              }
+                                              ).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+
+                              Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
+                                    Padding(padding: EdgeInsets.only(left: 16),
+                                        child: SizedBox(
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width - 78,
+                                          child: Container(
+                                            color: LightColors.kLightYellow,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 12),
+                                              child: DropdownButtonFormField<Modalita>(
+                                                hint: Text("Scegli Modalità",style:TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    richiestaTorneo.modalita = value!;
+                                                  });
+                                                },
+                                                validator: (value) {
+                                                  if (value?.index == null) {
+                                                    return "Campo obbligatorio";
+                                                  }
+                                                },
+                                                onSaved: (value) =>
+                                                richiestaTorneo.modalita = value!,
+                                                items: [
+                                                  DropdownMenuItem<Modalita>(
+                                                    child: Text(
+                                                      "Solo Andata", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Modalita.Andata,
+                                                  ),DropdownMenuItem<Modalita>(
+                                                    child: Text(
+                                                      "Andata e Ritorno", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Modalita.Andata_e_Ritorno,
+                                                  ),DropdownMenuItem<Modalita>(
+                                                    child: Text(
+                                                      "All' Italiana", style: TextStyle(
+                                                      color: LightColors.kDarkBlue,
+                                                      fontWeight: FontWeight.w800,
+                                                    ),),
+                                                    value: Modalita.All_Italiana,
+                                                  ),
+
+                                                ],
+
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                  ],
+
+                                ),
+                              ),
+                              Padding(
+                                padding:EdgeInsets.only(top:10),
+                                child:
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    icon: Icon(Icons.groups, color: LightColors.kDarkBlue, size: 30.0,
+                                    ),
+                                    labelText: "Inserisci numero di squadre",
+                                    filled: true,
+                                    fillColor:LightColors.kLightYellow,
+                                  ),
+                                  onChanged: (value) =>
+                                  richiestaTorneo.numero_di_partecipanti =
+                                      int.parse(value),
+
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return "Campo Obbligatorio";
+                                    }
+                                  },
+                                ),
+                              ),
+                              Center(
+                                child: Padding(
+                                    padding:EdgeInsets.only(top:10),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: LightColors.kLightYellow,),
+                                        onPressed: () {
+                                          if (_formKey.currentState!.validate()) {
+                                            print("Nessun errore");
+                                            _formKey.currentState?.save();
+                                            richiestaTorneo.id_amministratore=idAdmin;
+                                            richiestaTorneo.id_giocatore = giocatore.id.key!;
+                                            richiestaTorneo.id_centro_sportivo =mapping[nomeCentro]!.id.key;
+                                            saveRichiestaTorneo(richiestaTorneo);
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: const Text('Richiesta Inoltrata'),
+                                                backgroundColor: LightColors.kGreen,
+                                                action: SnackBarAction(textColor:Colors.white,
+                                                  label: 'OK', onPressed: () {},),
+                                              ),
+                                            );
+                                            //amministratore.centrisportivi.add(centrosportivo);
+                                            //updateAmministratoreCS(amministratore);
+                                            //print("${this.amministratore}");
+                                            //print(centrosportivo);
+                                            Timer(Duration(seconds: 2), ()
+                                            {
+                                              Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return MyHomeGio(giocatore: giocatore);
+                                                  }
+                                              ));
+                                            });
+                                          }
+                                        }
+                                        , child: Text("Richiedi Torneo",style: TextStyle(
+                                        color:LightColors.kDarkBlue))
+                                    )
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        margin:  const EdgeInsets.only(bottom: 20.0),
-                        //color: Colors.white,
-                        child:Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            SizedBox(width:10),
-                            Text("Centro Sportivo",
-                              style: TextStyle(
-                                color: LightColors.kDarkBlue,
-                                fontWeight: FontWeight.w800,
-                              ),),
-                            SizedBox(width: 11),
-                            SizedBox(
-                              child: DropdownButton<String>(
-                                hint: Text('Seleziona centro',style: TextStyle(
-                                  color: LightColors.kDarkBlue,
-                                  fontWeight: FontWeight.w800,
-                                ),),
-                                value: _idCentro,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _idCentro=value!;
-                                  });
-                                  getCampiBySport(mapping[_idCentro]!.id.key.toString(), richiestaNuovaPartita.sport.sport.toString().substring(6)).then((value) => campi = value).whenComplete(() =>{
-                                    setState(() {
-                                      _idCampo = campi[0].nome!;
-                                    })
-                                  });
-                                },
-                                items: filtered.map((e) {
-                                  mapping[e.nome!]=e;
-                                  //print(e);
-                                  return DropdownMenuItem<String>(
-                                    child: new Text(e.nome!),
-                                    value: e.nome,
-
-                                  );
-
-                                }
-                                ).toList(),
-                              ),
-                            ),/*
-                    ElevatedButton(
-
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context){
-
-                                return InfoCentroSportivo(  centroSportivo: centroSportivo);
-                              }
-                          ));
-                        }
-                        , child: Text("Info Centro Sportivo")
-                    )*/SizedBox(width: 20),
-                          ],
-
-                        )
-
-                    )
-                  ],
-                ),
-
-
-
-
-
-                Row(
-
-                  children: [
-                    Icon(Icons.sports, color: LightColors.kDarkBlue, size: 30.0,),
-                    SizedBox(width: 20),
-                    Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.elliptical(5,5))
-                        ),
-                        margin:  const EdgeInsets.only(bottom: 20.0),
-                        //color: Colors.white,
-                        child:Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            SizedBox(width: 10),
-                            Text("Campo",style: TextStyle(
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),),
-                            SizedBox(width: 30),
-                            SizedBox(
-                              width: 190,
-                              child: DropdownButtonFormField<String>(
-                                hint: Text('Scegli un campo',style: TextStyle(
-                                  color: LightColors.kDarkBlue,
-                                  fontWeight: FontWeight.w800,
-                                ),),
-                                onChanged: (value) {
-                                  setState(() {
-                                    nomeCampo = value!;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null) {
-                                    return "Campo obbligatorio";
-                                  }
-                                },
-                                items: campi.map((e) {
-                                  mapping_campo[e.nome!] = e;
-                                  return DropdownMenuItem<String>(
-                                    child: new Text(e.nome!),
-                                    value: e.nome,
-
-                                  );
-                                }
-                                ).toList(),
-                              ),
-                            ),/*
-                    ElevatedButton(
-
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context){
-
-                                return InfoCentroSportivo(  centroSportivo: centroSportivo);
-                              }
-                          ));
-                        }
-                        , child: Text("Info Centro Sportivo")
-                    )*/SizedBox(width: 20),
-                          ],
-
-                        )
-
-                    )
-                  ],
-                ),
-
-
-
-                /*TextFormField(
-                  decoration: InputDecoration(labelText: "Inserisci orario"),
-                  onChanged: (value) => richiestaNuovaPartita.orario=value,
-                  validator: (value){
-                    if(value?.isEmpty ?? true)
-                    {
-                      return "Campo Obbligatorio";
-                    }
-                  },
-                ),*/
-
-                DropdownButton<int>(
-
-                  hint: Text('Seleziona numero di partecipanti',style: TextStyle(
-                    color: LightColors.kDarkBlue,
-                    fontWeight: FontWeight.w800,
-                  ),),
-                  value: n_partecipanti,
-                  onChanged: (value){
-                    setState(() {
-                      richiestaNuovaPartita.numero_di_partecipanti=value!;
-                      n_partecipanti=value;
-                    });
-                  },
-                  items: partecipanti.map((e)
-                  {
-                    return DropdownMenuItem<int>(
-                      child: new Text(e.toString(),style: TextStyle(
-                        color: LightColors.kDarkBlue,
-                        fontWeight: FontWeight.w800,
-                      ),),
-                      value: e,
-                    );
-                  }
-
-                  ) .toList(),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: LightColors.kLightYellow,
-                  ),
-                  onPressed: (){
-                    if(_formKey.currentState!.validate()){
-                      print("Nessun errore");
-                      List<String> data_divisa=[];
-                      List<String> ora_divisa=[];
-                      data_divisa=richiestaNuovaPartita.data.split("/");
-                      print(data_divisa);
-                      ora_divisa=richiestaNuovaPartita.orario.split(":");
-                      DateTime d=new DateTime(int.parse(data_divisa[2]),int.parse(data_divisa[1]),int.parse(data_divisa[0]));
-                      TimeOfDay t=new TimeOfDay(hour: int.parse(ora_divisa[0]), minute: int.parse(ora_divisa[1]));
-                      print(d);
-                      print(t);
-                      getPrenotazioni(mapping_campo[nomeCampo]!.id.key!,d,t).then((value) =>
-                      {
-                        print(mapping_campo[nomeCampo]!.id.key!),
-                        if(value==true)
-                          {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Orario già occupato'),
-                                backgroundColor: LightColors.kRed,
-                                action: SnackBarAction(textColor:Colors.white,
-                                  label: 'OK', onPressed: () {},),
-                              ),
-                            )
-                          }else
-                          {
-                            _formKey.currentState?.save(),
-                            richiestaNuovaPartita.id_giocatore=giocatore.id.key!,
-                            richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key,
-                            richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore!,
-                            richiestaNuovaPartita.campo=mapping_campo[_idCampo]!.id.key!,
-                            saveRichiestaNuovaPartita(richiestaNuovaPartita),
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text('Partita Creata'),
-                                backgroundColor: LightColors.kGreen,
-                                action: SnackBarAction(textColor:Colors.white,
-                                  label: 'OK', onPressed: () {},),
-                              ),
-                            ),
-                            Timer(Duration(seconds: 2), ()
-                            {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context){
-                                    return MyHomeGio(giocatore:giocatore);
-                                  }
-                              ));
-                            }),
-                          }
-                      },
                       );
 
-                    }
 
+
+
+
+                  }else if(snapshot.hasError)
+                  {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(),
+                      );
                   }
-                  , child: Text("Richiedi nuova partita",
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    color: LightColors.kDarkBlue,
-                    fontWeight: FontWeight.w800,
-                  ),),
-                )
-              ],
-            ),
-          )
-      ),
+                })
+          ]),
     );
   }
-
 }
-

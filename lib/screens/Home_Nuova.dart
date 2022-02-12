@@ -7,7 +7,6 @@ import 'package:flutter_app_emad/entity/Service.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiPronti.dart';
 import 'package:flutter_app_emad/screens/PartiteConfermate_New.dart';
-import 'package:flutter_app_emad/screens/Design.dart';
 import 'package:flutter_app_emad/screens/MappaView.dart';
 import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';

@@ -21,6 +21,7 @@ import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/widgets/signupContainer.dart';
 
 class HomeACS extends StatefulWidget {
   AmministstratoreCentroSportivo amministratore;
@@ -103,8 +104,19 @@ class _SelectServiceState extends State<HomeACS> {
           child: Icon(Icons.arrow_forward_ios, size: 20,),
           backgroundColor: Colors.blue,
         ) : null,
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        body:
+        SizedBox(
+            height: 1500,
+            child: Stack(
+                children: [
+            Positioned(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 1,
+            child: SignUpContainer()),
+           NestedScrollView(
+             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverToBoxAdapter(
                   child: FadeAnimation(1.2, Padding(
@@ -145,6 +157,8 @@ class _SelectServiceState extends State<HomeACS> {
             ),
           ),
         )
+        ])
+        ),
     );
   }
 

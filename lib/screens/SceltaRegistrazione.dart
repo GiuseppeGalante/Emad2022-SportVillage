@@ -13,6 +13,8 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
 import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
 
+import '../animation/FadeAnimation.dart';
+import '../entity/Service.dart';
 import '../widgets/signupContainer.dart';
 import '../widgets/signup_clipper.dart';
 import 'home.dart';
@@ -33,6 +35,14 @@ class SceltaRegistrazioneForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _SceltaRegistrazioneFormState extends State<SceltaRegistrazioneForm> {
+
+  List<Service> services = [
+    Service('Registrazione Giocatore', 'https://img.icons8.com/external-konkapp-flat-konkapp/128/000000/external-soccer-player-soccer-konkapp-flat-konkapp.png'),
+    Service('Registrazione Amministratore \nCentro Sportivo', 'https://img.icons8.com/fluency/96/000000/administrator-male.png'),
+  ];
+
+  int selectedService = -1;
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -76,85 +86,8 @@ class _SceltaRegistrazioneFormState extends State<SceltaRegistrazioneForm> {
     );
   }
 
-  Widget _emailWidget() {
-    return Stack(
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            // hintText: 'Enter your full name',
-            labelText: 'Email',
-            labelStyle: TextStyle(
-                color: Color.fromRGBO(226, 222, 211, 1),
-                fontWeight: FontWeight.w500,
-                fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(226, 222, 211, 1),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
-  Widget _passwordWidget() {
-    return Stack(
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            labelStyle: TextStyle(
-                color: Color.fromRGBO(226, 222, 211, 1),
-                fontWeight: FontWeight.w500,
-                fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(226, 222, 211, 1),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
-  Widget _submitButton() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: InkWell(
-        onTap: () {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => SignUpPage()));
-        },
-        child:
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            'Sign up',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.w500,
-                height: 1.6),
-          ),
-          SizedBox.fromSize(
-            size: Size.square(70.0), // button width and height
-            child: ClipOval(
-              child: Material(
-                color: Color.fromRGBO(76, 81, 93, 1),
-                child: Icon(Icons.arrow_forward,
-                    color: Colors.white), // button color
-              ),
-            ),
-          ),
-        ]),
-      ),
-    );
-  }
 
 
   @override
@@ -164,8 +97,32 @@ class _SceltaRegistrazioneFormState extends State<SceltaRegistrazioneForm> {
         .size
         .height;
     return Scaffold(
+      floatingActionButton: selectedService >= 0 ? FloatingActionButton(
+        onPressed: () {
+          switch(selectedService)
+          {
+            case 0: Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyCustomFormGiocatore(),
+              ),
+            );
+            break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyCustomFormAmministratoreCS(),
+                ),
+              );
+          }
+        },
+        child: Icon(Icons.arrow_forward_ios, size: 20,),
+        backgroundColor: Colors.blue,
+      ) : null,
       body: SizedBox(
-        height: height,
+
+        height: 1500,
         child: Stack(
           children: [
             Positioned(
@@ -175,31 +132,88 @@ class _SceltaRegistrazioneFormState extends State<SceltaRegistrazioneForm> {
                     .height * 1,
                 child: SignUpContainer()),
             SingleChildScrollView(
+
               child: Column(
                 children: <Widget>[
+                FadeAnimation(1.2, Padding(
+                padding: EdgeInsets.only(top: 120.0, right: 20.0, left: 20.0),
+                child: Text(
+                  'Scegli il tipo di \nregistrazione',
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.grey.shade900,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              ),
                   Container(
+                    height: height+200,
+                    width: 500,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: height * .4),
-                        _nameWidget(),
-                        SizedBox(height: 20),
-                        _emailWidget(),
-                        SizedBox(height: 20),
-                        _passwordWidget(),
-                        SizedBox(height: 80),
-                        _submitButton(),
-                        SizedBox(height: height * .050),
+                        Expanded(
+                          child: GridView.builder(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                                childAspectRatio: 1.0,
+                                crossAxisSpacing: 20.0,
+                                mainAxisSpacing: 20.0,
+                              ),
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: services.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return FadeAnimation((1.0 + index) / 4, serviceContainer(services[index].imageURL, services[index].name, index));
+                              }
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Positioned(top: 60, left: 0, child: _backButton()),
+            Positioned(top: 10, left: 0, child: _backButton()),
           ],
         ),
       ),
     );
+
+
   }
+  serviceContainer(String image, String name, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (selectedService == index)
+            selectedService = -1;
+          else
+            selectedService = index;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        padding: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: selectedService == index ? Colors.blue.shade50 : Colors.grey.shade100,
+          border: Border.all(
+            color: selectedService == index ? Colors.blue : Colors.blue.withOpacity(0),
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.network(image, height: 80),
+              SizedBox(height: 20,),
+              Text(name, style: TextStyle(fontSize: 20),)
+            ]
+        ),
+      ),
+    );
+  }
+
 }

@@ -21,24 +21,19 @@ class _VisualizzaPartiteConfermate_New extends State<VisualizzaPartiteConfermate
 
   List<dynamic> tools=[];
   late List<PartitaConfermata> partite;
-
+  bool letto=false;
   Future<List<dynamic>> getDistancePartite() async
   {
-    Giocatore giocatore=widget.giocatore;
-    List<PartitaConfermata>? partiteconfermate= giocatore.partiteconfermate;
-    try{
+    if(letto==false) {
+      Giocatore giocatore = widget.giocatore;
+      List<PartitaConfermata>? partiteconfermate = giocatore.partiteconfermate;
+      try {
+        Position posizione = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
 
-
-
-      Position posizione= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-      for(int i=0;i<partiteconfermate!.length;i++)
-      {
-
-
-        if(partiteconfermate[i].indirizzo != "")
-        {
-          /*
+        for (int i = 0; i < partiteconfermate!.length; i++) {
+          if (partiteconfermate[i].indirizzo != "") {
+            /*
         try{
 
           http.Response response = await http.get(Uri.parse("https://atlas.microsoft.com/route/directions/json?subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&query=52.50931,13.42936:52.50274,13.43872"));
@@ -50,47 +45,63 @@ class _VisualizzaPartiteConfermate_New extends State<VisualizzaPartiteConfermate
           print(error);
         }*/
 
-          http.Response response= await http.get(Uri.parse('https://atlas.microsoft.com/search/address/json?&limit=1&subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&language=it&query='+partiteconfermate[i].indirizzo));
-          //print(jsonDecode(response.body)["results"][0]["position"]["lat"]);
-          double lat=jsonDecode(response.body)["results"][0]["position"]["lat"];
-          double long=jsonDecode(response.body)["results"][0]["position"]["lon"];
-          //List<Address> locations = await Geocoder.local.findAddressesFromQuery(partiteconfermate[i].indirizzo);
-          //print(locations.first);
-          print(lat);
-          print(long);
-          if(!lat.isNaN && !long.isNaN)
-          {
-            http.Response response = await http.get(Uri.parse("https://atlas.microsoft.com/route/directions/json?subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&query="+posizione.latitude.toString()+","+posizione.longitude.toString()+":"+lat.toString()+","+long.toString()));
-            //print(jsonDecode(response.body)["routes"][0]["summary"]["lengthInMeters"]);
-            //partiteconfermate[i].distanza= await Geolocator.distanceBetween(posizione.latitude, posizione.longitude, lat, long)/1000;
-            partiteconfermate[i].distanza= jsonDecode(response.body)["routes"][0]["summary"]["lengthInMeters"]/1000;
-            partiteconfermate[i].distanza=num.parse(partiteconfermate[i].distanza.toStringAsFixed(2)).toDouble();
+            http.Response response = await http.get(Uri.parse(
+                'https://atlas.microsoft.com/search/address/json?&limit=1&subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&language=it&query=' +
+                    partiteconfermate[i].indirizzo));
+            //print(jsonDecode(response.body)["results"][0]["position"]["lat"]);
+            double lat = jsonDecode(
+                response.body)["results"][0]["position"]["lat"];
+            double long = jsonDecode(
+                response.body)["results"][0]["position"]["lon"];
+            //List<Address> locations = await Geocoder.local.findAddressesFromQuery(partiteconfermate[i].indirizzo);
+            //print(locations.first);
+            print(lat);
+            print(long);
+            if (!lat.isNaN && !long.isNaN) {
+              http.Response response = await http.get(Uri.parse(
+                  "https://atlas.microsoft.com/route/directions/json?subscription-key=noX2Gr6mqcV3NOG1OL7qwih3u2ZNsmYC19X6RbHKmCs&api-version=1.0&query=" +
+                      posizione.latitude.toString() + "," +
+                      posizione.longitude.toString() + ":" + lat.toString() +
+                      "," + long.toString()));
+              //print(jsonDecode(response.body)["routes"][0]["summary"]["lengthInMeters"]);
+              //partiteconfermate[i].distanza= await Geolocator.distanceBetween(posizione.latitude, posizione.longitude, lat, long)/1000;
+              partiteconfermate[i].distanza = jsonDecode(
+                  response.body)["routes"][0]["summary"]["lengthInMeters"] /
+                  1000;
+              partiteconfermate[i].distanza =
+                  num.parse(partiteconfermate[i].distanza.toStringAsFixed(2))
+                      .toDouble();
+            }
           }
-
         }
-
+        partiteconfermate.sort((a, b) => a.distanza.compareTo(b.distanza));
       }
-      partiteconfermate.sort((a, b) => a.distanza.compareTo(b.distanza));
-    }
-    catch (error)
-    {
-      //print(partiteconfermate[i].indirizzo);
-      print(error);
-    }
+      catch (error) {
+        //print(partiteconfermate[i].indirizzo);
+        print(error);
+      }
 
-    for(int i=0;i<partiteconfermate!.length;i++)
-      {
+      for (int i = 0; i < partiteconfermate!.length; i++) {
         tools.add(
             {
               'image': 'https://img.icons8.com/office/344/medal2--v2.gif',
-              'data': "Data: "+partiteconfermate[i].data,
-              'partecipanti': "Partecipanti: "+partiteconfermate[i].numero_di_partecipanti.toString(),
-              'sport': 'Sport: '+partiteconfermate[i].sport.sport.toString().split(".").last,
-              'distanza': 'Distanza: '+partiteconfermate[i].distanza.toString()+" km",
+              'data': "Data: " + partiteconfermate[i].data,
+              'partecipanti': "Partecipanti: " +
+                  partiteconfermate[i].numero_di_partecipanti.toString(),
+              'sport': 'Sport: ' + partiteconfermate[i].sport.sport
+                  .toString()
+                  .split(".")
+                  .last,
+              'distanza': 'Distanza: ' +
+                  partiteconfermate[i].distanza.toString() + " km",
             }
         );
       }
-    return partiteconfermate;
+      print(tools.length);
+      letto = true;
+      return partiteconfermate;
+    }else
+      return partite;
   }
 
 
@@ -196,6 +207,8 @@ class _VisualizzaPartiteConfermate_New extends State<VisualizzaPartiteConfermate
         setState(() {
           if (_selectedRooms==index) {
             _selectedRooms = -1;
+            partite=partite;
+            letto=true;
           }
           else
             _selectedRooms=index;

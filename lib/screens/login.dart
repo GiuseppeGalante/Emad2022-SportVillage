@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/screens/Home_Nuova.dart';
 import 'package:flutter_app_emad/screens/SceltaRegistrazione.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
@@ -184,7 +185,8 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                         giocatore.id=giocatori.id,
                                                         Navigator.push(context, MaterialPageRoute(
                                                             builder: (context){
-                                                              return MyHomeGio(giocatore:giocatori);
+                                                              //return MyHomeGio(giocatore:giocatori);
+                                                              return HomeGiocatore(title:"AAA",giocatore: giocatori);
                                                             }
                                                         ))
                                                       }

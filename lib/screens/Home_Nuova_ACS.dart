@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_emad/animation/FadeAnimation.dart';
+import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/CentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
+import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
+import 'package:flutter_app_emad/entity/RichiestaTorneo.dart';
 import 'package:flutter_app_emad/entity/Service.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiPronti.dart';
@@ -10,34 +13,34 @@ import 'package:flutter_app_emad/screens/MappaView.dart';
 import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
 import 'package:flutter_app_emad/screens/RicercaTorneo.dart';
+import 'package:flutter_app_emad/screens/aggiungiCampo.dart';
+import 'package:flutter_app_emad/screens/aggiungiCentroSportivo.dart';
 import 'package:flutter_app_emad/screens/ricercaPartita.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
 
-class HomeGiocatore extends StatefulWidget {
-  Giocatore giocatore;
+class HomeACS extends StatefulWidget {
+  AmministstratoreCentroSportivo amministratore;
   String title = 'home sport village';
-  HomeGiocatore({Key? key,required this.giocatore}) : super(key: key);
+  HomeACS({Key? key,required this.amministratore}) : super(key: key);
 
 
   @override
-  State<HomeGiocatore> createState() => _SelectServiceState(giocatore: giocatore, titolo: title);
+  State<HomeACS> createState() => _SelectServiceState(title:title, amministratore: amministratore);
 }
 
-class _SelectServiceState extends State<HomeGiocatore> {
-  Giocatore giocatore;
-  String titolo;
-  _SelectServiceState({Key? key,required this.titolo,required this.giocatore});
+class _SelectServiceState extends State<HomeACS> {
+  AmministstratoreCentroSportivo amministratore;
+  String title;
+  _SelectServiceState({Key? key,required this.title,required this.amministratore});
   List<Service> services = [
-    Service('Profilo', 'https://img.icons8.com/color/344/customer-skin-type-7.png'),
-    Service('Mappa', 'https://img.icons8.com/color/344/map-marker.png'),
-    Service('Richiedi Partita', 'https://img.icons8.com/color/344/stadium.png'),
-    Service(' Partite \n Confermate', 'https://img.icons8.com/color/344/verified-account.png'),
-    Service('Ricerca Partita', 'https://img.icons8.com/color/344/man-winner.png'),
-    Service('Ricerca Torneo', 'https://img.icons8.com/color/344/trophy.png'),
-    Service('Richiedi Torneo', 'https://img.icons8.com/color/344/leaderboard.png'),
-    Service(' Organizza \n Torneo', 'https://img.icons8.com/color/344/calendar--v1.png'),
+    Service('Aggiungi Centro Sportivo', 'https://img.icons8.com/color/344/sports.png'),
+    Service('Aggiungi Campo', 'https://img.icons8.com/color/344/stadium-.png'),
+    Service('Richieste Partite', 'https://img.icons8.com/color/344/show-property.png'),
+    Service('Richieste Tornei', 'https://img.icons8.com/color/344/list.png'),
   ];
 
   int selectedService = -1;
@@ -53,89 +56,44 @@ class _SelectServiceState extends State<HomeGiocatore> {
               case 0: Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfiloGio(giocatore: giocatore,title: titolo,),
+                  builder: (context) => FormCentroSportivo(amministratore:amministratore),
                 ),
               );
               break;
-              case 1:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MapSample(giocatore: giocatore,),
-                  ),
-                );
-                break;
-              case 2:
-                getCentriSportivi().then((value) =>
-                {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        List<CentroSportivo> centrisportivi=[];
 
-                        centrisportivi = value;
-                        return FormRichiestaNuovaPartita (giocatore:giocatore,centrisportivi:centrisportivi);
-                      }
+              case 1: Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormCampo(amministratore:amministratore),
+                ),
+              );
 
-                  ))}
-                );
-                break;
+              break;
 
-              case 3:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VisualizzaPartiteConfermate (giocatore:giocatore),
-                  ),
-                );
-                break;
+              case 2: getRichiestePartite(acs:amministratore).then((value) =>
+              {
+                print(value),
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return VisualizzaRichiestePartita(amministratore:amministratore,richiestepartite: value,);
+                    }
+                ))
+              }
+              );
 
-              case 4:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VisRicercaPartita (giocatore:giocatore),
-                  ),
-                );
-                break;
+              break;
 
-              case 5:
-                getTorneiAccettati().then((value) =>
-                {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        return VisualizzaTorneo (giocatore:giocatore);
-                      }
-                  ))
-                }
-                );
-                break;
+              case 3: getRichiesteTornei(acs:amministratore).then((value) =>
+              {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return VisualizzaRichiesteTorneo(amministratore:amministratore,richiestetornei: value,);
+                    }
+                ))
+              }
+              );
 
-              case 6:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FormRichiestaTorneo(giocatore: giocatore),
-                  ),
-                );
-                break;
-
-              case 7:
-                getTorneiPronti(giocatore.id.key.toString()).then((value) =>
-                {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        var t=<TorneoPronto>[];
-                        for(int i=0;i<value.length;i++) {
-                          if (value[i].squadre_confermate.toInt() == value[i].numero_di_partecipanti.toInt())
-                            t.add(value[i]);
-                        }
-                        return OrganizzaTorneo (tornei: t,giocatore:giocatore);
-                      }
-                  ))
-                },
-                );
-
-                break;
+              break;
 
 
             }

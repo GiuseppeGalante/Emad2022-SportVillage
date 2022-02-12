@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_emad/entity/AmministratoreCentroSportivo.dart';
 import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/Home_Nuova.dart';
+import 'package:flutter_app_emad/screens/Home_Nuova_ACS.dart';
 import 'package:flutter_app_emad/screens/SceltaRegistrazione.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
@@ -189,7 +190,7 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                         Navigator.push(context, MaterialPageRoute(
                                                             builder: (context){
                                                               //return MyHomeGio(giocatore:giocatori);
-                                                              return HomeGiocatore(title:"AAA",giocatore: giocatori);
+                                                              return HomeGiocatore(giocatore: giocatori);
                                                             }
                                                         ))
                                                       }
@@ -206,11 +207,12 @@ class _TemplateLogin extends State<TemplateLogin> {
                                                       if(amministratori != null){
                                                         Navigator.push(context, MaterialPageRoute(
                                                             builder: (context){
-                                                              return MyHomeACS(amministratore:amministratori);
+                                                              //return MyHomeACS(amministratore:amministratori);
+                                                              return HomeACS(amministratore:amministratori);
                                                             }
                                                         ))
                                                       }
-                                                      else if(amministratori == null && gioc == null)
+                                                      else
                                                         {
                                                           ScaffoldMessenger.of(context).showSnackBar(
                                                             SnackBar(

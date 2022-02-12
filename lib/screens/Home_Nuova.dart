@@ -6,6 +6,8 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/entity/Service.dart';
 import 'package:flutter_app_emad/entity/TorneiAccettati.dart';
 import 'package:flutter_app_emad/entity/TorneiPronti.dart';
+import 'package:flutter_app_emad/screens/PartiteConfermate_New.dart';
+import 'package:flutter_app_emad/screens/Design.dart';
 import 'package:flutter_app_emad/screens/MappaView.dart';
 import 'package:flutter_app_emad/screens/OrganizzaTorneo.dart';
 import 'package:flutter_app_emad/screens/ProfiloGiocatore.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_app_emad/screens/ricercaPartita.dart';
 import 'package:flutter_app_emad/screens/richiediTorneo.dart';
 import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
+import 'package:flutter_app_emad/widgets/signupContainer.dart';
 
 class HomeGiocatore extends StatefulWidget {
   Giocatore giocatore;
@@ -84,7 +87,7 @@ class _SelectServiceState extends State<HomeGiocatore> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VisualizzaPartiteConfermate (giocatore:giocatore),
+                    builder: (context) => VisualizzaPartiteConfermate_New (giocatore:giocatore),
                   ),
                 );
                 break;
@@ -145,7 +148,17 @@ class _SelectServiceState extends State<HomeGiocatore> {
           child: Icon(Icons.arrow_forward_ios, size: 20,),
           backgroundColor: Colors.blue,
         ) : null,
-        body: NestedScrollView(
+        body: SizedBox(
+            height: 1500,
+            child: Stack(
+                children: [
+            Positioned(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 1,
+            child: SignUpContainer()),
+        NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverToBoxAdapter(
@@ -187,6 +200,9 @@ class _SelectServiceState extends State<HomeGiocatore> {
             ),
           ),
         )
+  ]
+    ),
+        ),
     );
   }
 

@@ -14,6 +14,7 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/infoGiocatore.dart';
 import 'package:flutter_app_emad/screens/visualizzaInfoRichiestaPartita.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/signupContainer.dart';
 import 'home.dart';
@@ -239,6 +240,8 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
 
     return Scaffold(
         body:SizedBox(
+          width: 1500,
+          height: 2500,
           child: Stack(
             children: [
               Positioned(
@@ -264,14 +267,10 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                               color: Colors.grey.shade800,
                               fontWeight: FontWeight.bold
                           ),),
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.close)
-                          )
                         ],
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 10,),
                     FadeInDown(
                         from: 50,
                         child:
@@ -279,18 +278,30 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(partitaconfermata.data.toString(), style: TextStyle(
-                                color: Colors.blueGrey.shade400,
-                                fontSize: 12
-                            ),textAlign: TextAlign.center,),
-                            Text(partitaconfermata.orario.toString(), style: TextStyle(
-                                color: Colors.blueGrey.shade400,
-                                fontSize: 12
-                            ),textAlign:TextAlign.center),
-                            Text(partitaconfermata.sport.toString(), style: TextStyle(
-                                color: Colors.blueGrey.shade400,
-                                fontSize: 12
-                            ),textAlign:TextAlign.center)
+                            FadeInUp(
+                              delay: Duration(milliseconds: 1000),
+                              duration: Duration(milliseconds: 1000),
+                              child: Text(partitaconfermata.data.toString(), style: GoogleFonts.robotoSlab(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600
+                              ),),
+                            ),
+                            FadeInUp(
+                              delay: Duration(milliseconds: 1000),
+                              duration: Duration(milliseconds: 1000),
+                              child: Text(partitaconfermata.orario.toString(), style: GoogleFonts.robotoSlab(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600
+                              ),),
+                            ),
+                            FadeInUp(
+                              delay: Duration(milliseconds: 1000),
+                              duration: Duration(milliseconds: 1000),
+                              child: Text("SPORT:"+partitaconfermata.sport.sport.toString().split(".").last.toUpperCase(), style: GoogleFonts.robotoSlab(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600
+                              ),),
+                            ),
                           ],
                         )
                     ),

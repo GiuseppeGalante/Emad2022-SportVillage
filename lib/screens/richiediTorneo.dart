@@ -14,6 +14,7 @@ import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
 import '../animation/FadeAnimation.dart';
 import '../widgets/signupContainer.dart';
+import 'Home_Nuova.dart';
 import 'home.dart';
 
 
@@ -376,7 +377,7 @@ class _FormRichiestaTorneoState extends State<FormRichiestaTorneo> {
                                         {
                                           Navigator.push(context, MaterialPageRoute(
                                               builder: (context) {
-                                                return MyHomeGio(giocatore: giocatore);
+                                                return HomeGiocatore(giocatore: giocatore);
                                               }
                                           ));
                                         });

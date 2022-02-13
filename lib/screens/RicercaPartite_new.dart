@@ -80,7 +80,8 @@ class _RicercaPartite_New extends State<RicercaPartite_New> {
       for (int i = 0; i < partiteconfermate!.length; i++) {
         tools.add(
             {
-              'image': 'https://img.icons8.com/office/344/medal2--v2.gif',
+              //'image': 'https://img.icons8.com/office/344/medal2--v2.gif',
+              'image': 'https://i.ibb.co/ydMD7d9/output-onlinegiftools-4.gif',
               'data': "Data: " + partiteconfermate[i].data,
               'partecipanti': "Partecipanti: " +
                   partiteconfermate[i].numero_di_partecipanti.toString(),

@@ -11,6 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
+import '../theme/colors/light_colors.dart';
 import 'dettaglioPartitaConfermata.dart';
 
 
@@ -52,13 +53,13 @@ class MapSampleState extends State<MapSample> {
               {
                 latlng.add(LatLng(lat,long));
                 markers.add(new Marker(
-                  width: 50.0,
-                  height: 50.0,
+                  width: 30.0,
+                  height: 30.0,
                   point: LatLng(lat,long),
                   builder: (ctx) =>
                   new Container(
                     child: GestureDetector(
-                      child: new Image.network("https://img.icons8.com/color/50/000000/google-maps-new.png"),
+                      child: new Image.network("https://i.ibb.co/crtHyFS/output-onlinegiftools-5.gif"),
                       onTap:  (){
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
@@ -82,6 +83,10 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     Giocatore giocatore=widget.giocatore;
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: LightColors.kBlue,
+          title: Text("Mappa"),
+        ),
     body:FutureBuilder(
       future: Future.wait([Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high),getPositionsPartite(giocatore)]),
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {

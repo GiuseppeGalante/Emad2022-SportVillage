@@ -12,6 +12,8 @@ import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
 import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
+import '../widgets/signupContainer.dart';
+
 class MainLogin extends StatelessWidget {
   const MainLogin({Key? key}) : super(key: key);
 
@@ -20,6 +22,7 @@ class MainLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: appTitle,
       home: Struttura_Login(title: appTitle),
     );
@@ -65,25 +68,28 @@ class _TemplateLogin extends State<TemplateLogin> {
   Giocatore giocatore = new Giocatore();
   Giocatore? gioc=null;
   AmministstratoreCentroSportivo amministratore = AmministstratoreCentroSportivo();
-
+  bool found= false;
   @override
   Widget build(BuildContext context) {
+    found=false;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: LightColors.kDarkBlue,
-          title: Text("Mappa"),
-        ),
+
         body:Theme(
             data: ThemeData(
                 backgroundColor: LightColors.kDarkBlue
             ),
             child:Stack(
                 children: [
-                  Container(
-                    color: LightColors.kDarkBlue
-                  ),
+                  Positioned(
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 1,
+                      child: SignUpContainer()),
 
                   Container(
+                    width: 800,
+                    height: 1500,
                     child:SingleChildScrollView
                       (
                         child:Column(
@@ -172,93 +178,108 @@ class _TemplateLogin extends State<TemplateLogin> {
                                         Divider(
                                           height: 30,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 15.0),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                primary: Colors.white),
-                                            onPressed: () {
-                                              // Validate returns true if the form is valid, or false otherwise.
-                                              if (_formKey.currentState!.validate()) {
-                                                Login(_username,_password,_type);
-                                                //if(_type == user.Giocatore)
-                                                  //{
-                                                    getGiocatore(giocatore).then((giocatori)=>
-                                                    {
-                                                      print(giocatori),
-                                                      gioc=giocatori,
-                                                      if(giocatori != null){
-
-                                                        giocatore.id=giocatori.id,
-                                                        Navigator.push(context, MaterialPageRoute(
-                                                            builder: (context){
-                                                              //return MyHomeGio(giocatore:giocatori);
-                                                              return HomeGiocatore(giocatore: giocatori);
-                                                            }
-                                                        ))
+                                        MaterialButton(
+                                          onPressed: (){
+                                            // Validate returns true if the form is valid, or false otherwise.
+                                            if (_formKey.currentState!.validate()) {
+                                              Login(_username,_password,_type);
+                                              //if(_type == user.Giocatore)
+                                              //{
+                                              print(found);
+                                              getGiocatore(giocatore).then((giocatori)=>
+                                              {
+                                                print(giocatori),
+                                                gioc=giocatori,
+                                                if(giocatori != null){
+                                                  found=true,
+                                                  giocatore.id=giocatori.id,
+                                                  Navigator.push(context, MaterialPageRoute(
+                                                      builder: (context){
+                                                        //return MyHomeGio(giocatore:giocatori);
+                                                        return HomeGiocatore(giocatore: giocatori);
                                                       }
-
-                                                    });
-                                                  //}
-                                                //else if (_type == user.Amministratore)
-                                                  //{
-                                                    print(amministratore.nome_utente);
-                                                    print(amministratore.password);
-                                                    getAmministratoreCS(amministratore).then((amministratori)=>
-                                                    {
-                                                      print(amministratori),
-                                                      if(amministratori != null){
-                                                        Navigator.push(context, MaterialPageRoute(
-                                                            builder: (context){
-                                                              //return MyHomeACS(amministratore:amministratori);
-                                                              return HomeACS(amministratore:amministratori);
-                                                            }
-                                                        ))
+                                                  ))
+                                                },
+                                                if(!found)
+                                                  {
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      SnackBar(
+                                                        content: const Text('Email o Password Errata'),
+                                                        backgroundColor: Colors.red,
+                                                        action: SnackBarAction(textColor:Colors.white,
+                                                          label: 'Ho capito', onPressed: () {},),
+                                                      ),
+                                                    ),
+                                                  }
+                                              });
+                                              //}
+                                              //else if (_type == user.Amministratore)
+                                              //{
+                                              print(amministratore.nome_utente);
+                                              print(amministratore.password);
+                                              getAmministratoreCS(amministratore).then((amministratori)=>
+                                              {
+                                                print(amministratori),
+                                                if(amministratori != null){
+                                                  found=true,
+                                                  Navigator.push(context, MaterialPageRoute(
+                                                      builder: (context){
+                                                        //return MyHomeACS(amministratore:amministratori);
+                                                        return HomeACS(amministratore:amministratori);
                                                       }
-                                                      else
-                                                        {
-                                                          ScaffoldMessenger.of(context).showSnackBar(
-                                                            SnackBar(
-                                                              content: const Text('Email o Password Errata'),
-                                                              backgroundColor: Colors.red,
-                                                              action: SnackBarAction(textColor:Colors.white,
-                                                                label: 'Ho capito', onPressed: () {},),
-                                                            ),
-                                                          ),
-                                                        }
+                                                  )),
+                                                  print(found),
+                                                  if(!found)
+                                                    {
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        SnackBar(
+                                                          content: const Text('Email o Password Errata'),
+                                                          backgroundColor: Colors.red,
+                                                          action: SnackBarAction(textColor:Colors.white,
+                                                            label: 'Ho capito', onPressed: () {},),
+                                                        ),
+                                                      ),
+                                                    }
+                                                }
+                                                else
+                                                  {
 
-                                                    });
-                                                 // }
 
-                                              }
-                                            },
+                                                  }
 
-                                            child: const Text('Login',style: TextStyle(
-                                              color:Colors.black54,
-                                              //fontWeight: FontWeight.bold
-                                            ),),
+                                              });
+                                              // }
+
+                                            }
+                                          },
+                                          height: 45,
+                                          color: Colors.white,
+                                          child: Text("Login", style: TextStyle(color: Colors.black, fontSize: 16.0),),
+                                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
                                           ),
                                         ),
                                         Divider(
-                                          height: 200,
+                                          height: 100,
                                         ),
                                       Column(
                                           children: <Widget>[
-                                            ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.white),
-                                                onPressed: (){
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                                                    return SceltaRegistrazioneForm();
-                                                  }
-                                                  ));
-
-                                                }
-                                                , child: Text("Registrati",
-                                                         style: TextStyle(
-                                                                         color:Colors.black54,),
-                                                       )
-                                            )
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text('Non hai un account?', style: TextStyle(color: Colors.grey.shade600, fontSize: 14.0, fontWeight: FontWeight.w400),),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                                                      return SceltaRegistrazioneForm();
+                                                    }
+                                                    ));
+                                                  },
+                                                  child: Text('Registrati', style: TextStyle(color: Colors.blue, fontSize: 14.0, fontWeight: FontWeight.w400),),
+                                                )
+                                              ],
+                                            ),
                                           ]
 
                                       )],

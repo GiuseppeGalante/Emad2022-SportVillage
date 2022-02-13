@@ -34,21 +34,28 @@ class _SelectServiceState extends State<HomeGiocatore> {
   String titolo;
   _SelectServiceState({Key? key,required this.titolo,required this.giocatore});
   List<Service> services = [
-    Service('Profilo', 'https://img.icons8.com/color/344/customer-skin-type-7.png'),
-    Service('Mappa', 'https://img.icons8.com/color/344/map-marker.png'),
+    //Service('Profilo', 'https://img.icons8.com/color/344/customer-skin-type-7.png'),
+    Service('Profilo', 'https://media0.giphy.com/media/hVh9kYorSATXYcmcww/giphy.gif'),
+    //Service('Mappa', 'https://img.icons8.com/color/344/map-marker.png'),
+    Service('Mappa', 'https://i.ibb.co/4247gxf/output-onlinegiftools.gif'),
     Service('Richiedi Partita', 'https://img.icons8.com/color/344/stadium.png'),
     Service(' Partite \n Confermate', 'https://img.icons8.com/color/344/verified-account.png'),
-    Service('Ricerca Partita', 'https://img.icons8.com/color/344/man-winner.png'),
-    Service('Ricerca Torneo', 'https://img.icons8.com/color/344/trophy.png'),
+    //Service('Ricerca Partita', 'https://img.icons8.com/color/344/man-winner.png'),
+    Service('Ricerca Partita', 'https://i.ibb.co/z507TVd/output-onlinegiftools-1.gif'),
+    //Service('Ricerca Torneo', 'https://img.icons8.com/color/344/trophy.png'),
+    Service('Ricerca Torneo', 'https://i.ibb.co/q5vRMwH/output-onlinegiftools-2.gif'),
     Service('Richiedi Torneo', 'https://img.icons8.com/color/344/leaderboard.png'),
-    Service(' Organizza \n Torneo', 'https://img.icons8.com/color/344/calendar--v1.png'),
+    //Service(' Organizza \n Torneo', 'https://img.icons8.com/color/344/calendar--v1.png'),
+    Service(' Organizza \n Torneo', 'https://i.ibb.co/DVLkjyv/output-onlinegiftools-3.gif'),
   ];
 
   int selectedService = -1;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
         backgroundColor: Colors.white,
         floatingActionButton: selectedService >= 0 ? FloatingActionButton(
           onPressed: () {
@@ -232,7 +239,7 @@ class _SelectServiceState extends State<HomeGiocatore> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.network(image, height: 80),
-              SizedBox(height: 20,),
+              SizedBox(height: 15,),
               Text(name, style: TextStyle(fontSize: 20),)
             ]
         ),

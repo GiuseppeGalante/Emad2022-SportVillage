@@ -14,7 +14,7 @@ class SignUpContainer extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 1,
             width: MediaQuery.of(context).size.width * 1,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(245, 241, 237, 1),
+              color: Color.fromRGBO(91, 192, 235, 1),
             ),
           ),
         ),
@@ -24,10 +24,11 @@ class SignUpContainer extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .55,
             width: MediaQuery.of(context).size.width * 1,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(218, 210, 188, 1),
+              color: Color.fromRGBO(253, 231, 76, 1),
             ),
           ),
         ),
+
       ],
     );
   }

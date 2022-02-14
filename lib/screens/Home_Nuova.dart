@@ -173,11 +173,13 @@ class _SelectServiceState extends State<HomeGiocatore> {
                   child: FadeAnimation(1.2, Padding(
                     padding: EdgeInsets.only(top: 120.0, right: 20.0, left: 20.0),
                     child: Text(
-                      'Di quale servizio \nnecessiti?',
+                      'Benvenuto \n'+giocatore.nome,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.grey.shade900,
                         fontWeight: FontWeight.bold,
+
                       ),
                     ),
                   ),

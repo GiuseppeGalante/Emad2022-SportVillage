@@ -31,7 +31,7 @@ class Splash2 extends StatelessWidget {
       navigateAfterSeconds: MainLogin(),
       loadingText: Text("Loading"),
       photoSize: 200.0,
-      backgroundColor: LightColors.kDarkYellow,
+      backgroundColor: LightColors.kBlue,
       image: Image(image:AssetImage("assets/images/logo.png")),
       loaderColor: Colors.white,
     );

@@ -38,9 +38,6 @@ class Struttura_Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(backgroundColor:LightColors.kDarkYellow,
-          title: Text(title)
-      ),
       body: Container(
           child:TemplateLogin()
       ),
@@ -96,14 +93,14 @@ class _TemplateLogin extends State<TemplateLogin> {
                           children: [
                             Padding(
                                 child:Center(
-                                  child: Image(image:AssetImage("assets/images/logo_no_testo.png"),width: 100,)
+                                  child: Image(image:AssetImage("assets/images/logo_finale.png"),width: 150,)
                                     /*child:Text("Login",style: TextStyle(
                                       fontSize: 30,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),)*/
                                 ),
-                                padding: EdgeInsets.only(top: 30,left: 30,right: 30)
+                                padding: EdgeInsets.only(top: 150,left: 30,right: 30)
                             ),
                             Padding(
                                 padding: EdgeInsets.only(top:30,left: 30,right: 30),

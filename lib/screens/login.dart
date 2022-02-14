@@ -11,6 +11,7 @@ import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/screens/registrazioneAmministratoreCS.dart';
 import 'package:flutter_app_emad/screens/registrazioneGiocatore.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/signupContainer.dart';
 
@@ -21,7 +22,12 @@ class MainLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.alataTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       title: appTitle,
       home: Struttura_Login(title: appTitle),

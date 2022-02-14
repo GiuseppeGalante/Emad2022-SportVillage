@@ -305,7 +305,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                           ],
                         )
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 10,),
                     Container(
                         height: 550,
                         child:
@@ -343,9 +343,9 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                                     child: FadeInUp(
                                       delay: Duration(milliseconds: index * 100),
                                       child: AnimatedContainer(
-                                        height: 80,
-                                        width: 15,
-                                        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                                        height: 87,
+                                        width: 30,
+                                        padding: EdgeInsets.only(left: 10, right: 0, top: 10),
                                         margin: EdgeInsets.only(bottom: 20),
                                         duration: Duration(milliseconds: 1500),
                                         decoration: BoxDecoration(
@@ -398,7 +398,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 30.0),
+                              margin: const EdgeInsets.only(left: 40.0),
                               height: 800,
                               width: 150,
                               child: ListView.builder(
@@ -428,7 +428,7 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                                     child: FadeInUp(
                                       delay: Duration(milliseconds: index * 100),
                                       child: AnimatedContainer(
-                                        height: 80,
+                                        height: 87,
                                         width: 15,
                                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                         margin: EdgeInsets.only(bottom: 20),

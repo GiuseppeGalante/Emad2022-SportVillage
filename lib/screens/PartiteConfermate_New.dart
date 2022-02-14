@@ -71,10 +71,12 @@ class _VisualizzaPartiteConfermate_New extends State<VisualizzaPartiteConfermate
               partiteconfermate[i].distanza =
                   num.parse(partiteconfermate[i].distanza.toStringAsFixed(2))
                       .toDouble();
+              List<String> dateformat=partiteconfermate[i].data.split("/");
+              partiteconfermate[i].dt = DateTime(int.parse(dateformat[2]),int.parse(dateformat[1]),int.parse(dateformat[0]));
             }
           }
         }
-        partiteconfermate.sort((a, b) => a.distanza.compareTo(b.distanza));
+        partiteconfermate.sort((a, b) => a.dt.compareTo(b.dt));
       }
       catch (error) {
         //print(partiteconfermate[i].indirizzo);
@@ -237,9 +239,8 @@ class _VisualizzaPartiteConfermate_New extends State<VisualizzaPartiteConfermate
 
                       SizedBox(
                         width: MediaQuery.of(context).size.width-85,
-                        height: 70,
-                        child:
-                        Row(
+                        height: 80,
+                        child: Row(
                           children: [
                             Image.network(tools[index]['image'], width: 50,),
                             SizedBox(width: 20,),

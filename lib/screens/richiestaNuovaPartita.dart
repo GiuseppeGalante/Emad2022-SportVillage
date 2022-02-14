@@ -12,6 +12,7 @@ import 'package:flutter_app_emad/entity/Sport.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/Home_Nuova.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -149,6 +150,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
       setState(() {
 
         _time= newTime;
+        _selectedHour=_time.hour.toString()+":"+newTime.minute.toString()+"0";
         richiestaNuovaPartita.orario= _time.hour.toString()+":"+newTime.minute.toString()+"0";
       });
     }
@@ -313,7 +315,10 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                   SizedBox(height: 20,),
                                   FadeAnimation(1, Row(
                                     children: [
-                                      Text(_month[selectedDate.month-1]),
+                                      Text(_month[selectedDate.month-1], style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
                                       Spacer(),
                                       IconButton(
                                         padding: EdgeInsets.all(0),
@@ -364,7 +369,48 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                     ),
                                   ),
                                   SizedBox(height: 10,),
+                                  FadeAnimation(1.2, Text("Scegli l'ora", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),)),
+                                  SizedBox(height: 10,),
                                   FadeAnimation(1.2, Container(
+                                    child: Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: ()=>{
+
+                                              Navigator.of(context).push(
+                                                showPicker(
+                                                  context: context,
+                                                  value: _time,
+                                                  onChange: onTimeChanged,
+                                                  is24HrFormat:true,
+                                                  disableMinute:true,
+                                                  minHour:9,
+                                                  maxHour:22,
+                                                  // Optional onChange to receive value as DateTime
+                                                  onChangeDateTime: (DateTime dateTime) {
+                                                    print(dateTime);
+                                                  },
+                                                ),
+                                              )
+
+                                          },
+                                          child:Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Image.network("https://i.ibb.co/zSBj40J/output-onlinegiftools-6.gif",width: 50,),
+                                              Text("Ora selezionata: "+_selectedHour, style: GoogleFonts.alata(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),),
+                                            ],
+                                          ) ,
+                                        )
+
+
+                                      ],
+                                    ),
+                                  ),
+                                      /*Container(
                                     height: 60,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -405,8 +451,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                           );
                                         }
                                     ),
-                                  )),
-                                  SizedBox(height: 40,),
+                                  )*/
+                                  ),
+                                  SizedBox(height: 10,),
                                   FadeAnimation(1.2, Text("Scegli sport", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),)),
                                   SizedBox(height: 10,),
                                   Container(
@@ -470,7 +517,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                         ),
                                       )
                                   ),
-                                  SizedBox(height: 40,),
+                                  SizedBox(height: 20,),
                                   FadeAnimation(1.4, Text("Centro Sportivo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),)),
                                   SizedBox(height: 10,),
                                   Container(

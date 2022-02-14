@@ -27,6 +27,7 @@ class PartitaConfermata{
   late SportClass sport;
   late String id_campo;
   late double distanza;
+  late DateTime dt;
 
   @override
   String toString() {

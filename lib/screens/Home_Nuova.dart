@@ -219,12 +219,101 @@ class _SelectServiceState extends State<HomeGiocatore> {
   serviceContainer(String image, String name, int index) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          if (selectedService == index)
-            selectedService = -1;
-          else
-            selectedService = index;
-        });
+        {
+          switch(index)
+          {
+            case 0: Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfiloGio(giocatore: giocatore,title: titolo,),
+              ),
+            );
+            break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MapSample(giocatore: giocatore,),
+                ),
+              );
+              break;
+            case 2:
+              getCentriSportivi().then((value) =>
+              {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      List<CentroSportivo> centrisportivi=[];
+
+                      centrisportivi = value;
+                      return FormRichiestaNuovaPartita (giocatore:giocatore,centrisportivi:centrisportivi);
+                    }
+
+                ))}
+              );
+              break;
+
+            case 3:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VisualizzaPartiteConfermate_New (giocatore:giocatore),
+                ),
+              );
+              break;
+
+            case 4:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RicercaPartite_New (giocatore:giocatore),
+                ),
+              );
+              break;
+
+            case 5:
+              getTorneiAccettati().then((value) =>
+              {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return RicercaTorneo_New (giocatore:giocatore);
+                    }
+                ))
+              }
+              );
+              break;
+
+            case 6:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormRichiestaTorneo(giocatore: giocatore),
+                ),
+              );
+              break;
+
+            case 7:
+              getTorneiPronti(giocatore.id.key.toString()).then((value) =>
+              {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      var t=<TorneoPronto>[];
+                      for(int i=0;i<value.length;i++) {
+                        if (value[i].squadre_confermate.toInt() == value[i].numero_di_partecipanti.toInt())
+                          t.add(value[i]);
+                      }
+                      return OrganizzaTorneo (tornei: t,giocatore:giocatore);
+                    }
+                ))
+              },
+              );
+
+              break;
+
+
+          }
+
+
+        }
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
@@ -241,7 +330,7 @@ class _SelectServiceState extends State<HomeGiocatore> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.network(image, height: 80),
-              SizedBox(height: 15,),
+              SizedBox(height: 6,),
               Text(name, style: TextStyle(fontSize: 20),)
             ]
         ),

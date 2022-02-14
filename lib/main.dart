@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 import 'screens/login.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,14 +27,17 @@ class MyApp extends StatelessWidget {
 class Splash2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 5,
-      navigateAfterSeconds: MainLogin(),
-      loadingText: Text("Loading"),
-      photoSize: 200.0,
+    return SplashScreenView(
+      navigateRoute: MainLogin(),
+      duration: 3000,
+      imageSize: 200,
+      imageSrc: "assets/images/Sport_Village__5.png",
+      text: "Sport Village",
+      textType: TextType.TyperAnimatedText,
+      textStyle: TextStyle(
+        fontSize: 30.0,
+      ),
       backgroundColor: LightColors.kBlue,
-      image: Image(image:AssetImage("assets/images/logo.png")),
-      loaderColor: Colors.white,
     );
   }
 }

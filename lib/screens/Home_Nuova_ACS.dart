@@ -21,6 +21,7 @@ import 'package:flutter_app_emad/screens/richiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestaTorneo.dart';
 import 'package:flutter_app_emad/screens/visualizzaRichiestePartita.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestePartita_New.dart';
 import 'package:flutter_app_emad/widgets/signupContainer.dart';
 
 class HomeACS extends StatefulWidget {
@@ -52,54 +53,6 @@ class _SelectServiceState extends State<HomeACS> {
         backgroundColor: Colors.white,
         floatingActionButton: selectedService >= 0 ? FloatingActionButton(
           onPressed: () {
-            switch(selectedService)
-            {
-              case 0: Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FormCentroSportivo(amministratore:amministratore),
-                ),
-              );
-              break;
-
-              case 1: Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FormCampo(amministratore:amministratore),
-                ),
-              );
-
-              break;
-
-              case 2: getRichiestePartite(acs:amministratore).then((value) =>
-              {
-                print(value),
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context){
-                      return VisualizzaRichiestePartita(amministratore:amministratore,richiestepartite: value,);
-                    }
-                ))
-              }
-              );
-
-              break;
-
-              case 3: getRichiesteTornei(acs:amministratore).then((value) =>
-              {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context){
-                      return VisualizzaRichiesteTorneo(amministratore:amministratore,richiestetornei: value,);
-                    }
-                ))
-              }
-              );
-
-              break;
-
-
-            }
-
-
           },
           child: Icon(Icons.arrow_forward_ios, size: 20,),
           backgroundColor: Colors.blue,
@@ -122,7 +75,8 @@ class _SelectServiceState extends State<HomeACS> {
                   child: FadeAnimation(1.2, Padding(
                     padding: EdgeInsets.only(top: 120.0, right: 20.0, left: 20.0),
                     child: Text(
-                      'Di quale servizio \nnecessiti?',
+                      'Benvenuto \n'+amministratore.nome,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.grey.shade900,
@@ -165,12 +119,52 @@ class _SelectServiceState extends State<HomeACS> {
   serviceContainer(String image, String name, int index) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          if (selectedService == index)
-            selectedService = -1;
-          else
-            selectedService = index;
-        });
+        switch(index)
+        {
+          case 0: Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FormCentroSportivo(amministratore:amministratore),
+            ),
+          );
+          break;
+
+          case 1: Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FormCampo(amministratore:amministratore),
+            ),
+          );
+
+          break;
+
+          case 2: getRichiestePartite(acs:amministratore).then((value) =>
+          {
+            print(value),
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context){
+                  return VisualizzaRichiestePartita_New(amministratore:amministratore,richiestepartite: value,);
+                }
+            ))
+          }
+          );
+
+          break;
+
+          case 3: getRichiesteTornei(acs:amministratore).then((value) =>
+          {
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context){
+                  return VisualizzaRichiesteTorneo(amministratore:amministratore,richiestetornei: value,);
+                }
+            ))
+          }
+          );
+
+          break;
+
+
+        }
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
@@ -188,7 +182,7 @@ class _SelectServiceState extends State<HomeACS> {
             children: <Widget>[
               Image.network(image, height: 80),
               SizedBox(height: 20,),
-              Text(name, style: TextStyle(fontSize: 20),)
+              Text(name, style: TextStyle(fontSize: 18), textAlign: TextAlign.center,)
             ]
         ),
       ),

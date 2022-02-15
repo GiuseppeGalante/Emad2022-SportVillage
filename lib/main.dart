@@ -30,8 +30,8 @@ class Splash2 extends StatelessWidget {
     return SplashScreenView(
       navigateRoute: MainLogin(),
       duration: 3000,
-      imageSize: 200,
-      imageSrc: "assets/images/Sport_Village__5.png",
+      imageSize: 150,
+      imageSrc: "assets/images/logo_finale.png",
       text: "Sport Village",
       textType: TextType.TyperAnimatedText,
       textStyle: TextStyle(

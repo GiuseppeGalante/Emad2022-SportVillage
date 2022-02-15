@@ -19,6 +19,7 @@ class RichiestaNuovaPartita
   late DatabaseReference id;
   late SportClass sport;
   String campo="";
+  late DateTime dt;
 
 
   Map<String, dynamic> toJson({bool hide=false})

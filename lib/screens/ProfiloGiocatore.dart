@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_app_emad/entity/Giocatore.dart';
 import 'package:flutter_app_emad/screens/Home_Nuova.dart';
 import 'package:flutter_app_emad/screens/home.dart';
 import 'package:flutter_app_emad/screens/DettaglioGiocatore.dart';
+import 'package:flutter_app_emad/screens/login.dart';
 import 'package:flutter_app_emad/screens/visualizzaPartiteConfermate.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:flutter_app_emad/widgets/top_container.dart';
@@ -134,6 +136,60 @@ class _ProfiloGiocatore extends State<ProfiloGioState> {
                                 ));
                                 },
                               child:Icon(Icons.home,
+                                  color: LightColors.kDarkBlue, size: 30.0),
+                            ),
+                            GestureDetector(
+                              onTap: ()  {
+                                showDialog<String>(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context_alert) => AlertDialog(
+                                      title: const Text('Logout',style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w800,
+                                      ),),
+                                      content: const Text('Vuoi effettuare il logout?',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w800,
+                                        ),),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: (){
+                                            Navigator.pop(context_alert, 'Cancel');
+                                          },
+                                          child: const Text('NO'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            Navigator.pop(context_alert, 'OK');
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: const Text('Torneo Accettato'),
+                                                backgroundColor: LightColors.kGreen,
+                                                action: SnackBarAction(textColor:LightColors.kLightYellow,
+                                                  label: 'OK', onPressed: () {},),
+                                              ),
+                                            );
+
+                                                Navigator.push(context, MaterialPageRoute(
+                                                    builder: (context){
+                                                      return MainLogin();
+                                                    }
+                                                )
+                                              );
+                                          },
+                                          child: const Text('SI'),
+                                        ),
+
+                                      ],
+
+                                    )
+                                );
+                              },
+                              child:Icon(Icons.logout,
                                   color: LightColors.kDarkBlue, size: 30.0),
                             )
 

@@ -172,7 +172,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
 
   int _selectedDay = 2;
   int _selectedRepeat = 0;
-  String _selectedHour = '13:30';
+  String _selectedHour = '9:00';
   List<int> _selectedExteraCleaning = [];
 
   ItemScrollController _scrollController = ItemScrollController();
@@ -386,6 +386,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                                   disableMinute:true,
                                                   minHour:9,
                                                   maxHour:22,
+                                                  blurredBackground: true,
                                                   // Optional onChange to receive value as DateTime
                                                   onChangeDateTime: (DateTime dateTime) {
                                                     print(dateTime);
@@ -667,7 +668,9 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                     height: 50,
                                     margin: const EdgeInsets.only(bottom: 20.0),
                                     child:ElevatedButton(
+
                                       style: ElevatedButton.styleFrom(
+
                                         primary: LightColors.kLightYellow,
                                       ),
                                       onPressed: (){
@@ -732,7 +735,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                         color: LightColors.kDarkBlue,
                                         fontWeight: FontWeight.w800,
                                       ),),
-                                    ) ,
+                                    ),
                                   ),
 
                                 ],

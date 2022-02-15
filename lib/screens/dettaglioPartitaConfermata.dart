@@ -262,19 +262,124 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Dettaglio Partita", style: TextStyle(
-                              fontSize: 16,
+                          Text("DETTAGLIO PARTITA", style: TextStyle(
+                              fontSize: 20,
                               color: Colors.grey.shade800,
                               fontWeight: FontWeight.bold
                           ),),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 50,),
                     FadeInDown(
                         from: 50,
-                        child:
-                        Column(
+                        child:AnimatedContainer(
+                          height: 70,
+                          width: 1500,
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //margin: EdgeInsets.only(bottom: 20),
+                          duration: Duration(milliseconds: 1500),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                  color: Colors.white.withOpacity(1),
+                                  width: 2
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.shade200,
+                                    offset: Offset(0, 3),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text("DATA", style: GoogleFonts.robotoSlab(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                        ),),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 0, right: 10, top: 0),
+                                              child:  Image.network("https://i.ibb.co/DVLkjyv/output-onlinegiftools-3.gif",width: 20,),
+                                            ),
+
+                                            Text(partitaconfermata.data.toString(), style: GoogleFonts.robotoSlab(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("ORA", style: GoogleFonts.robotoSlab(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 0, right: 10, top: 0),
+                                              child:  Image.network("https://i.ibb.co/zSBj40J/output-onlinegiftools-6.gif",width: 20,),
+                                            ),
+
+                                            Text(partitaconfermata.orario.toString(), style: GoogleFonts.robotoSlab(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("SPORT", style: GoogleFonts.robotoSlab(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 0, right: 10, top: 0),
+                                              child:  Image.network("https://img.icons8.com/color/344/leaderboard.png",width: 20,),
+                                            ),
+
+                                            Text(partitaconfermata.sport.sport.toString().split(".").last.toUpperCase(), style: GoogleFonts.robotoSlab(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    //Spacer(),
+
+                                    //Spacer(),
+
+                                  ],
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ),
+
+                       /* Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -303,17 +408,17 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                               ),),
                             ),
                           ],
-                        )
+                        )*/
                     ),
                     SizedBox(height: 10,),
                     Container(
-                        height: 550,
+                        height: 500,
                         child:
                         Row(
                           children: [
                             Container(
                               //margin: const EdgeInsets.only(left: 30.0),
-                              height: 800,
+                              height: 700,
                               width: 150,
                               child: ListView.builder(
                                 itemCount: casa.length,
@@ -398,8 +503,8 @@ class _VisPartitaConfermataState extends State<VisPartitaConfermata> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 40.0),
-                              height: 800,
+                              margin: const EdgeInsets.only(left: 50.0),
+                              height: 900,
                               width: 150,
                               child: ListView.builder(
                                 itemCount: trasf.length,

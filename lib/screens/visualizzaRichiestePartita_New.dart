@@ -35,15 +35,18 @@ class _VisualizzaRichiestePartitaState_New extends State<VisualizzaRichiestePart
   RichiestaNuovaPartita richiestaNuovaPartita = RichiestaNuovaPartita();
   int selectedTool = -1;
   int _selectedRooms = -1;
-
+  List<RichiestaNuovaPartita>richiestepartite=[];
 
   late Map<String,String> mapping=new Map();
-  List<RichiestaNuovaPartita>richiestepartite=[];
   AmministstratoreCentroSportivo amministratore=new AmministstratoreCentroSportivo();
   @override
   Widget build(BuildContext context) {
+    richiestepartite=[];
     amministratore = widget.amministratore;
     richiestepartite = widget.richiestepartite;
+    tools=[];
+    print("Prima");
+    print(richiestepartite);
     for (int i = 0; i < richiestepartite!.length; i++) {
       tools.add(
           {
@@ -136,7 +139,11 @@ class _VisualizzaRichiestePartitaState_New extends State<VisualizzaRichiestePart
                       amministratore: amministratore)
 
           )),
-          setState((){getRichiestePartite(acs:amministratore).then((value) =>{ setState((){widget.richiestepartite=value;})});})
+          setState((){getRichiestePartite(acs:amministratore).then((value) =>{ setState(()
+          {
+            widget.richiestepartite=value;
+          }
+          )});})
         }
         );
 

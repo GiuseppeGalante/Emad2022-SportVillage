@@ -140,6 +140,7 @@ class _SelectServiceState extends State<HomeACS> {
 
           case 2: getRichiestePartite(acs:amministratore).then((value) =>
           {
+            print("Home"),
             print(value),
             Navigator.push(context, MaterialPageRoute(
                 builder: (context){

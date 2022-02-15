@@ -8,6 +8,7 @@ import 'package:flutter_app_emad/entity/PartitaConfermata.dart';
 import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
+import 'package:flutter_app_emad/screens/visualizzaRichiestePartita_New.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 

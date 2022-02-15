@@ -10,6 +10,8 @@ import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
 
+import '../animation/FadeAnimation.dart';
+import '../widgets/signupContainer.dart';
 import 'home.dart';
 
 
@@ -60,257 +62,301 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
     AmministstratoreCentroSportivo amministratore=widget.amministratore;
     print(centrosportivo);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: LightColors.kDarkBlue,
-        title: Text("Registrazione"),
-      ),
+        backgroundColor: Colors.white,
+        body:
+        SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: SizedBox(
+                height: 800,
+                width: 1500,
+                child: Stack(
+                  children: [
+                    Positioned(
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 1,
+                        child: SignUpContainer()),
+                    NestedScrollView(
+                        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                          return <Widget>[
 
-      body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: ListView(
-              children: <Widget>[
-                Wrap(
-                  spacing: 20, // to apply margin in the main axis of the wrap
-                  runSpacing: 20, // to apply margin in the cross axis of the wrap
-                  children: <Widget>[
-                    Card(
-
-                          margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                          clipBehavior: Clip.antiAlias,
-                          color: LightColors.kLightYellow,
-                          elevation: 5.0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                            child:ListTile(
-                              leading: Icon(Icons.calendar_today_rounded,size: 50,color:LightColors.kDarkBlue),
-                              title: Text("Data:",style: TextStyle(
-                                fontSize: 18.0,
-                                color: LightColors.kDarkBlue,
-                                fontWeight: FontWeight.w800,
-                              ),),
-                              subtitle: Text(richiestanuovapartita.data,style: TextStyle(
-                                fontSize: 22.0,
-                                color: LightColors.kDarkBlue,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              ),
-                            )
-                          ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                      clipBehavior: Clip.antiAlias,
-                      color: LightColors.kLightYellow,
-                      elevation: 5.0,
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                          child:ListTile(
-                            leading: Icon(Icons.access_time_rounded,size: 50,color:LightColors.kDarkBlue),
-                            title: Text("Orario:", style: TextStyle(
-                              fontSize: 18.0,
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),),
-                            subtitle: Text(richiestanuovapartita.orario,style: TextStyle(
-                              fontSize: 22.0,
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),
-                            ),
-                          )
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                      clipBehavior: Clip.antiAlias,
-                      color: LightColors.kLightYellow,
-                      elevation: 5.0,
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                          child:ListTile(
-                            leading: Icon(Icons.people_alt_rounded,size: 50,color:LightColors.kDarkBlue),
-                            title: Text("Numero di partecipanti:",style: TextStyle(
-                              fontSize: 18.0,
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),),
-                            subtitle: Text(richiestanuovapartita.numero_di_partecipanti.toString(),style: TextStyle(
-                              fontSize: 22.0,
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),
-                            ),
-                          )
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                      clipBehavior: Clip.antiAlias,
-                      color: LightColors.kLightYellow,
-                      elevation: 5.0,
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
-                          child:
-                          Wrap(
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.sports ,size: 50,color:Colors.blueGrey),
-                                title: Text("Seleziona Campo:",style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: LightColors.kDarkBlue,
-                                  fontWeight: FontWeight.w800,
-                                ),),
-                                subtitle: SizedBox(
-                                  width: MediaQuery.of(context).size.width/1.5,
-                                  child: DropdownButton<String>(
-                                    hint: Text('Seleziona un campo',style: TextStyle(
-
-                                      color: LightColors.kDarkBlue,
-                                      fontWeight: FontWeight.w800,
-                                    ),),
-                                    value: _idCentro ,
-                                    onChanged: (value){
-                                      setState(() {
-                                        _idCentro=value!;
-                                      });
-                                    },
-                                    items: centrosportivo.campi.map((e) {
-                                      mapping[e.nome]=e;
-                                      print(e);
-                                      return DropdownMenuItem<String>(
-                                        child: new Text(e.nome),
-                                        value: e.nome,
-
-                                      );
-
-                                    }
-                                    ).toList(),
+                            SliverToBoxAdapter(
+                                child: FadeAnimation(1, Padding(
+                                  padding: EdgeInsets.only(top: 60.0, right: 20.0, left: 20.0),
+                                  child: Text(
+                                    'Richiesta nuova \npartita',
+                                    style: TextStyle(
+                                      fontSize: 35,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
+                                ))
+                          ];
+                        },
+                        body:
+                        Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                            ],
-                          )
+                                SizedBox(height: 20,),
 
-                      ),
-                    ),
-                  ],
-                )
-                ,SizedBox(
-                  height: 10.0,
-                ),
+                                SizedBox(height: 10,),
+                                Center(
+                                  child:Column(
+                                    children: [
 
-                Center(
-                  child:Row(
-                      mainAxisAlignment:MainAxisAlignment.center,
-                      children:
-                      [
-                        ElevatedButton(
+                                      Row(
+                                        children: [
+                                          SizedBox(width: 80,),
+                                          Image.network("https://i.ibb.co/DVLkjyv/output-onlinegiftools-3.gif",width: 40,),
+                                          SizedBox(width: 30,),
+                                          FadeAnimation(1.2, Text("Data", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
 
-                          onPressed: (){
-                            showDialog<String>(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context_alert) => AlertDialog(
-                                  title: const Text('Richiesta partita',
-                                    style: TextStyle(
-                                      color: LightColors.kDarkBlue,
-                                      fontWeight: FontWeight.w800,
-                                    ),),
-                                  content: const Text('Vuoi confermare la richiesta partita?',style: TextStyle(
-                                    color: LightColors.kDarkBlue,
-                                    fontWeight: FontWeight.w800,
-                                  ),),
-                                  actions: <Widget>[
-                                    ElevatedButton(
-                                      onPressed: (){
-                                        Navigator.pop(context_alert, 'Cancel');
-                                        print("Salvato");
-                                      },
-                                      child: const Text('NO'),
-                                    ),
-                            ElevatedButton(
-                                      onPressed: (){
-                                        if(_formKey.currentState!.validate()){
-                                          print("Nessun errore");
-                                          _formKey.currentState?.save();
-                                          PartitaConfermata pc= new PartitaConfermata();
-                                          pc.id_campo = mapping[_idCentro]!.id.key!;
-                                          pc.numero_di_partecipanti= richiestanuovapartita.numero_di_partecipanti;
-                                          pc.orario=richiestanuovapartita.orario;
-                                          pc.data=richiestanuovapartita.data;
-                                          pc.id_centro_sportivo=centrosportivo.id.key;
-                                          pc.id_amministratore= centrosportivo.id_amministratore!;
-                                          pc.id_giocatore = richiestanuovapartita.id_giocatore;
-                                          pc.metodo_di_pagamento= richiestanuovapartita.metodo_di_pagamento;
-                                          pc.sport=richiestanuovapartita.sport;
-                                          pc.partecipanti.add(richiestanuovapartita.id_giocatore);
-                                          pc.partecipanti_trasf=[];
-                                          pc.indirizzo=centrosportivo.indirizzo!;
-                                          saveNuovaPartitaConfermata(pc);
-                                          deleteRichiestaPartita(richiestanuovapartita.id.key!);
-                                          //centrosportivo.id_amministratore=amministratore.id.key;
-                                          //richiestaNuovaPartita.id_giocatore=giocatore.id.key;
-                                          //richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
-                                          // richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore;
-                                          //saveRichiestaNuovaPartita(richiestaNuovaPartita);
-                                          //amministratore.centrisportivi.add(centrosportivo);
-                                          //updateAmministratoreCS(amministratore);
-                                          //print("${this.amministratore}");
-                                          //print(centrosportivo);
-                                          Navigator.pop(context_alert);
-                                          Navigator.pop(context);
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+
+                                          SizedBox(height: 15,),
+                                          FadeAnimation(1.2, Text(richiestanuovapartita.data, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+                                        ],
+                                      )
+                                    ],
+                                  )
+
+
+
+                                ),
+
+                                SizedBox(height: 30,),
+                                Center(
+                                    child:Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 70,),
+                                            Image.network("https://i.ibb.co/zSBj40J/output-onlinegiftools-6.gif",width: 40,),
+                                            SizedBox(width: 30,),
+                                            FadeAnimation(1.2, Text("Orario", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+
+                                            SizedBox(height: 15,),
+                                            FadeAnimation(1.2, Text(richiestanuovapartita.orario, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                ),
+
+                                SizedBox(height: 30,),
+                                Center(
+                                        child:Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SizedBox(width: 10,),
+                                                Image.network("https://media0.giphy.com/media/hVh9kYorSATXYcmcww/giphy.gif",width: 40,),
+                                                SizedBox(width: 30,),
+                                                FadeAnimation(1.2, Text("Numero di partecipanti", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+
+                                                SizedBox(height: 15,),
+                                                FadeAnimation(1.2, Text(richiestanuovapartita.numero_di_partecipanti.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                ),
+
+                                SizedBox(height: 30,),
+                                Center(
+                                  child: FadeAnimation(1.4, Text("Seleziona campo", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+                                ),
+
+                                SizedBox(height: 10,),
+                                Container(
+                                  height: 50,
+
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left:18),
+                                    child:
+                                    SizedBox(
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        hint: Text('Seleziona un campo',style: TextStyle(
+
+                                          color: LightColors.kDarkBlue,
+                                          fontWeight: FontWeight.w800,
+                                        ),),
+                                        value: _idCentro ,
+                                        onChanged: (value){
+                                          setState(() {
+                                            _idCentro=value!;
+                                          });
+                                        },
+                                        items: centrosportivo.campi.map((e) {
+                                          mapping[e.nome]=e;
+                                          print(e);
+                                          return DropdownMenuItem<String>(
+                                            child: new Text(e.nome),
+                                            value: e.nome,
+
+                                          );
 
                                         }
-                                      },
-                                      child: const Text('SI'),
-                                    ),
-                                  ],
-                                )
-                            );
-
-                          },
-                          child: Text("Accetta richiesta partita",style: TextStyle(
-                            color: LightColors.kDarkBlue,
-                            fontWeight: FontWeight.w800,
-                          ),),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(LightColors.kGreen),
-                            padding: MaterialStateProperty.all(EdgeInsets.all(20)),
-                          ),
-                        ),
-
-
-                        Padding(
-                          padding: EdgeInsets.only(left:5),
-                          child: ElevatedButton(
-                            onPressed: (){
-                              showDialog<String>(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context_alert) => AlertDialog(
-                                    title: const Text('Rifiuta richiesta partita',style: TextStyle(
-                                      color: LightColors.kDarkBlue,
-                                      fontWeight: FontWeight.w800,
-                                    ),),
-                                    content: const Text('Sei sicuro di voler rifiutare la richiesta partita?',style: TextStyle(
-                                      color: LightColors.kDarkBlue,
-                                      fontWeight: FontWeight.w800,
-                                    ),),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        onPressed: () => Navigator.pop(context_alert, 'Cancel'),
-                                        child: const Text('NO'),
+                                        ).toList(),
                                       ),
-                                      ElevatedButton(
-                                      onPressed: (){
-                                        deleteRichiestaPartita(richiestanuovapartita.id.key!);
-                                        Navigator.pop(context_alert);
-                                        Navigator.pop(context);
-                                      }
-                                       /* onPressed: () {
+
+
+                                    ),
+                                  ),
+
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      alignment: AlignmentDirectional.center,
+                                      height: 100,
+                                      width: 120,
+                                      margin: const EdgeInsets.only(bottom: 20.0),
+                                      child:ElevatedButton(
+
+                                        style: ElevatedButton.styleFrom(
+                                          primary: LightColors.kLightYellow,
+                                        ),
+                                        onPressed: (){
+                                          showDialog<String>(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context_alert) => AlertDialog(
+                                                title: const Text('Richiesta partita',
+                                                  style: TextStyle(
+                                                    color: LightColors.kDarkBlue,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),),
+                                                content: const Text('Vuoi confermare la richiesta partita?',style: TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                                actions: <Widget>[
+                                                  ElevatedButton(
+                                                    onPressed: (){
+                                                      Navigator.pop(context_alert, 'Cancel');
+                                                      print("Salvato");
+                                                    },
+                                                    child: const Text('NO'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: (){
+                                                      if(_formKey.currentState!.validate()){
+                                                        print("Nessun errore");
+                                                        _formKey.currentState?.save();
+                                                        PartitaConfermata pc= new PartitaConfermata();
+                                                        pc.id_campo = mapping[_idCentro]!.id.key!;
+                                                        pc.numero_di_partecipanti= richiestanuovapartita.numero_di_partecipanti;
+                                                        pc.orario=richiestanuovapartita.orario;
+                                                        pc.data=richiestanuovapartita.data;
+                                                        pc.id_centro_sportivo=centrosportivo.id.key;
+                                                        pc.id_amministratore= centrosportivo.id_amministratore!;
+                                                        pc.id_giocatore = richiestanuovapartita.id_giocatore;
+                                                        pc.metodo_di_pagamento= richiestanuovapartita.metodo_di_pagamento;
+                                                        pc.sport=richiestanuovapartita.sport;
+                                                        pc.partecipanti.add(richiestanuovapartita.id_giocatore);
+                                                        pc.partecipanti_trasf=[];
+                                                        pc.indirizzo=centrosportivo.indirizzo!;
+                                                        saveNuovaPartitaConfermata(pc);
+                                                        deleteRichiestaPartita(richiestanuovapartita.id.key!);
+                                                        //centrosportivo.id_amministratore=amministratore.id.key;
+                                                        //richiestaNuovaPartita.id_giocatore=giocatore.id.key;
+                                                        //richiestaNuovaPartita.id_centro_sportivo=mapping[_idCentro]!.id.key;
+                                                        // richiestaNuovaPartita.id_amministratore=mapping[_idCentro]!.id_amministratore;
+                                                        //saveRichiestaNuovaPartita(richiestaNuovaPartita);
+                                                        //amministratore.centrisportivi.add(centrosportivo);
+                                                        //updateAmministratoreCS(amministratore);
+                                                        //print("${this.amministratore}");
+                                                        //print(centrosportivo);
+                                                        Navigator.pop(context_alert);
+                                                        Navigator.pop(context);
+
+                                                      }
+                                                    },
+                                                    child: const Text('SI'),
+                                                  ),
+                                                ],
+                                              )
+                                          );
+
+                                        }
+                                        , child: Text("Accetta richiesta",
+                                        style: TextStyle(
+                                          fontSize: 22.0,
+                                          color: LightColors.kDarkBlue,
+                                          fontWeight: FontWeight.w800,
+                                        ),),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20,),
+                                    Container(
+                                      alignment: AlignmentDirectional.center,
+                                      height: 100,
+                                      width: 120,
+                                      margin: const EdgeInsets.only(bottom: 20.0),
+                                      child:ElevatedButton(
+
+                                        style: ElevatedButton.styleFrom(
+
+                                          primary: LightColors.kLightYellow,
+                                        ),
+                                        onPressed: (){
+                                          showDialog<String>(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context_alert) => AlertDialog(
+                                                title: const Text('Rifiuta richiesta partita',style: TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                                content: const Text('Sei sicuro di voler rifiutare la richiesta partita?',style: TextStyle(
+                                                  color: LightColors.kDarkBlue,
+                                                  fontWeight: FontWeight.w800,
+                                                ),),
+                                                actions: <Widget>[
+                                                  ElevatedButton(
+                                                    onPressed: () => Navigator.pop(context_alert, 'Cancel'),
+                                                    child: const Text('NO'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: (){
+                                                      deleteRichiestaPartita(richiestanuovapartita.id.key!);
+                                                      Navigator.pop(context_alert);
+                                                      Navigator.pop(context);
+                                                    }
+                                                    /* onPressed: () {
                                           Navigator.pop(context_alert, 'OK');
                                           TorneoRifiutato torneorif=new TorneoRifiutato();
                                           torneorif.id_torneo=torneo.id_richiesta_torneo;
@@ -348,32 +394,37 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                                             );
                                           });
                                         }*/,
-                                        child: const Text('SI'),
-                                      ),
-                                    ],
-                                  )
-                              );
+                                                    child: const Text('SI'),
+                                                  ),
+                                                ],
+                                              )
+                                          );
 
-                            },
-                            child: Text("Rifiuta richiesta partita",style: TextStyle(
-                              color: LightColors.kDarkBlue,
-                              fontWeight: FontWeight.w800,
-                            ),),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(LightColors.kRed),
-                              padding: MaterialStateProperty.all(EdgeInsets.all(20)),
+                                        }
+                                        , child: Text("Rifiuta richiesta",
+                                        style: TextStyle(
+                                          fontSize: 22.0,
+                                          color: LightColors.kDarkBlue,
+                                          fontWeight: FontWeight.w800,
+                                        ),),
+                                      ),
+                                    ),
+                                  ],
+                                )
+
+
+                              ],
                             ),
                           ),
-
                         )
+                    ),
 
-                      ]
-                  ),
+                  ],
                 )
-              ],
             ),
-          )
-      ),
+          ),
+        )
+
     );
   }
 

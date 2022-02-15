@@ -95,7 +95,7 @@ class _VisualizzaRichiestePartitaState_New extends State<VisualizzaRichiestePart
             child: FadeAnimation(1, Padding(
               padding: EdgeInsets.only(top: 120.0, right: 20.0, left: 20.0),
               child: Text(
-                'Partite Confermate',
+                'Richieste partite',
                 style: TextStyle(
                   fontSize: 35,
                   color: Colors.grey.shade900,

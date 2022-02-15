@@ -708,7 +708,7 @@ class _FormRichiestaNuovaPartitaState extends State<FormRichiestaNuovaPartita> {
                                                 saveRichiestaNuovaPartita(richiestaNuovaPartita),
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   SnackBar(
-                                                    content: const Text('Partita Creata'),
+                                                    content: const Text('Richiesta partita effettuata con successo'),
                                                     backgroundColor: LightColors.kGreen,
                                                     action: SnackBarAction(textColor:Colors.white,
                                                       label: 'OK', onPressed: () {},),

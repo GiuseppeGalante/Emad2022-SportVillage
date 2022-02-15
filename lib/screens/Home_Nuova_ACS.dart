@@ -181,7 +181,7 @@ class _SelectServiceState extends State<HomeACS> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.network(image, height: 80),
-              SizedBox(height: 20,),
+              SizedBox(height: 12,),
               Text(name, style: TextStyle(fontSize: 18), textAlign: TextAlign.center,)
             ]
         ),

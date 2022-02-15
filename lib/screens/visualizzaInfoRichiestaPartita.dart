@@ -9,6 +9,7 @@ import 'package:flutter_app_emad/entity/RichiestaNuovaPartita.dart';
 import 'package:flutter_app_emad/entity/Utente.dart';
 import 'package:flutter_app_emad/screens/homeACS.dart';
 import 'package:flutter_app_emad/theme/colors/light_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../animation/FadeAnimation.dart';
 import '../widgets/signupContainer.dart';
@@ -68,7 +69,7 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
           child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: SizedBox(
-                height: 800,
+                height: 900,
                 width: 1500,
                 child: Stack(
                   children: [
@@ -105,86 +106,134 @@ class _FormInfoRichiestaNuovaPartitaState extends State<FormInfoRichiestaNuovaPa
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
-                                SizedBox(height: 20,),
-
-                                SizedBox(height: 10,),
-                                Center(
-                                  child:Column(
-                                    children: [
-
-                                      Row(
-                                        children: [
-                                          SizedBox(width: 80,),
-                                          Image.network("https://i.ibb.co/DVLkjyv/output-onlinegiftools-3.gif",width: 40,),
-                                          SizedBox(width: 30,),
-                                          FadeAnimation(1.2, Text("Data", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
-
-                                        ],
+                                AnimatedContainer(
+                                  height: 120,
+                                  width: 1500,
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  //margin: EdgeInsets.only(bottom: 20),
+                                  duration: Duration(milliseconds: 1500),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: Colors.white.withOpacity(1),
+                                          width: 2
                                       ),
-                                      Column(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: Offset(0, 3),
+                                            blurRadius: 10
+                                        )
+                                      ]
+                                  ),
+                                      child:Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
+                                          Image.network("https://i.ibb.co/DVLkjyv/output-onlinegiftools-3.gif",width: 40,),
 
-                                          SizedBox(height: 15,),
+                                          //SizedBox(width: 80,),
+
+                                          //SizedBox(width: 50,),
+                                          //SizedBox(height: 35,),
+                                          FadeAnimation(1.2, Text("Data", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
                                           FadeAnimation(1.2, Text(richiestanuovapartita.data, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+
 
                                         ],
                                       )
-                                    ],
-                                  )
+
 
 
 
                                 ),
-
                                 SizedBox(height: 30,),
-                                Center(
-                                    child:Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(width: 70,),
-                                            Image.network("https://i.ibb.co/zSBj40J/output-onlinegiftools-6.gif",width: 40,),
-                                            SizedBox(width: 30,),
-                                            FadeAnimation(1.2, Text("Orario", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
-
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-
-                                            SizedBox(height: 15,),
-                                            FadeAnimation(1.2, Text(richiestanuovapartita.orario, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
-
-                                          ],
+                                AnimatedContainer(
+                                  height: 120,
+                                  width: 1500,
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  //margin: EdgeInsets.only(bottom: 20),
+                                  duration: Duration(milliseconds: 1500),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: Colors.white.withOpacity(1),
+                                          width: 2
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: Offset(0, 3),
+                                            blurRadius: 10
                                         )
-                                      ],
-                                    )
+                                      ]
+                                  ),
+                                  child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Image.network("https://i.ibb.co/zSBj40J/output-onlinegiftools-6.gif",width: 40,),
+
+                                          //SizedBox(width: 80,),
+
+                                          //SizedBox(width: 50,),
+                                          //SizedBox(height: 35,),
+                                          FadeAnimation(1.2, Text("Orario", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+                                          FadeAnimation(1.2, Text(richiestanuovapartita.orario, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+
+
+                                        ],
+                                      )
+
+
+
+
                                 ),
-
                                 SizedBox(height: 30,),
-                                Center(
-                                        child:Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                SizedBox(width: 10,),
-                                                Image.network("https://media0.giphy.com/media/hVh9kYorSATXYcmcww/giphy.gif",width: 40,),
-                                                SizedBox(width: 30,),
-                                                FadeAnimation(1.2, Text("Numero di partecipanti", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+                                AnimatedContainer(
+                                  height: 120,
+                                  width: 1500,
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  //margin: EdgeInsets.only(bottom: 20),
+                                  duration: Duration(milliseconds: 1500),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: Colors.white.withOpacity(1),
+                                          width: 2
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: Offset(0, 3),
+                                            blurRadius: 10
+                                        )
+                                      ]
+                                  ),
 
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
+                                  child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Image.network("https://media0.giphy.com/media/hVh9kYorSATXYcmcww/giphy.gif",width: 40,),
 
-                                                SizedBox(height: 15,),
-                                                FadeAnimation(1.2, Text(richiestanuovapartita.numero_di_partecipanti.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+                                              //SizedBox(width: 80,),
 
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                                              //SizedBox(width: 50,),
+                                              //SizedBox(height: 35,),
+                                              FadeAnimation(1.2, Text("Numero di partecipanti", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+                                              FadeAnimation(1.2, Text(richiestanuovapartita.numero_di_partecipanti.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,),textAlign: TextAlign.center,)),
+
+
+
+                                        ],
+                                      )
+
+
+
+
                                 ),
 
                                 SizedBox(height: 30,),
